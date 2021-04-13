@@ -1,6 +1,0 @@
-discord
-requests
-youtube_dl
-asyncio
-PyNaCl
-DiscordUtils

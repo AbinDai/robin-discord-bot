@@ -7,12 +7,12 @@ Bot ini bersifat publik dan bisa kamu invite ke servermu kalau kamu mau :v
 
 ![alt text](https://cdn.discordapp.com/emojis/824343819642077196.png)
 
-### Yang Kamu Butuhkan
+## Yang Kamu Butuhkan
 - discord.py
 - Python
 - Teks editor
 
-### Instalasi
+## Instalasi
 Pastikan kamu sudah menginstal Python. Agar dapat menggunakan discord.py, gunakan Python dengan versi 3.5 keatas.
 
 Setelah itu, install discord.py nya. Buka terminal dan ketikkan tulisan berikut.

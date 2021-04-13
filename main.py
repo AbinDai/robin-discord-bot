@@ -1,4 +1,4 @@
-#impor segalanya
+#impor segalanya#
 import discord, os, json
 from discord.ext import commands, tasks
 from itertools import cycle

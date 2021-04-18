@@ -20,6 +20,8 @@ class CommandsLog(commands.Cog):
         embed.set_author(name="Command Dieksekusi", icon_url=pelaku.avatar_url_as(format=None, static_format='png', size=4096))
         embed.set_footer(text=f"Server: {nama_server}", icon_url=foto_server)
         await channel.send(embed=embed)
+        
+        print(f"Command {nama_command} dieksekusi oleh {pelaku} pada channel #{TeKaPe} di server {nama_server}.")
 
 def setup(client):
     client.add_cog(CommandsLog(client))

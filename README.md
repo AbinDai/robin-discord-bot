@@ -24,3 +24,5 @@ Kamu bisa download repostitori ini.
 Untuk menjalankan bot nya, pastikan kamu sudah mempunyai token bot kalian.
 Lalu, pergi ke file main.py setelah itu ganti `client.run(os.environ(DISCORD_TOKEN))` menjadi `client.run("T0K3NB0TK4MU")`.
 Save file-nya, jalankan kodenya, dan gassss... :v
+
+### makasih udah baca :v

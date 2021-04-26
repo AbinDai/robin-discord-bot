@@ -74,7 +74,7 @@ class Help(commands.Cog):
         embed6.set_footer(text=f"Halaman 6/7 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
         embed7 = discord.Embed(
-            description = "Berikut command-command yang tersedia pada kategori `Lain-Lain`.\n```py\n'about' • 'invite' • 'ping' • 'uptime'\n```",
+            description = "Berikut command-command yang tersedia pada kategori `Lain-Lain`.\n```py\n'about' • 'invite' • 'ping' • 'uptime' • 'upvote'\n```",
             color = ctx.guild.get_member(self.client.user.id).color
         )
         embed7.set_author(name='Kategori "Lain-Lain"', icon_url=self.client.user.avatar_url)
@@ -405,6 +405,7 @@ class Help(commands.Cog):
             `r!invite`: Menampilkan link invite bot.
             `r!ping`: Menampilkan latensi bot.
             `r!uptime`: Menampilkan waktu aktif bot.
+            `r!upvote`: Menampilkan link untuk nge-Vote saya di [top.gg](https://top.gg/).
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -2520,6 +2521,22 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
         embed.add_field(name='Contoh:', value='`r!uptime`', inline=False)
         await ctx.send(embed=embed)
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def upvote(self, ctx):
+        embed = discord.Embed(
+            colour  = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed.set_author(name="Help > Upvote", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`upvote`')
+        embed.add_field(name='Kategori:', value='`Lain-Lain`')
+        embed.add_field(name='Alias:', value='Tidak ada')
+        embed.add_field(name="Cooldown", value="Tidak ada", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan link Vote bot ini di [top.gg](https://top.gg).', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!upvote`', inline=False)
+        await ctx.send(embed=embed)
 
 
     #==============================================================================================================
@@ -2546,7 +2563,7 @@ class Help(commands.Cog):
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, respect, disgusting, ferbtv, graph, jadul, disconnected, chapta, burn, swirl, implode, wave, pixelate, fox, trumppost, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, avatars, trap, wallpapers`', inline=False)
         embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
-        embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, uptime`', inline=False)
+        embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, uptime, upvote`', inline=False)
         await ctx.send(embed = embed)
             
 

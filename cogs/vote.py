@@ -6,7 +6,7 @@ class Vote(commands.Cog):
     self.client = client
     
   @commands.command()
-  async def vote(self, ctx):
+  async def upvote(self, ctx):
     embed = discord.Embed(
       title = "Vote Robin untuk Membantu Bot Ini Berkembang!",
       description = "Apa kamu suka dengan fitur-fitur yang ada pada bot ini? Jangan lupa berikan dukunganmu dengan cara nge-Vote saya di top.gg. Vote-nya gratis, tidak dipungut biaya!\n\Vote [disini](https://top.gg/bot/805876219647361053/vote)!",

@@ -33,9 +33,10 @@ class About(commands.Cog):
         embed.add_field(name='Jumlah Pengguna:', value=f'{len(set(self.client.get_all_members()))}')
         embed.add_field(name='Jumlah Server:', value=f'{len(self.client.guilds)}')
         embed.add_field(name='Asal Anime:', value='One Piece')
-        embed.add_field(name='Link Invite:', value='[Disini](https://discord.com/api/oauth2/authorize?client_id=805876219647361053&permissions=1543892038&scope=bot)', inline=False)
-        embed.add_field(name="Repositori GitHub", value="https://github.com/AbinDai/robin-discord-bot/", inline=False)        
-        embed.add_field(name="Help Server:", value="https://discord.gg/rZqsvrMdwR", inline=False)
+        embed.add_field(name="⠀", value="[Link Invite](https://top.gg/bot/805876219647361053/invite)\n"
+                                        "[Vote Disini!](https://top.gg/bot/805876219647361053/vote)\n"
+                                        "[Repositori GitHub](https://github.com/AbinDai/robin-discord-bot/)\n"
+                                        "[Help Server](https://discord.gg/rZqsvrMdwR)", inline=False)
         await ctx.send(embed=embed)
 
 def setup(client):

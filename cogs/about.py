@@ -1,4 +1,4 @@
-import discord, time, datetime, platform
+import discord, time, datetime, platform, random
 from discord.ext import commands
 
 class About(commands.Cog):
@@ -12,6 +12,15 @@ class About(commands.Cog):
     @commands.command(aliases=['tentangbot', 'aboutme', 'aboutbot', 'tentang', 'info', 'infobot'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def about(self, ctx):
+        deftar_foto_random = [
+            f"{self.client.user.avatar_url_as(format='png',size=4096)}",
+            f"{self.client.user.avatar_url_as(format='png',size=4096)}",
+            f"{self.client.user.avatar_url_as(format='png',size=4096)}",
+            f"{self.client.user.avatar_url_as(format='png',size=4096)}",
+            f"{self.client.user.avatar_url_as(format='png',size=4096)}",
+            "https://media1.tenor.com/images/8c409e6f39acc1bd796e8031747f19ad/tenor.gif?itemid=17029825"
+        ]
+        
         embed = discord.Embed(
             title = 'Tentang Bot',
             colour = ctx.guild.get_member(self.client.user.id).color
@@ -19,7 +28,7 @@ class About(commands.Cog):
         current_time = time.time()
         difference = int(round(current_time))
         text = str(datetime.timedelta(seconds=difference))
-        embed.set_thumbnail(url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=random.choice(deftar_foto_random))
         embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='Nama Bot:', value=self.client.user)
         embed.add_field(name='Dibuat:', value='27 Februari 2021')

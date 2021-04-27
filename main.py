@@ -52,8 +52,7 @@ menit = datetime.datetime.now().strftime("%M")
 detik = datetime.datetime.now().strftime("%S")
 
 status = cycle([
-    'r!help',
-    f'{tanggal}/{bulan}/{tahun} | {jam}:{menit} WITA'
+    'r!help'
 ])
 
 #===============================================================================================

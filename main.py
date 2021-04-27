@@ -1,5 +1,5 @@
 #impor segalanya#
-import discord, os, json
+import discord, os, json, datetime
 from discord.ext import commands, tasks
 from itertools import cycle
 
@@ -43,10 +43,17 @@ for filename in os.listdir('./cogs'):
 #===============================================================================================
         
 #isi status
+tanggal = datetime.datetime.now().strftime("%d")
+bulan = datetime.datetime.now().strftime("%m")
+tahun = datetime.datetime.now().strftime("%y")
+
+jam = datetime.datetime.now().strftime("%H")
+menit = datetime.datetime.now().strftime("%M")
+detik = datetime.datetime.now().strftime("%S")
+
 status = cycle([
     'r!help',
-    'Marhaban ya Ramadhan!',
-    'Selamat Menjalankan Ibadah Puasa Ramadhan Tahun 1442 H!'
+    f'{tanggal}/{bulan}/{tahun} | {jam}:{menit} WITA'
 ])
 
 #===============================================================================================

@@ -43,14 +43,6 @@ for filename in os.listdir('./cogs'):
 #===============================================================================================
         
 #isi status
-tanggal = datetime.datetime.now().strftime("%d")
-bulan = datetime.datetime.now().strftime("%m")
-tahun = datetime.datetime.now().strftime("%y")
-
-jam = datetime.datetime.now().strftime("%H")
-menit = datetime.datetime.now().strftime("%M")
-detik = datetime.datetime.now().strftime("%S")
-
 status = cycle([
     'r!help'
 ])

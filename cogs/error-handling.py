@@ -20,6 +20,8 @@ class ErrorHandle(commands.Cog):
             await ctx.reply("❌ **Role tidak ditemukan...**")
         elif isinstance(error, commands.MemberNotFound):
             await ctx.reply("❌ **Member tidak ditemukan...**")
+        elif isinstance(error, commands.ChannelNotFound):
+            await ctx.reply("❌ **Channel tidak ditemukan...**")
 
 def setup(client):
     client.add_cog(ErrorHandle(client))

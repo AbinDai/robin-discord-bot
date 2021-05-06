@@ -44,7 +44,8 @@ for filename in os.listdir('./cogs'):
         
 #isi status
 status = cycle([
-    'r!help'
+    'r!help',
+    'r!help allcommands'
 ])
 
 #===============================================================================================
@@ -58,7 +59,7 @@ async def on_ready():
 #===============================================================================================
 
 #looping status
-@tasks.loop(seconds=15)
+@tasks.loop(seconds=10)
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
     

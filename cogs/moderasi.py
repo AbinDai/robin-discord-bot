@@ -36,9 +36,6 @@ class Moderasi(commands.Cog):
             await ctx.reply("❌ **Saya tidak memiliki izin `kick members`!**")
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Sebutkan orang yang mau kamu kick!\nContoh: `r!kick @Abin#4405 [alasan (opsional)]`")
-        elif isinstance(error, commands.CommandError):
-            await ctx.reply("❌ **Mohon maaf, saya tidak dapat mengeluarkan orang ini.**")
-
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -66,8 +63,6 @@ class Moderasi(commands.Cog):
             await ctx.reply("❌ **Saya tidak memiliki izin `ban members`!**")
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Sebutkan orang yang mau kamu Ban!\nContoh: `r!ban @Abin#4405 [alasan (opsional)]`")
-        elif isinstance(error, commands.CommandError):
-            await ctx.reply("❌ **Mohon maaf, saya tidak dapat meng-Ban orang ini.**")
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -91,8 +86,6 @@ class Moderasi(commands.Cog):
             await ctx.reply("❌ **Saya tidak memiliki izin `ban members`!**")
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Sebutkan ID orang yang mau kamu Unban!\nContoh: `r!unban 550953412489904129`")
-        elif isinstance(error, commands.CommandError):
-            await ctx.reply("❌ **Mohon maaf, saya tidak dapat meng-Unban orang ini.**")
 
     @commands.command(aliases=["nickname", "nick", "changename"])
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -119,8 +112,6 @@ class Moderasi(commands.Cog):
             await ctx.reply("❌ **Kamu tidak punya izin untuk menjalankan command ini!**")
         elif isinstance(error, commands.BotMissingPermissions):
             await ctx.reply("❌ **Saya tidak memiliki izin `manage nicknames`!**")
-        elif isinstance(error, commands.CommandError):
-            await ctx.reply("❌ **Mohon maaf, saya tidak dapat mengubah nick orang ini.**")
 
     @commands.command(aliases=["purge", "clr"])
     @commands.cooldown(1, 5, commands.BucketType.user)

@@ -56,8 +56,8 @@ async def on_ready():
     change_status.start()
     print('main.py, siap ngebut!')
     
-    channel = 839749452322963466
-    await message.channel.send(f"🟢 {self.client.user} telah online!")
+    channel = self.client.get_channel(839749452322963466)
+    await channel.send(f"🟢 {self.client.user} telah online!")
     
 #===============================================================================================
 

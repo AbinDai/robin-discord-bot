@@ -5,7 +5,7 @@ from itertools import cycle
 
 #===============================================================================================
 
-#setel prefix + bikin variabel command
+#setel prefix + bikin variabel client
 client = commands.Bot(
     command_prefix=[
         "r!",

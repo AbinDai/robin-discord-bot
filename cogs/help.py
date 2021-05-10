@@ -28,7 +28,7 @@ class Help(commands.Cog):
         )
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png",size=4096))
         embed.set_footer(text=f'Di-Requset oleh {ctx.author.name} | "r!help [nama kategori]" utk melihat info kategori, "r!help [nama command]" untuk melihat info command.', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic, tebakangka`', inline=False)
+        embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
         embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face`', inline=False)
         embed.add_field(name=">> Minigame", value="`tebakangka`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)

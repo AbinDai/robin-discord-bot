@@ -9,24 +9,8 @@ class Gambar5(commands.Cog):
     async def on_ready(self):
         print("gambar5.py siap")
 
-    #skrip ini berisi 10 command, yaitu trumppost, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine
-    @commands.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def trumppost(self, ctx, *text):
-        if not text:
-            await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Kamu tidak memasukkan teks!\nContoh: `r!trumppost make america great again`")
-        else:
-            async with ctx.typing():
-                teks = "%20".join(text)
-
-                response = requests.get(f"https://api.no-api-key.com/api/v2/trump?message={teks}")
-                file = open("trump-on-twitter.png", "wb")
-                file.write(response.content)
-                file.close()
-
-                await ctx.send(file=discord.File("trump-on-twitter.png"))
-
-                os.remove("trump-on-twitter.png")
+    #skrip ini berisi 9 command, yaitu minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine
+    
 
     @commands.command(aliases=["mcdone"])
     @commands.cooldown(1, 5, commands.BucketType.user)

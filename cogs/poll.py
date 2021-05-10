@@ -9,7 +9,7 @@ class Poll(commands.Cog):
     async def on_ready(self):
         print("poll.py siap")
 
-    @commands.command(aliases=['vote'])
+    @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def poll(self, ctx, *, konten):
         if not konten:

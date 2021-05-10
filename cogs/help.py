@@ -22,12 +22,17 @@ class Help(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def h(self, ctx):
         embed = discord.Embed(
-            title = f"Daftar Command {self.client.user}",
-            description = 'Prefiks: `r!` dan `robin `',
+            title = f"Daftar Command {self.client.user.name}",
+            description = 'Prefiks: `r!` dan `robin `\n'
+                          'Gunakan `r!help [nama command]` untuk melihat detail command.\n'
+                          'Gunakan `r!help [nama kategori]` untuk melihat daftar command yang berada di kategori tersebut.\n'
+                          'Jika menemukan bug atau ingin memberikan masukan/saran, laporkan degan command `r!saran [isi masukan/saran/laporan]`.\n'
+                          'Atau [gabung di serverku](https://discord.gg/rZqsvrMdwR) untuk diskusi langsung :v'
+                          '[Vote bot ini di top.gg](https://top.gg/bot/805876219647361053/vote/) kalau kamu suka dengan fitur-fiturnya :)',
             colour = ctx.guild.get_member(self.client.user.id).color
         )
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png",size=4096))
-        embed.set_footer(text=f'Di-Requset oleh {ctx.author.name} | "r!help [nama kategori]" utk melihat info kategori, "r!help [nama command]" untuk melihat info command.', icon_url=ctx.author.avatar_url)
+        embed.set_footer(text=f'Di-Requset oleh {ctx.author.name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
         embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face`', inline=False)
         embed.add_field(name=">> Minigame", value="`tebakangka`")

@@ -35,7 +35,7 @@ class Help(commands.Cog):
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, avatars, trap, wallpapers`', inline=False)
         embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
-        embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, uptime, vote`', inline=False)
+        embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         await ctx.send(embed = embed)
 
     #==============================================================================================================
@@ -2610,22 +2610,6 @@ class Help(commands.Cog):
         embed.add_field(name='Deskripsi:', value='Menampilkan ping bot.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
         embed.add_field(name='Contoh:', value='`r!ping`', inline=False)
-        await ctx.send(embed=embed)
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def uptime(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Uptime", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`uptime`')
-        embed.add_field(name='Kategori:', value='`Lain-Lain`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menampilkan waktu aktif bot.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!uptime`', inline=False)
         await ctx.send(embed=embed)
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)

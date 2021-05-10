@@ -20,7 +20,7 @@ class Saran(commands.Cog):
             color = 0x058cfc
         )
         embed.set_footer(text=f"Dari Server: {ctx.author.guild}", icon_url=ctx.author.guild.icon_url)
-        embed.set_author(name=f"Ada Saran dari {ctx.author.name}:", icon_url=ctx.author.avatar_url)
+        embed.set_author(name=f"Ada Saran dari {ctx.author}:", icon_url=ctx.author.avatar_url)
         await channel.send("<@550953412489904129> woy", embed=embed)
 
 def setup(client):

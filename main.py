@@ -44,8 +44,7 @@ for filename in os.listdir('./cogs'):
         
 #isi status
 status = cycle([
-    'r!help',
-    'r!help allcommands'
+    'r!help'
 ])
 
 #===============================================================================================

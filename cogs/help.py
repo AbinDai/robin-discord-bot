@@ -27,7 +27,7 @@ class Help(commands.Cog):
                           'Gunakan `r!help [nama command]` untuk melihat detail command.\n'
                           'Gunakan `r!help [nama kategori]` untuk melihat daftar command yang berada di kategori tersebut.\n'
                           'Jika menemukan bug atau ingin memberikan masukan/saran, laporkan degan command `r!saran [isi masukan/saran/laporan]`.\n'
-                          'Atau [gabung di serverku](https://discord.gg/rZqsvrMdwR) untuk diskusi langsung :v'
+                          'Atau [gabung di serverku](https://discord.gg/rZqsvrMdwR) untuk diskusi langsung :v\n'
                           '[Vote bot ini di top.gg](https://top.gg/bot/805876219647361053/vote/) kalau kamu suka dengan fitur-fiturnya :)',
             colour = ctx.guild.get_member(self.client.user.id).color
         )

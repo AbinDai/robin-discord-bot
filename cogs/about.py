@@ -36,12 +36,9 @@ class About(commands.Cog):
         embed.add_field(name='Library:', value='discord.py')
         embed.add_field(name='Bahasa Pemrograman:', value='Python')
         embed.add_field(name='Ping Bot:', value=f'{round(self.client.latency * 1000)}ms')
-        embed.add_field(name='Versi discord.py:', value=f'{discord.__version__}')
-        embed.add_field(name='Versi Python:', value=f'{platform.python_version()}')
-        embed.add_field(name='Uptime:', value=f'{text}')
-        embed.add_field(name='Jumlah Pengguna:', value=len(set(self.client.get_all_members())))
+        embed.add_field(name='Versi Library:', value=f'v{discord.__version__}')
+        embed.add_field(name='Versi Python:', value=f'v{platform.python_version()}')
         embed.add_field(name='Jumlah Server:', value=len(self.client.guilds))
-        embed.add_field(name='Asal Anime:', value='One Piece')
         embed.add_field(name="⠀", value="[Link Invite](https://top.gg/bot/805876219647361053/invite)\n"
                                         "[Vote Disini!](https://top.gg/bot/805876219647361053/vote)\n"
                                         "[Repositori GitHub](https://github.com/AbinDai/robin-discord-bot/)\n"

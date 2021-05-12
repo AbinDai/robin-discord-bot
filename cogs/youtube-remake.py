@@ -89,6 +89,7 @@ class YouTube(commands.Cog):
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Tuliskan channel yang mau kamu cari!\nContoh: `r!youtubechannel Rick Astley`")            
 
     @commands.command(aliases=["ytsearch"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def youtubesearch(self, ctx, *, pencarian:str):
         try:
             videosSearch = VideosSearch(pencarian, limit=10)

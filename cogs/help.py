@@ -2405,7 +2405,7 @@ class Help(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def wikipedia(self, ctx):
         embed = discord.Embed(
-            colour  = 0xff0000
+            colour  = ctx.guild.get_member(self.client.user.id).color
         )
         embed.set_author(name="Help > YouTubeSearch", icon_url=self.client.user.avatar_url)
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)

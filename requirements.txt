@@ -4,4 +4,4 @@ youtube_dl
 asyncio
 PyNaCl
 DiscordUtils
-youtubesearchpython
+youtubesearchpython==1.4.5

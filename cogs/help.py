@@ -38,7 +38,7 @@ class Help(commands.Cog):
         embed.add_field(name=">> Minigame", value="`tebakangka`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, avatars, trap, wallpapers`', inline=False)
-        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik`", inline=False)
+        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         await ctx.send(embed = embed)
@@ -335,7 +335,7 @@ class Help(commands.Cog):
             color = ctx.guild.get_member(self.client.user.id).color
         )
         embed1.set_author(name='Daftar Command dalam Kategori "Utilitas"', icon_url=self.client.user.avatar_url)
-        embed1.set_footer(text=f"Halaman 1/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+        embed1.set_footer(text=f"Halaman 1/3 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
         embed2 = discord.Embed(
             description = 
@@ -346,18 +346,31 @@ class Help(commands.Cog):
             `r!userinfo`: Menampilkan informasi seorang user
             `r!roleinfo`: Menampilkan informasi Role.
             `r!emoji`: Menampilkan informasi Emoji.
-            `r!youtube`: Menampilkan informasi channel YouTube.
+            `r!youtube`: Menampilkan video YouTube sesuai dengan kata kunci yang diberikan.
+            `r!youtubeplaylist`: Menampilkan playlist YouTube sesuai dengan kata kunci.
+            `r!youtubechannel`: Menampilkan channel YouTube.
+            `r!youtubesearch`: Menampilkan 10 daftar video sesuai dengan kata kunci pencarian.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
         embed2.set_author(name='Daftar Command dalam Kategori "Utilitas"', icon_url=self.client.user.avatar_url)
-        embed2.set_footer(text=f"Halaman 2/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+        embed2.set_footer(text=f"Halaman 2/3 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
         
+        embed3 = discord.Embed(
+            description = 
+            """
+            `r!wikipedia`: Menampilkan informasi dari Wikipedia.
+            """,
+            color = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed3.set_author(name='Daftar Command dalam Kategori "Utilitas"', icon_url=self.client.user.avatar_url)
+        embed3.set_footer(text=f"Halaman 3/3 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+
         paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
         paginator.add_reaction("◀", "back")
         paginator.add_reaction("▶", "next")
 
-        embed_embed = [embed1, embed2]
+        embed_embed = [embed1, embed2, embed3]
 
         await paginator.run(embed_embed)
 
@@ -977,7 +990,7 @@ class Help(commands.Cog):
         embed.set_author(name="Help > TebakAngka", icon_url=self.client.user.avatar_url)
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='Nama Command:', value='`tebakangka`')
-        embed.add_field(name='Kategori:', value='`Fun`')
+        embed.add_field(name='Kategori:', value='`Minigame`')
         embed.add_field(name='Alias:', value='Tidak ada')
         embed.add_field(name="Cooldown", value="5 detik", inline=False)
         embed.add_field(name='Deskripsi:', value='Bermain tebak angka bersama saya.', inline=False)
@@ -1833,198 +1846,6 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu masukkan di template ini.", inline=False)
         embed.add_field(name='Contoh:', value='`r!trash @Abin#4405`', inline=False)
         await ctx.send(embed=embed) 
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def respect(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Respect", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`respect`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan foto profil seorang user ke sebuah template *respect* di game COD.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu masukkan di template ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!respect @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command(aliases=["jijik"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def disgusting(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Disgusting", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`disgusting`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='`jijik`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan foto profil seorang user ke sebuah template meme "jijik".', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu masukkan di template ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!jijik @Abin#4405`', inline=False)
-        await ctx.send(embed=embed)      
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def ferbtv(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > FerbTV", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`ferbtv`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan foto profil seorang user ke sebuah template meme televisi.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu masukkan di template ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!ferbtv @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def graph(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Graph", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`graph`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan foto profil seorang user ke sebuah template meme.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu masukkan di template ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!graph @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command(aliases=["primitif", "primitive"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def jadul(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Jadul", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`jadul`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='`primitif, primitive`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan efek jadul pada foto profil seseorang.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu pakaikan efek ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!jadul @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command(aliases=["minecraftdisconnected", "mcdisconnect", "mcdc"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def disconnected(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Disconnected", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`disconnected`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Alias:', value='minecraftdisconnected, mcdisconnect, mcdc')
-        embed.add_field(name='Deskripsi:', value='Menambahkan teks pada template layar *disconnect* di game Minecraft.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian masukkan teks nya.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!mcdc karena elu noob :v`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def chapta(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Chapta", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`chapta`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Mengubah teks menjadi kode chapta.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian masukkan teks yang mau kamu ubah jadi kode chapta.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!chapta slimcx`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command(aliases=["bakar"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def burn(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Burn", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`burn`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='`bakar`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan foto profil seseorang pada template Spongbob yang hendak membakaar sebuah kertas.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu pakaikan di template ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!burn @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def swirl(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Swirl", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`swirl`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan efek putar pada foto profil seseorang.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu pakaikan efek ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!swirl @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def implode(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Implode", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`implode`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan efek "masuk ke dalam" pada foto profil seseorang.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu pakaikan efek ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!implode @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command(aliases=["distort"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def wave(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Wave", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`wave`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='`distort`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan efek gelombang pada foto profil seseorang.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu pakaikan efek ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!wave @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command(aliases=["burik"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def pixelate(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Pixelate", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`pixelate`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='`burik`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menambahkan efek burik pada foto profil seseorang.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian mention/sebut orang yang foto profilnya mau kamu pakaikan efek ini.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!pixelate @Abin#4405`', inline=False)
-        await ctx.send(embed=embed) 
     @h.command(aliases=["rubah"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fox(self, ctx):
@@ -2040,22 +1861,6 @@ class Help(commands.Cog):
         embed.add_field(name='Deskripsi:', value='Menampilkan gambar-gambar rubah secara acak..', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
         embed.add_field(name='Contoh:', value='`r!fox`', inline=False)
-        await ctx.send(embed=embed) 
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def trumppost(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Trumppost", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`trumppost`')
-        embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada.')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menampilkan postingan Trump dengan teks sesuai masukan user.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian masukkan teks nya.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!trumppost this is a text`', inline=False)
         await ctx.send(embed=embed) 
     @h.command(aliases=["mcdone"])
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -2544,9 +2349,73 @@ class Help(commands.Cog):
         embed.add_field(name='Kategori:', value='`Utilitas`')
         embed.add_field(name='Alias:', value='`yt`')
         embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menampilkan informasi channel di YouTube.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis nama channel yang mau kamu ketahui infonya.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!yt PewDiePie`', inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan video dari YouTube sesuai hasil pencarian.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!yt rickroll`', inline=False)
+        await ctx.send(embed=embed)
+    @h.command(aliases=["ytplaylist"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def youtubeplaylist(self, ctx):
+        embed = discord.Embed(
+            colour  = 0xff0000
+        )
+        embed.set_author(name="Help > YouTubePlaylist", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`youtubeplaylist`')
+        embed.add_field(name='Kategori:', value='`Utilitas`')
+        embed.add_field(name='Alias:', value='`ytplaylist`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan playlist dari YouTube sesuai hasil pencarian.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!ytplaylist rick astley songs`', inline=False)
+        await ctx.send(embed=embed)
+    @h.command(aliases=["ytchannel"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def youtubechannel(self, ctx):
+        embed = discord.Embed(
+            colour  = 0xff0000
+        )
+        embed.set_author(name="Help > YouTubeChannel", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`youtubechannel`')
+        embed.add_field(name='Kategori:', value='`Utilitas`')
+        embed.add_field(name='Alias:', value='`ytchannel`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan channel dari YouTube sesuai hasil pencarian.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!ytchannel PewDiePie`', inline=False)
+        await ctx.send(embed=embed)
+    @h.command(aliases=["ytsearch"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def youtubesearch(self, ctx):
+        embed = discord.Embed(
+            colour  = 0xff0000
+        )
+        embed.set_author(name="Help > YouTubeSearch", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`youtubesearch`')
+        embed.add_field(name='Kategori:', value='`Utilitas`')
+        embed.add_field(name='Alias:', value='`ytsearch`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan 10 daftar video dari YouTube sesuai hasil pencarian.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!ytsearch rickroll`', inline=False)
+        await ctx.send(embed=embed)
+    @h.command(aliases=["wiki"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def wikipedia(self, ctx):
+        embed = discord.Embed(
+            colour  = 0xff0000
+        )
+        embed.set_author(name="Help > YouTubeSearch", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`wikipedia`')
+        embed.add_field(name='Kategori:', value='`Utilitas`')
+        embed.add_field(name='Alias:', value='`wiki`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan artikel dari Wikipedia sesuai dengan kata kunci pencarian.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!wiki kota gorontalo`', inline=False)
         await ctx.send(embed=embed)
 
 

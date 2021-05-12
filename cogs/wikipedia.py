@@ -6,6 +6,7 @@ class Wikipedia(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["wiki"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def wikipedia(self, ctx, *, pencarian:str):
         try:
             wikipedia.set_lang("id")

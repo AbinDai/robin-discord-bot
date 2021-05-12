@@ -5,3 +5,4 @@ asyncio
 PyNaCl
 DiscordUtils
 youtube-search-python
+wikipedia

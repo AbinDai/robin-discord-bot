@@ -9,6 +9,10 @@ class TopGG(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_post(self):
+        channel = client.get_channel(842409718835839006)
+        
+        embed = discord.Embed(title="🔢 Notifikasi Server Count", description="Berhasil memosting angka jumlah server ke top.gg.")
+        await channel.send(embed=embed)
         print("Berhasil memosting angka jumlah server ke top.gg.")
 
 def setup(bot):

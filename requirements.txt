@@ -6,4 +6,5 @@ PyNaCl
 DiscordUtils
 youtube-search-python
 wikipedia
+dbl
 dblpy

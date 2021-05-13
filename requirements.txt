@@ -7,4 +7,3 @@ DiscordUtils
 youtube-search-python
 wikipedia
 dblpy
-dbl

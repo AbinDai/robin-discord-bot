@@ -1,4 +1,4 @@
-import dbl, os
+import discord, dbl, os
 from discord.ext import commands
 
 class TopGG(commands.Cog):

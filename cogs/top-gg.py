@@ -36,6 +36,10 @@ class TopGG(commands.Cog):
     @commands.Cog.listener()
     async def on_dbl_vote(self, data):
         """An event that is called whenever someone votes for the bot on top.gg."""
+        
+        channel = self.bot.get_channel(843453862319882252)
+        embed = discord.Embed(title="Bot di-Upvote!", description = f"Menerima upvote:\n`{data}`", color=0x22ff00)
+        await channel.send(embed=embed)
         print("Received an upvote:", "\n", data, sep="")
 
 def setup(bot):

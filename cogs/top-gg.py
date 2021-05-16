@@ -3,43 +3,29 @@ from discord.ext import commands, tasks
 
 class TopGG(commands.Cog):
     """
-    This example uses tasks provided by discord.ext to create a task that posts guild count to top.gg every 30 minutes.
+    This example uses dblpy's autopost feature to post guild count to top.gg every 30 minutes.
     """
 
     def __init__(self, bot):
         self.bot = bot
         self.token = os.environ["TOPGG_TOKEN"]  # set this to your DBL token
-        self.dblpy = dbl.DBLClient(self.bot, self.token)
-        self.update_stats.start()
+        self.dblpy = dbl.DBLClient(self.bot, self.token, autopost=True)  # Autopost will post your guild count every 30 minutes
 
-    def cog_unload(self):
-        self.update_stats.cancel()
+    @commands.Cog.listener()
+    async def on_guild_post(self):
+        channel = self.bot.get_channel(842409718835839006)
+        embed = discord.Embed(title="Notifikasi Servercount top.gg", description="Berhasil memosting servercount.")
+        await channel.send(embed=embed)
 
-    @tasks.loop(minutes=30)
-    async def update_stats(self):
-        """This function runs every 30 minutes to automatically update your server count."""
-        await self.bot.wait_until_ready()
-        try:
-            server_count = len(self.bot.guilds)
-            await self.dblpy.post_guild_count(server_count)
-
-            channel = self.bot.get_channel(842409718835839006)
-            embed = discord.Embed(title="Notifikasi Top.gg", description = f"Berhasil memosting servercount `{server_count}`", color=0x22ff00)
-            await channel.send(embed=embed)
-            print('Posted server count ({})'.format(server_count))
-        except Exception as e:
-            channel = self.bot.get_channel(842409718835839006)
-            embed = discord.Embed(title="Notifikasi Top.gg", description = f"Gagal memosting servercount.\n`{type(e).__name__}`: `{e}`", color=0xff0000)
-            await channel.send(embed=embed)
-            print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+        print("Server count posted successfully")
 
     @commands.Cog.listener()
     async def on_dbl_vote(self, data):
         """An event that is called whenever someone votes for the bot on top.gg."""
-        
         channel = self.bot.get_channel(843453862319882252)
-        embed = discord.Embed(title="Bot di-Upvote!", description = f"Menerima upvote:\n`{data}`", color=0x22ff00)
+        embed = discord.Embed(title="Bot di-Upvote", description=f"Seseorang meng-upvote bot ini!\n`{data}`.", color=discord.Color.green())
         await channel.send(embed=embed)
+
         print("Received an upvote:", "\n", data, sep="")
 
 def setup(bot):

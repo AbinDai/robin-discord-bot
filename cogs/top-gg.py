@@ -24,12 +24,12 @@ class TopGG(commands.Cog):
             await self.dblpy.post_guild_count(server_count)
 
             channel = self.bot.get_channel(842409718835839006)
-            embed = discord.Embed(title="Notifikasi Top.gg", description = f"Berhasil memosting servercount `{server_count}`", color=discord.Color.green())
+            embed = discord.Embed(title="Notifikasi Top.gg", description = f"Berhasil memosting servercount `{server_count}`", color=0x22ff00)
             await channel.send(embed=embed)
             print('Posted server count ({})'.format(server_count))
         except Exception as e:
             channel = self.bot.get_channel(842409718835839006)
-            embed = discord.Embed(title="Notifikasi Top.gg", description = f"Gagal memosting servercount.\n`{type(e).__name__}`: `{e}`", color=discord.Color.red())
+            embed = discord.Embed(title="Notifikasi Top.gg", description = f"Gagal memosting servercount.\n`{type(e).__name__}`: `{e}`", color=0xff0000)
             await channel.send(embed=embed)
             print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
 

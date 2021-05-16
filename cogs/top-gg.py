@@ -13,6 +13,8 @@ class TopGG(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_post(self):
+        await self.bot.get_channel(842409718835839006).send("Berhasil memosting jumlah server ke top.gg.")
+        
         print("Server count posted successfully")
 
 

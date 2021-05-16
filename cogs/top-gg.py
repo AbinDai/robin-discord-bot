@@ -1,21 +1,32 @@
+from discord.ext import commands, tasks
+
 import dbl, os
-from discord.ext import commands
+
 
 class TopGG(commands.Cog):
     """
-    This example uses dblpy's autopost feature to post guild count to top.gg every 30 minutes.
+    This example uses tasks provided by discord.ext to create a task that posts guild count to top.gg every 30 minutes.
     """
 
     def __init__(self, bot):
         self.bot = bot
-        self.token = os.environ["TOPGG_TOKEN"]  # set this to your DBL token
-        self.dblpy = dbl.DBLClient(self.bot, self.token, autopost=True)  # Autopost will post your guild count every 30 minutes
+        self.token = os.environ['TOPGG_TOKEN']  # set this to your DBL token
+        self.dblpy = dbl.DBLClient(self.bot, self.token)
+        self.update_stats.start()
 
-    @commands.Cog.listener()
-    async def on_guild_post(self):
-        await self.bot.get_channel(842409718835839006).send("Berhasil memosting jumlah server ke top.gg.")
-        
-        print("Server count posted successfully")
+    def cog_unload(self):
+        self.update_stats.cancel()
+
+    @tasks.loop(minutes=30)
+    async def update_stats(self):
+        """This function runs every 30 minutes to automatically update your server count."""
+        await self.bot.wait_until_ready()
+        try:
+            server_count = len(self.bot.guilds)
+            await self.dblpy.post_guild_count(server_count)
+            print('Posted server count ({})'.format(server_count))
+        except Exception as e:
+            print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
 
 
 def setup(bot):

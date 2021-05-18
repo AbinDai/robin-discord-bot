@@ -1,7 +1,5 @@
+import discord, dbl, os
 from discord.ext import commands, tasks
-
-import dbl, os
-
 
 class TopGG(commands.Cog):
     """
@@ -24,8 +22,15 @@ class TopGG(commands.Cog):
         try:
             server_count = len(self.bot.guilds)
             await self.dblpy.post_guild_count(server_count)
+
+            channel = self.bot.get_channel(842409718835839006)
+            embed = discord.Embed(title="Notif top.gg", description=f"Berhasil memosting angka servercount ({server_count}) ke top.gg.", color=0x00ff00)
+            await channel.send(embed=embed)
             print('Posted server count ({})'.format(server_count))
         except Exception as e:
+            channel = self.bot.get_channel(842409718835839006)
+            embed = discord.Embed(title="Notif top.gg", description=f"Gagal memosting angka servercount ({server_count}) ke top.gg.\n`{type(e).__name__}: {e}`", color=0xff0000)
+            await channel.send(embed=embed)
             print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
 
 

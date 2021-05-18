@@ -1,5 +1,6 @@
-import discord
+import discord, requests, os
 from discord.ext import commands
+from dominant_color_detection import detect_colors
 
 class Profil(commands.Cog):
     def __init__(self, client):
@@ -14,11 +15,24 @@ class Profil(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def avatar(self, ctx, *, member: discord.Member=None):
         member = ctx.author if not member else member
+
+        response = requests.get(member.avatar_url_as(format="png",size=4096))
+        file = open("pp.png", "wb")
+        file.write(response.content)
+        file.close()
         
+        #kita coba detect warna yg pling dominan di foto profilnya
+        #kemudian kita pake buat warna embed
+        colors, ratios = detect_colors("pp.png", 3)
+        warna = colors[0][1:]
+        warna_akhir = int(warna, 16)
+
+        os.remove("pp.png")
+
         embed = discord.Embed(
             title = f'Berikut ini avatarnya si {member.display_name}:',
             description = f'Butuh link dalam format lain?\n[jpeg]({member.avatar_url_as(format="jpeg", size=4096)}) | [jpg]({member.avatar_url_as(format="jpg", size=4096)}) | [webp]({member.avatar_url_as(format="webp", size=4096)})',
-            colour = member.color
+            colour = warna_akhir
         )
         embed.set_image(url=f'{member.avatar_url_as(format=None, static_format="png", size=4096)}')
         embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
@@ -51,10 +65,23 @@ class Profil(commands.Cog):
     @commands.command(aliases=['fotoserver, serverpicture, serveravatar'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def servericon(self, ctx):
+        response = requests.get(ctx.guild.icon_url_as(format="png",size=4096))
+        file = open("servericon.png", "wb")
+        file.write(response.content)
+        file.close()
+        
+        #kita coba detect warna yg pling dominan di foto server-nya
+        #kemudian kita pake buat warna embed
+        colors, ratios = detect_colors("servericon.png", 3)
+        warna = colors[0][1:]
+        warna_akhir = int(warna, 16)
+
+        os.remove("servericon.png")
+
         embed = discord.Embed(
             title = f'Berikut foto server {ctx.guild.name}:',
             description = f'Butuh link dalam format lain?\n[jpeg]({ctx.guild.icon_url_as(format="jpeg", size=4096)}) | [jpg]({ctx.guild.icon_url_as(format="jpg", size=4096)}) | [webp]({ctx.guild.icon_url_as(format="webp", size=4096)})',
-            colour = ctx.guild.get_member(self.client.user.id).color
+            colour = warna_akhir
         )
         embed.set_image(url=f'{ctx.guild.icon_url_as(format=None, static_format="png", size=4096)}')
         embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=f'{ctx.author.avatar_url}')

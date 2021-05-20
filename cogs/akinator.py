@@ -8,7 +8,7 @@ class Gaming(commands.Cog):
     @commands.group(invoke_without_command=True, aliases=["akinator", "akn"])
     async def tebakkarakter(self, ctx):
         embed = discord.Embed(
-            title = "Permainan Akinator / Tebak Angka",
+            title = "Permainan Akinator / Tebak Karakter",
             color = ctx.guild.get_member(self.client.user.id).color
         )
         embed.add_field(name="Penjelasan",value="Ini merupakan permainan tebak-tebakan dimana seorang pemain akan menebak suatu karakter atau benda atau apapun itu. Beberapa pertanyaan akan diajukan.",inline=False)

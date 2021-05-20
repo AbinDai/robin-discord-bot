@@ -1,10 +1,9 @@
 discord
 requests
-youtube_dl
 asyncio
-PyNaCl
 DiscordUtils
 youtube-search-python
 wikipedia
 dblpy
 dominant-color-detection
+akinator

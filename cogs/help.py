@@ -35,7 +35,7 @@ class Help(commands.Cog):
         embed.set_footer(text=f'Di-Requset oleh {ctx.author.name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
         embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face`', inline=False)
-        embed.add_field(name=">> Minigame", value="`tebakangka`")
+        embed.add_field(name=">> Minigame", value="`tebakangka, tebakkarakter`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, avatars, trap, wallpapers`', inline=False)
         embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia`", inline=False)
@@ -997,7 +997,22 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value='Tulis command-nya, kemudian tuliskan batas awal dan akhir yang akan dimainkan (opsional).', inline=False)
         embed.add_field(name='Contoh:', value='`r!tebakangka` (default: 1 sampai 10)\n`r!tebakangka 20 30` (bermain tebak angka dari angka 20 sampai 30)', inline=False)
         await ctx.send(embed=embed)
-
+    @h.command(aliases=["akinator", "akn"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def tebakkarakter(self, ctx):
+        embed = discord.Embed(
+            colour  = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed.set_author(name="Help > TebakKarakter", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`tebakkarakter`')
+        embed.add_field(name='Kategori:', value='`Minigame`')
+        embed.add_field(name='Alias:', value='`akinator, akn`')
+        embed.add_field(name="Cooldown", value="Tidak ada", inline=False)
+        embed.add_field(name='Deskripsi:', value='Bermain tebak karakter bersama saya.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value='Command ini tidak butuh argumen tambahan.', inline=False)
+        embed.add_field(name='Contoh:', value='`r!tebakkarakter`\n`r!tebakkarakter start` (untuk memulai permainan)', inline=False)
+        await ctx.send(embed=embed)
 
 
 

@@ -6,4 +6,4 @@ youtube-search-python
 wikipedia
 dblpy
 dominant-color-detection
-akinator
+akinator.py

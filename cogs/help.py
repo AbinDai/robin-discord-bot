@@ -37,7 +37,7 @@ class Help(commands.Cog):
         embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face`', inline=False)
         embed.add_field(name=">> Minigame", value="`tebakangka, tebakkarakter`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
-        embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, avatars, trap, wallpapers`', inline=False)
+        embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
         embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
@@ -287,8 +287,8 @@ class Help(commands.Cog):
             `r!tableflip`: Menampilkan template Stick Man yang sedang melempar meja.
             `r!wolverine`: Menampilkan template meme orang guling lagi liat foto.
             `r!neko`: Menampilkan foto-foto karakter gadis kucing Anime secara acak.
-            `r!avatars`: Menampilkan foto-foto profil Anime secara acak.
-            `r!trap`: Menampilkan foto-foto karakter *trap* secara acak.
+            `r!animeavatars`: Menampilkan foto-foto profil Anime secara acak.
+            `r!animetraps`: Menampilkan foto-foto karakter *trap* secara acak.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -298,7 +298,7 @@ class Help(commands.Cog):
         embed6 = discord.Embed(
             description = 
             """
-            `r!wallpapers`: Menampilkan wallpaper-wallpaper Anime secara acak.
+            `r!animewallpapers`: Menampilkan wallpaper-wallpaper Anime secara acak.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -2021,7 +2021,7 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian sebut orang yang foto profilnya mau kamu pakaikan di template ini.", inline=False)
         embed.add_field(name='Contoh:', value='`r!wolverine @Abin#4405`', inline=False)
         await ctx.send(embed=embed)
-    @h.command()
+    @h.command(aliases=["nekogirl", "catgirl"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def neko(self, ctx):
         embed = discord.Embed(
@@ -2031,59 +2031,59 @@ class Help(commands.Cog):
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='Nama Command:', value='`neko`')
         embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada.')
+        embed.add_field(name='Alias:', value='`nekogirl, catgirl`')
         embed.add_field(name="Cooldown", value="5 detik", inline=False)
         embed.add_field(name='Deskripsi:', value='Menampilkan foto-foto gadis kucing Anime secara random.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
         embed.add_field(name='Contoh:', value='`r!neko`', inline=False)
         await ctx.send(embed=embed)
-    @h.command()
+    @h.command(aliases=["ppanime", "fotoprofilanime"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def avatars(self, ctx):
+    async def animeavatars(self, ctx):
         embed = discord.Embed(
             colour  = ctx.guild.get_member(self.client.user.id).color
         )
-        embed.set_author(name="Help > Avatars", icon_url=self.client.user.avatar_url)
+        embed.set_author(name="Help > AnimeAvatars", icon_url=self.client.user.avatar_url)
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`avatars`')
+        embed.add_field(name='Nama Command:', value='`animeavatars`')
         embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='Tidak ada.')
+        embed.add_field(name='Alias:', value='`ppanime, fotoprofilanime`')
         embed.add_field(name="Cooldown", value="5 detik", inline=False)
         embed.add_field(name='Deskripsi:', value='Menampilkan foto-foto profil Anime secara random.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!avatars`', inline=False)
+        embed.add_field(name='Contoh:', value='`r!animeavatars`', inline=False)
         await ctx.send(embed=embed)
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def trap(self, ctx):
+    async def animetraps(self, ctx):
         embed = discord.Embed(
             colour  = ctx.guild.get_member(self.client.user.id).color
         )
-        embed.set_author(name="Help > Trap", icon_url=self.client.user.avatar_url)
+        embed.set_author(name="Help > AnimeTraps", icon_url=self.client.user.avatar_url)
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`trap`')
+        embed.add_field(name='Nama Command:', value='`animetraps`')
         embed.add_field(name='Kategori:', value='`Gambar`')
         embed.add_field(name='Alias:', value='Tidak ada.')
         embed.add_field(name="Cooldown", value="5 detik", inline=False)
         embed.add_field(name='Deskripsi:', value='Menampilkan foto-foto Trap secara acak.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!trap`', inline=False)
+        embed.add_field(name='Contoh:', value='`r!animetraps`', inline=False)
         await ctx.send(embed=embed)
-    @h.command(aliases=["wallpaper"])
+    @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def wallpapers(self, ctx):
+    async def animewallpapers(self, ctx):
         embed = discord.Embed(
             colour  = ctx.guild.get_member(self.client.user.id).color
         )
-        embed.set_author(name="Help > Wallpapers", icon_url=self.client.user.avatar_url)
+        embed.set_author(name="Help > AnimeWallpapers", icon_url=self.client.user.avatar_url)
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`wallpapers`')
+        embed.add_field(name='Nama Command:', value='`animewallpapers`')
         embed.add_field(name='Kategori:', value='`Gambar`')
-        embed.add_field(name='Alias:', value='`wallpaper`')
+        embed.add_field(name='Alias:', value='Tidak ada')
         embed.add_field(name="Cooldown", value="5 detik", inline=False)
         embed.add_field(name='Deskripsi:', value='Menampilkan Wallpaper-Wallpaper Anime secara random.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!wallapeprs`', inline=False)
+        embed.add_field(name='Contoh:', value='`r!animewallpapers`', inline=False)
         await ctx.send(embed=embed)
 
 

@@ -74,6 +74,7 @@ async def update_data(afk, user):
     if not f"{user.id}" in afk:
         afk[f"{user.id}"] = {}
         afk[f"{user.id}"]["AFK"] = "False"
+        afk[f"{user.id}"]["Alasan"] = "Gaada"
 
 @client.event
 async def on_member_join(member):
@@ -95,7 +96,8 @@ async def on_message(message):
         if afk[f"{x.id}"]["AFK"] == "True":
             if message.author.bot:
                 return
-            await message.channel.send(f"{x} saat ini sedang AFK.")
+            alasan = afk[f"{x.id}"]["Alasan"]
+            await message.channel.send(f"{x} saat ini sedang AFK: __{alasan}__")
 
     if not message.author.bot:
         await update_data(afk, message.author)
@@ -103,6 +105,7 @@ async def on_message(message):
         if afk[f"{message.author.id}"]["AFK"] == "True":
             await message.channel.send(f"**Selamat datang kembali {message.author.mention}!** AFK-mu sekarang kucabut.", delete_after=5)
             afk[f"{message.author.id}"]["AFK"] = "False"
+            afk[f"{message.author.id}"]["Alasan"] = "gaada"
             with open("afk.json", "w") as f:
                 json.dump(afk, f)
             await message.author.edit(nick=f"{message.author.display_name[6:]}")
@@ -122,8 +125,9 @@ async def afk(ctx, *, reason=None):
 
     if not reason:
         reason = "jauh dari keyboard"
-
+    afk[f"{ctx.author.id}"]["Alasan"] = f"{reason}"
     afk[f"{ctx.author.id}"]["AFK"] = "True"
+    
     await ctx.reply(f'AFK-mu sekarang kuatur ke "{reason}."')
 
     with open("afk.json", "w") as f:

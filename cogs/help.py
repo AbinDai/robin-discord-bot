@@ -34,7 +34,7 @@ class Help(commands.Cog):
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png",size=4096))
         embed.set_footer(text=f'Di-Requset oleh {ctx.author.name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
-        embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face`', inline=False)
+        embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face, kancuttext`', inline=False)
         embed.add_field(name=">> Minigame", value="`tebakangka, tebakkarakter`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
@@ -128,6 +128,7 @@ class Help(commands.Cog):
             `r!acakhuruf`: Mengacak huruf dari A sampai Z dan mengirimkan hasilnya ke ruangan chat.
             `r!acakangka`: Mengacak angka sesuai *range* yang diberikan.
             `r!face`: Menampilkan emot wajah secara acak.
+            `r!kancuttext`: Membuat teks kancut.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -962,7 +963,22 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value='Command ini tidak butuh argumen tambahan..', inline=False)
         embed.add_field(name='Contoh:', value='`r!face`', inline=False)
         await ctx.send(embed=embed)
-
+    @h.command(aliases=["kancut"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def kancuttext(self, ctx):
+        embed = discord.Embed(
+            colour  = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed.set_author(name="Help > KancutText", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`kancuttext`')
+        embed.add_field(name='Kategori:', value='`Fun`')
+        embed.add_field(name='Alias:', value='`kancut`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Membuat text kancut sesuai dengan nama yang dimasukkan.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value='Tulis command-nya kemudian tulis nama.', inline=False)
+        embed.add_field(name='Contoh:', value='`r!kancut alpi`', inline=False)
+        await ctx.send(embed=embed)
 
 
 

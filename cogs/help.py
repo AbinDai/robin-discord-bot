@@ -38,7 +38,7 @@ class Help(commands.Cog):
         embed.add_field(name=">> Minigame", value="`tebakangka, tebakkarakter`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
-        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia`", inline=False)
+        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         await ctx.send(embed = embed)
@@ -360,6 +360,7 @@ class Help(commands.Cog):
             description = 
             """
             `r!wikipedia`: Menampilkan informasi dari Wikipedia.
+            `r!anime`: Mencari dan menampilkan info Anime dari MyAnimeList.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -2431,6 +2432,22 @@ class Help(commands.Cog):
         embed.add_field(name='Deskripsi:', value='Menampilkan artikel dari Wikipedia sesuai dengan kata kunci pencarian.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
         embed.add_field(name='Contoh:', value='`r!wiki kota gorontalo`', inline=False)
+        await ctx.send(embed=embed)
+    @h.command(aliases=["nimek"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def anime(self, ctx):
+        embed = discord.Embed(
+            colour  = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed.set_author(name="Help > Anime", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`anime`')
+        embed.add_field(name='Kategori:', value='`Utilitas`')
+        embed.add_field(name='Alias:', value='`nimek`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan info Anime dari MyAnimeList sesuai dengan kata kunci pencarian.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
+        embed.add_field(name='Contoh:', value='`r!anime One Piece`', inline=False)
         await ctx.send(embed=embed)
 
 

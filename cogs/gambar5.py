@@ -9,7 +9,7 @@ class Gambar6(commands.Cog):
     async def on_ready(self):
         print("gambar6.py siap")
 
-    @commands.command()
+    @commands.command(aliases=["nekogirl", "catgirl"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def neko(self, ctx):
         api = requests.get("https://shiro.gg/api/images/neko").json()
@@ -23,9 +23,9 @@ class Gambar6(commands.Cog):
         embed.set_footer(text=f"Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=["ppanime", "fotoprofilanime"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def avatars(self, ctx):
+    async def animeavatars(self, ctx):
         api = requests.get("https://shiro.gg/api/images/avatars").json()
         gambar = api["url"]
 
@@ -39,7 +39,7 @@ class Gambar6(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def trap(self, ctx):
+    async def animetraps(self, ctx):
         api = requests.get("https://shiro.gg/api/images/trap").json()
         gambar = api["url"]
 
@@ -51,9 +51,9 @@ class Gambar6(commands.Cog):
         embed.set_footer(text=f"Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["wallpaper"])
+    @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def wallpapers(self, ctx):
+    async def animewallpapers(self, ctx):
         api = requests.get("https://shiro.gg/api/images/wallpapers").json()
         gambar = api["url"]
 

@@ -16,7 +16,7 @@ class Saran(commands.Cog):
 
         channel = self.client.get_channel(824308102367019068)
         embed = discord.Embed(
-            title = "Ada Saran!"
+            title = "Ada Saran!",
             description = saran,
             color = 0x058cfc
         )

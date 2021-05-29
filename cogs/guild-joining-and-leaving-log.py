@@ -10,11 +10,11 @@ class GuildLogs(commands.Cog):
         channel = self.client.get_channel(843437433952665641)
 
         embed = discord.Embed(
-            description = f"Bot **{self.client.user}** diundang ke server **{ctx.name}**!",
-            color = 0x22ff00
+            title = "Diundang ke Server!",
+            description = f"Bot **{self.client.user.mention}** diundang ke sebuah server!\nDengan ini, sekarang sudah berada di **{len(self.client.guilds)}** server!",
+            color = 0x00ff00
         )
-        embed.set_author(name="Diundang ke Server!", icon_url=ctx.icon_url)
-        embed.set_footer(text=f"Dengan ini, sekarang Robin sudah berada di {len(self.client.guilds)} server.")
+        embed.set_author(name=ctx.name, icon_url=ctx.icon_url)
         await channel.send(embed=embed)
 
     @commands.Cog.listener()
@@ -22,11 +22,11 @@ class GuildLogs(commands.Cog):
         channel = self.client.get_channel(843437433952665641)
 
         embed = discord.Embed(
-            description = f"Bot **{self.client.user}** dikeluarkan dari server **{ctx.name}** :'v",
+            title = "Dikeluarkan dari Server! '-'",
+            description = f"Bot **{self.client.user.mention}** dikeluarkan dari sebuah server '-'\nDengan ini, sekarang tinggal berada di **{len(self.client.guilds)}** server :((",
             color = 0xff0000
         )
-        embed.set_author(name="Dikeluarkan dari Server!", icon_url=ctx.icon_url)
-        embed.set_footer(text=f"Dengan ini, sekarang Robin tinggal berada di {len(self.client.guilds)} server.")
+        embed.set_author(name=ctx.name, icon_url=ctx.icon_url)
         await channel.send(embed=embed)
 
 def setup(client):

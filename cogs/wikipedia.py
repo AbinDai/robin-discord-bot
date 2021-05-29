@@ -21,7 +21,7 @@ class Wikipedia(commands.Cog):
             )
             embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
             embed.set_author(name="Wikipedia",icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Wikipedia_logo_v3.svg/1200px-Wikipedia_logo_v3.svg.png")
-            embed.set_image(url=judul.images)
+            embed.set_image(url=judul.images[0])
             await ctx.send(embed=embed)
         except:
             embed = discord.Embed(

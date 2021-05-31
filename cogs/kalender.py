@@ -6,6 +6,7 @@ class Kalender(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["calendar","calender"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def kalender(self, ctx, tahun:int=None, bulan:str=None):
         tanggal = datetime.datetime.now().strftime("%d")
         buulan = datetime.datetime.now().strftime("%m")

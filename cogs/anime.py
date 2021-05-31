@@ -6,6 +6,7 @@ class Anime(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["nimek"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def anime(self, ctx, *pencarian):
         if not pencarian:
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan judul Anime yang mau kamu cari!\nContoh: `r!anime One Piece`")

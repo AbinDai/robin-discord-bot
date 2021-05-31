@@ -34,11 +34,11 @@ class Help(commands.Cog):
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png",size=4096))
         embed.set_footer(text=f'Di-Requset oleh {ctx.author.name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
-        embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face, kancuttext`', inline=False)
+        embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face, kancuttext, wangytext`', inline=False)
         embed.add_field(name=">> Minigame", value="`tebakangka, tebakkarakter`")
         embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
-        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime`", inline=False)
+        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         await ctx.send(embed = embed)
@@ -129,6 +129,7 @@ class Help(commands.Cog):
             `r!acakangka`: Mengacak angka sesuai *range* yang diberikan.
             `r!face`: Menampilkan emot wajah secara acak.
             `r!kancuttext`: Membuat teks kancut.
+            `r!wangytext`: Membuat teks WANGY WANGY HU HU HA HA.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -362,6 +363,7 @@ class Help(commands.Cog):
             """
             `r!wikipedia`: Menampilkan informasi dari Wikipedia.
             `r!anime`: Mencari dan menampilkan info Anime dari MyAnimeList.
+            `r!kalender`: Menampilkan kalender.
             """,
             color = ctx.guild.get_member(self.client.user.id).color
         )
@@ -979,6 +981,23 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value='Tulis command-nya kemudian tulis nama.', inline=False)
         embed.add_field(name='Contoh:', value='`r!kancut alpi`', inline=False)
         await ctx.send(embed=embed)
+    @h.command(aliases=["wangy"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def wangytext(self, ctx):
+        embed = discord.Embed(
+            colour  = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed.set_author(name="Help > WangyText", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`wangytext`')
+        embed.add_field(name='Kategori:', value='`Fun`')
+        embed.add_field(name='Alias:', value='`wangy`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Membuat text WANGY WANGY HU HA HA AWOKAWOK :V sesuai dengan nama yang dimasukkan :v.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value='Tulis command-nya kemudian tulis nama.', inline=False)
+        embed.add_field(name='Contoh:', value='`r!wangy keqing`', inline=False)
+        await ctx.send(embed=embed)
+    
 
 
 
@@ -2464,6 +2483,22 @@ class Help(commands.Cog):
         embed.add_field(name='Deskripsi:', value='Menampilkan info Anime dari MyAnimeList sesuai dengan kata kunci pencarian.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis kata kunci pencarian.", inline=False)
         embed.add_field(name='Contoh:', value='`r!anime One Piece`', inline=False)
+        await ctx.send(embed=embed)
+    @h.command(aliases=["calendar","calender"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def kalender(self, ctx):
+        embed = discord.Embed(
+            colour  = ctx.guild.get_member(self.client.user.id).color
+        )
+        embed.set_author(name="Help > Kalender", icon_url=self.client.user.avatar_url)
+        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Nama Command:', value='`kalender`')
+        embed.add_field(name='Kategori:', value='`Utilitas`')
+        embed.add_field(name='Alias:', value='`calendar, calender`')
+        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Deskripsi:', value='Menampilkan kalender.', inline=False)
+        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis tahun-nya, dan tulis bulannya (opsional).", inline=False)
+        embed.add_field(name='Contoh:', value='`r!kalender 2021` (kalau mau melihat 1 tahun kalender)\n`r!kalender 2021 juni` (untuk melihat 1 bulan kalender)\n`r!kalender 2021 6` (sama aja, tapi pake angka utk bulannya).', inline=False)
         await ctx.send(embed=embed)
 
 

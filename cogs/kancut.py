@@ -6,6 +6,7 @@ class Kancut(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["kancut"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def kancuttext(self, ctx, *, nama:str=None):
         if not nama:
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan nama! :v\nContoh: `r!kancuttext alpi`")

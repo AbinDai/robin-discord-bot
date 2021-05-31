@@ -6,6 +6,7 @@ class Stres(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["wangy"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def wangytext(self, ctx, *, konteks:str=None):
         if not konteks:
             await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Sebutkan nama!\nContoh: `r!wangytext sayu`")

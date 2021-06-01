@@ -41,6 +41,7 @@ class Help(commands.Cog):
         embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender`", inline=False)
         embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
+        embed.add_field(name="⠀",value="Dibuat dengan <:Python:845156521972596757> [Python](https://www.python.org/) dan <:discordpy:849276562469945385> [discord.py](https://discordpy.readthedocs.io/en/stable/).",inline=False)
         await ctx.send(embed = embed)
 
     #==============================================================================================================

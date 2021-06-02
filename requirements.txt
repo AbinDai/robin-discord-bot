@@ -8,3 +8,4 @@ dblpy
 dominant-color-detection
 akinator.py
 youtube_dl
+PyNaCl

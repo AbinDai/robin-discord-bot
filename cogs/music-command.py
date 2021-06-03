@@ -1,6 +1,7 @@
 import discord, random, asyncio, itertools, sys, traceback, youtube_dl, requests
-from youtubesearchpython import VideosSearch
 from discord.ext import commands
+from discord_slash import cog_ext, SlashContext
+from youtubesearchpython import VideosSearch
 from async_timeout import timeout
 from functools import partial
 from youtube_dl import YoutubeDL
@@ -112,7 +113,7 @@ class MusicPlayer:
         self.next = asyncio.Event()
 
         self.np = None  # pesan nowplaying
-        self.volume = .5
+        self.volume = 1.0
         self.current = None
 
         ctx.bot.loop.create_task(self.player_loop())
@@ -707,8 +708,8 @@ class Music(commands.Cog):
             embed = discord.Embed(title="", description=f"🔊 **{(vc.source.volume)*100}%**", color=ctx.guild.get_member(self.bot.user.id).color)
             return await ctx.send(embed=embed)
 
-        if not 0 < vol < 101:
-            embed = discord.Embed(title="", description="Mohon masukkan angka antara `0` sampai `100`", color=0xff0000)
+        if not 0 < vol < 501:
+            embed = discord.Embed(title="", description="Mohon masukkan angka antara `0` sampai `500` (Tidak disarankan melebihi 100%)", color=0xff0000)
             return await ctx.send(embed=embed)
 
         if ctx.author.voice.channel == ctx.guild.get_member(self.bot.user.id).voice.channel:
@@ -814,15 +815,7 @@ class Music(commands.Cog):
             embed.set_footer(text=f"Di-Request oleh {ctx.author.name}  |  Lirik diberdayakan oleh Genius", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=embed)
 
-        
-        
 
-        
-        
-
-        
-        
-        
 
 def setup(bot):
     bot.add_cog(Music(bot))

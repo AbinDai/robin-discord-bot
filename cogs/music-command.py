@@ -291,7 +291,10 @@ class Music(commands.Cog):
         if not katakunci:
             return await ctx.reply("Masukkan kata kunci pencarian!")
 
-        
+        vc = ctx.voice_client
+        if not vc:
+            await ctx.invoke(self.connect_)
+
         videosSearch = VideosSearch(katakunci, limit=10)
         hasil = videosSearch.result()
 

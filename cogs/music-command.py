@@ -744,8 +744,57 @@ class Music(commands.Cog):
 
     @commands.command(aliases=["lirik", "ly"])
     async def lyrics(self, ctx, *judul):
-        if not judul:
-            await ctx.reply("Tuliskan judul lagu yang mau kamu lihat liriknya.")
+        vc = ctx.voice_client
+        player = self.get_player(ctx)
+        if not player.current:
+            if not judul:
+                embed = discord.Embed(title="", description="Tidak ada Audio yang sedang diputar. Masukkan kata kunci pencarian!", color=0xff0000)
+                return await ctx.send(embed=embed)
+            else:
+                carilirik = "%20".join(judul)
+                api = requests.get(f"https://some-random-api.ml/lyrics?title={carilirik}").json()
+                judullagu = api["title"]
+                artis = api["author"]
+                lirik = api["lyrics"]
+                fotoalbum = api["thumbnail"]["genius"]
+                links = api["links"]["genius"]
+
+                embed = discord.Embed(
+                    title = f"{artis} - {judullagu}",
+                    url = links,
+                    description = lirik,
+                    color = ctx.guild.get_member(self.bot.user.id).color
+                )
+                embed.set_thumbnail(url=fotoalbum)
+                embed.set_footer(text=f"Di-Request oleh {ctx.author.name}  |  Lirik diberdayakan oleh Genius", icon_url=ctx.author.avatar_url)
+                return await ctx.send(embed=embed)
+        elif not judul and player.current:
+            #convert string jadi list
+            def Convert(string): 
+                li = list(string.split(" "))
+                return li 
+            
+            str1 = vc.source.title
+            judullaguh = Convert(str1)
+
+            carilirik = "%20".join(judullaguh)
+            print(carilirik)
+            api = requests.get(f"https://some-random-api.ml/lyrics?title={carilirik}").json()
+            judullagu = api["title"]
+            artis = api["author"]
+            lirik = api["lyrics"]
+            fotoalbum = api["thumbnail"]["genius"]
+            links = api["links"]["genius"]
+
+            embed = discord.Embed(
+                title = f"{artis} - {judullagu}",
+                url = links,
+                description = lirik,
+                color = ctx.guild.get_member(self.bot.user.id).color
+            )
+            embed.set_thumbnail(url=fotoalbum)
+            embed.set_footer(text=f"Di-Request oleh {ctx.author.name}  |  Lirik diberdayakan oleh Genius", icon_url=ctx.author.avatar_url)
+            return await ctx.send(embed=embed)
         else:
             carilirik = "%20".join(judul)
             api = requests.get(f"https://some-random-api.ml/lyrics?title={carilirik}").json()
@@ -764,6 +813,8 @@ class Music(commands.Cog):
             embed.set_thumbnail(url=fotoalbum)
             embed.set_footer(text=f"Di-Request oleh {ctx.author.name}  |  Lirik diberdayakan oleh Genius", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=embed)
+
+        
         
 
         

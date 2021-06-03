@@ -1,6 +1,5 @@
 import discord, random, asyncio, itertools, sys, traceback, youtube_dl, requests
 from discord.ext import commands
-from discord_slash import cog_ext, SlashContext
 from youtubesearchpython import VideosSearch
 from async_timeout import timeout
 from functools import partial

@@ -132,8 +132,6 @@ class MusicPlayer:
                 return self.destroy(self._guild)
 
             if not isinstance(source, YTDLSource):
-                # Source was probably a stream (not downloaded)
-                # So we should regather to prevent stream expiration
                 # Source-nya mungkin di-stream (gak di-download)
                 # Jadi kita harus jaga buat menghindari kadaluarsanya stream
                 try:
@@ -645,14 +643,14 @@ class Music(commands.Cog):
         minutes = seconds // 60
         seconds %= 60
         if hour > 0:
-            duration = "%dh %02dm %02ds" % (hour, minutes, seconds)
+            duration = "%d:%02d:%02d" % (hour, minutes, seconds)
         else:
-            duration = "%02dm %02ds" % (minutes, seconds)
+            duration = "%02d:%02d" % (minutes, seconds)
 
         # menuliskan daftar lagu ke antrean
         upcoming = list(itertools.islice(player.queue._queue, 0, int(len(player.queue._queue))))
-        fmt = '\n'.join(f"`{(upcoming.index(_)) + 1}.` [{_['title']}]({_['webpage_url']}) | ` {duration} Di-Request oleh: {_['requester']}`\n" for _ in upcoming)
-        fmt = f"\n__Sedang diputar__:\n[{vc.source.title}]({vc.source.web_url}) | ` {duration} Di-Request oleh: {vc.source.requester}`\n\n__Selanjutnya:__\n" + fmt + f"\n**{len(upcoming)} lagu dalam antrean.**"
+        fmt = '\n'.join(f"`{(upcoming.index(_)) + 1}.` [{_['title']}]({_['webpage_url']})" for _ in upcoming)
+        fmt = f"\n__Sedang diputar__:\n[{vc.source.title}]({vc.source.web_url})\n\n__Selanjutnya:__\n" + fmt + f"\n\n**{len(upcoming)} lagu dalam antrean.**"
         embed = discord.Embed(
             title=f'Antrean untuk Server Ini',
             description=fmt,
@@ -681,9 +679,9 @@ class Music(commands.Cog):
         minutes = seconds // 60
         seconds %= 60
         if hour > 0:
-            duration = "%dh %02dm %02ds" % (hour, minutes, seconds)
+            duration = "%d:%02d:%02d" % (hour, minutes, seconds)
         else:
-            duration = "%02dm %02ds" % (minutes, seconds)
+            duration = "%02d:%02d" % (minutes, seconds)
 
         embed = discord.Embed(
             title=vc.source.title,
@@ -741,7 +739,7 @@ class Music(commands.Cog):
         else:
             await ctx.reply("Kamu harus berada di vc yang sama dengan bot untuk mengakses perintah ini!")
 
-    @commands.command(aliases=["lirik"])
+    @commands.command(aliases=["lirik", "ly"])
     async def lyrics(self, ctx, *judul):
         if not judul:
             await ctx.reply("Tuliskan judul lagu yang mau kamu lihat liriknya.")

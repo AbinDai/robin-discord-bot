@@ -1,6 +1,7 @@
 #impor segalanya
 import discord, os, json, datetime
 from discord.ext import commands, tasks
+from discord_slash import SlashCommand
 from itertools import cycle
 
 #===============================================================================================
@@ -27,6 +28,7 @@ client = commands.Bot(
     ], 
     case_insensitive=True
 )
+slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
 
 #===============================================================================================
 

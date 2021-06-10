@@ -53,7 +53,10 @@ class Profil(commands.Cog):
         zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
         embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun}\n{jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
 
-        embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
+        if ctx.guild.description is True:
+            embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
+        else:
+            embed.add_field(name="Deskripsi", value="Tidak ada", inline=False)
 
         embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
         embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))

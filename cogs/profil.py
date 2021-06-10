@@ -5,10 +5,6 @@ from dominant_color_detection import detect_colors
 class Profil(commands.Cog):
     def __init__(self, client):
         self.client = client
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('kategori profil, siap ngegas!')
     
     #command avatar
     @commands.command(aliases=['avt', 'pfp', 'pp'])
@@ -30,7 +26,7 @@ class Profil(commands.Cog):
         os.remove("pp.png")
 
         embed = discord.Embed(
-            title = f'Berikut ini avatarnya si {member.display_name}:',
+            title = f'Berikut ini avatarnya si {member.name}:',
             description = f'Butuh link dalam format lain?\n[jpeg]({member.avatar_url_as(format="jpeg", size=4096)}) | [jpg]({member.avatar_url_as(format="jpg", size=4096)}) | [webp]({member.avatar_url_as(format="webp", size=4096)})',
             colour = warna_akhir
         )
@@ -43,22 +39,69 @@ class Profil(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def serverinfo(self, ctx):
         embed = discord.Embed(
-        title = 'Informasi Server',
-        colour = ctx.guild.get_member(self.client.user.id).color
+            title = "Informasi Server",
+            color = ctx.guild.me.color
         )
-        nama_server = ctx.guild.name
-        id_server = ctx.guild.id
-        negara_server = ctx.guild.region
-        jumlah_member = ctx.guild.member_count
-        level_verifikasi = ctx.guild.verification_level
-        embed.set_thumbnail(url=f'{ctx.guild.icon_url}')
-        embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Server:', value=f'{nama_server}', inline=False)
-        embed.add_field(name='ID Server:', value=f'{id_server}', inline=False)
-        embed.add_field(name='Dibuat Pada:', value=f'{ctx.guild.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
-        embed.add_field(name='Negara:', value=f'{negara_server}', inline=False)
-        embed.add_field(name='Jumlah Member:', value=f'{jumlah_member}', inline=False)
-        embed.add_field(name='Level Verifikasi:', value=f'{level_verifikasi}', inline=False)
+        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
+        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.add_field(name="Nama", value=ctx.guild.name)
+        embed.add_field(name="ID", value=ctx.guild.id)
+
+        dibuat_pada = ctx.guild.created_at
+        tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
+        jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
+        zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
+        embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun}\n{jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
+
+        embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
+
+        embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
+        embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))
+        if ctx.guild.owner is not None:
+            embed.add_field(name="Pemilik", value=f"{ctx.guild.owner.mention} (`{ctx.guild.owner}`)")
+        else:
+            embed.add_field(name="Pemilik", value=f"Tidak ada")
+
+        embed.add_field(name="Jumlah Emoji", value=len(ctx.guild.emojis))
+        embed.add_field(name="Negara", value=ctx.guild.region)
+        embed.add_field(name="Filter Konten Eksplisit", value=ctx.guild.explicit_content_filter)
+
+        if ctx.guild.afk_channel is not None:
+            embed.add_field(name="Channel AFK", value=ctx.guild.afk_channel.mention)
+        else:
+            embed.add_field(name="Channel AFK", value="Tidak ada")
+
+        if ctx.guild.system_channel is not None:
+            embed.add_field(name="Channel Sistem", value=ctx.guild.system_channel.mention)
+        else:
+            embed.add_field(name="Channel Sistem", value="Tidak ada")
+
+        if ctx.guild.rules_channel is not None:
+            embed.add_field(name="Channel Aturan", value=ctx.guild.rules_channel.mention)
+        else:
+            embed.add_field(name="Channel Aturan", value="Tidak ada")
+
+        embed.add_field(name="Timeout AFK", value=ctx.guild.afk_timeout)
+        if ctx.guild.public_updates_channel is not None:
+            embed.add_field(name="Channel Update", value=ctx.guild.public_updates_channel.mention)
+        else:
+            embed.add_field(name="Channel Update", value="Tidak ada")
+        embed.add_field(name="Level Verifikasi", value=ctx.guild.verification_level)
+
+        embed.add_field(name="Level Autentikasi 2 Faktor", value=ctx.guild.mfa_level)        
+        embed.add_field(name="Notifikasi Default", value=ctx.guild.default_notifications)
+        embed.add_field(name="Level Boost", value=ctx.guild.premium_subscription_count)
+
+        emojis = await ctx.guild.fetch_emojis()
+        Emojis = " ".join([str(emoji) for emoji in emojis])
+        embed.add_field(name=f"Jumlah Emoji ({len(emojis)})", value=Emojis, inline=False)
+
+        roles = await ctx.guild.fetch_roles()
+        rOle = ", ".join([str(role.mention) for role in roles])
+        embed.add_field(name=f"Jumlah Role ({len(roles)})", value=rOle, inline=False)
+
+        embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
+
         await ctx.send(embed=embed)
 
     #command servericon
@@ -92,21 +135,65 @@ class Profil(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def userinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
-        roles = [role for role in member.roles]
+
+        #member = ctx.author if not member else member
+        #roles = [role for role in member.roles]
+        #embed = discord.Embed(
+        #    title = 'Informasi Pengguna',
+        #    color = member.color
+        #)
+        #embed.set_thumbnail(url=f'{member.avatar_url}')
+        #embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
+        #embed.add_field(name='Nama:', value=f'{member}', inline=False)
+        #embed.add_field(name='Nickname di Server Ini:', value=f'{member.display_name}', inline=False)
+        #embed.add_field(name='ID:', value=f'{member.id}', inline=False)
+        #embed.add_field(name='Tanggal Dibuatnya Akun:', value=f'{member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
+        #embed.add_field(name='Tanggal Bergabung Dengan Server Ini:', value=f'{member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
+        #embed.add_field(name=f'Role: ({len(roles)})', value=' '.join([role.mention for role in roles]), inline=False)
+        #embed.add_field(name='Role Tertinggi:', value=f'{member.top_role.mention}', inline=False)
+        #embed.add_field(name='Adalah Bot?', value=f'{member.bot}')
+        #await ctx.send(embed=embed)
+
         embed = discord.Embed(
-            title = 'Informasi Pengguna',
+            title = "Informasi User",
             color = member.color
         )
-        embed.set_thumbnail(url=f'{member.avatar_url}')
-        embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama:', value=f'{member}', inline=False)
-        embed.add_field(name='Nickname di Server Ini:', value=f'{member.display_name}', inline=False)
-        embed.add_field(name='ID:', value=f'{member.id}', inline=False)
-        embed.add_field(name='Tanggal Dibuatnya Akun:', value=f'{member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
-        embed.add_field(name='Tanggal Bergabung Dengan Server Ini:', value=f'{member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
-        embed.add_field(name=f'Role: ({len(roles)})', value=' '.join([role.mention for role in roles]), inline=False)
-        embed.add_field(name='Role Tertinggi:', value=f'{member.top_role.mention}', inline=False)
-        embed.add_field(name='Adalah Bot?', value=f'{member.bot}')
+        embed.set_author(name=member, icon_url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar_url_as(format=None, static_format="png", size=4096))
+
+        embed.add_field(name="Username", value=member.name)
+        embed.add_field(name="Tag", value=f"#{member.discriminator}")
+        embed.add_field(name="Nama di Server Ini", value=member.display_name)
+
+        embed.add_field(name="ID", value=member.id)
+        if member.bot is True:
+            embed.add_field(name="Adalah Bot?", value=member.bot)
+        else:
+            embed.add_field(name="Adalah Bot?", value="Bukan")
+
+        if member.system is True:
+            embed.add_field(name="Akun Sistem?", value=member.system)
+        else:
+            embed.add_field(name="Akun Sistem?", value="Bukan")
+
+        dibuat_pada = member.created_at
+        tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
+        jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
+        zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
+        embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
+
+        dibuat_pada = member.joined_at
+        tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
+        jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
+        zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
+        embed.add_field(name="Bergabung pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
+
+        roles = [role for role in member.roles]
+        embed.add_field(name=f'Jumlah Role ({len(roles)})', value=' '.join([role.mention for role in roles]), inline=False)
+
+        embed.add_field(name="Role Teratas", value=member.top_role.mention)
+        embed.add_field(name="Warna Nama", value=member.color)
+
         await ctx.send(embed=embed)
 
 def setup(client):

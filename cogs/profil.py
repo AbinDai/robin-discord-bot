@@ -53,7 +53,7 @@ class Profil(commands.Cog):
         zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
         embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun}\n{jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
 
-        if ctx.guild.description is True:
+        if ctx.guild.description is not None:
             embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
         else:
             embed.add_field(name="Deskripsi", value="Tidak ada", inline=False)

@@ -1,5 +1,34 @@
+#include <iostream>
 import discord, DiscordUtils, random
 from discord.ext import commands
+
+def bikin_embed_cmd(nama_command:str, kategori:str, alias:str, cooldown:int, desc:str, \
+cara_pakai:str, contoh:str, warna, foto_bot, requester):
+    """
+    Template Embed untuk command2
+    """
+    embed = discord.Embed(
+        colour  = warna
+    )
+    embed.set_author(name=f"Help > {nama_command.capitalize()}", icon_url=foto_bot)
+    embed.set_footer(text=f'Di-Request oleh {requester.name}', icon_url=requester.avatar_url)
+    embed.add_field(name='Nama Command:', value=f'`{nama_command.lower()}`')
+    embed.add_field(name='Kategori:', value=f'`{kategori.capitalize()}`')
+    embed.add_field(name='Alias:', value=f'`{alias}`')
+    embed.add_field(name="Cooldown", value=f"{cooldown} detik", inline=False)
+    embed.add_field(name='Deskripsi:', value=desc, inline=False)
+    embed.add_field(name='Cara Menggunakan:', value=cara_pakai, inline=False)
+    embed.add_field(name='Contoh:', value=f'`{contoh}`', inline=False)
+    return embed
+
+def bikin_embed_kategori(kategori:str, halaman_saat_ini:int, halaman_akhir:int, isi:str, warna_embed, requester, foto_bot):
+    embedaoa = discord.Embed(
+        description = isi,
+        color = warna_embed
+    )
+    embedaoa.set_author(name=f'Daftar Command dalam Kategori "{kategori}"', icon_url=foto_bot.avatar_url)
+    embedaoa.set_footer(text=f"Halaman {halaman_saat_ini}/{halaman_akhir} • Di-Request oleh {requester.display_name}", icon_url=requester.avatar_url)
+    return embedaoa
 
 class Help(commands.Cog):
     def __init__(self, client):
@@ -33,14 +62,15 @@ class Help(commands.Cog):
         )
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png",size=4096))
         embed.set_footer(text=f'Di-Requset oleh {ctx.author.name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='>> Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
-        embed.add_field(name='>> Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face, kancuttext, wangytext`', inline=False)
-        embed.add_field(name=">> Minigame", value="`tebakangka, tebakkarakter, tebaksurahjuz30`")
-        embed.add_field(name='>> Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
-        embed.add_field(name='>> Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
-        embed.add_field(name=">> Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender`", inline=False)
-        embed.add_field(name='>> Command Rahasia', value='||`???`||', inline=False)
-        embed.add_field(name='>> Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
+        embed.add_field(name=':hammer: Moderasi', value='`kick, ban, unban, changenick, clear, newrole, giverole, removerole, deleterole, slowmode, createchannel, deletetextchannel, deletevoicechannel, renametextchannel, renamevoicechannel, editchanneltopic`', inline=False)
+        embed.add_field(name=':grin: Fun', value='`titit, lovecalc, _8ball, keqing, tes, geh, kaori, tabok, bonk, saygoodbye, say, sayy, sayem, rate, poll, acakangka, acakhuruf, face, kancuttext, wangytext`', inline=False)
+        embed.add_field(name=":video_game: Minigame", value="`tebakangka, tebakkarakter, tebaksurahjuz30`", inline=False)
+        embed.add_field(name=":musical_note: Musik", value="`join, leave, play, search, pause, resume, skip, remove, clearqueue, queue, nowplaying, volume, lyrics`", inline=False)
+        embed.add_field(name=':speaking_head: Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
+        embed.add_field(name=':frame_photo: Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
+        embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe`", inline=False)
+        embed.add_field(name=':question: Command Rahasia', value='||`???`||', inline=False)
+        embed.add_field(name=':candle: Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         embed.add_field(name="⠀",value="Dibuat dengan <:Python:845156521972596757> [Python](https://www.python.org/) dan <:discordpy:849276562469945385> [discord.py](https://discordpy.readthedocs.io/en/stable/).",inline=False)
         await ctx.send(embed = embed)
 
@@ -53,42 +83,44 @@ class Help(commands.Cog):
     #==============================================================================================================
     #==============================================================================================================
     #==============================================================================================================
+    
+
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def moderasi(self, ctx):
-        embed1 = discord.Embed(
-            description = 
-            """
-            `r!ban`: Mem-Ban seseorang. 
-            `r!clear`: Menghapus pesan.
-            `r!kick`: Menendang keluar seorang member.
-            `r!unban`: Melepas Ban seseorang.
-            `r!changenick`: Mengubah nickname seorang user.
-            `r!newrole`: Membuat Role baru.
-            `r!deleterole`: Menghapus Role.
-            `r!giverole`: Memberikan Role kepada user.
-            `r!removerole`: Mencabut Role dari seorang user.
-            `r!slowmode`: Mengatur mode lambat untuk sebuah text channel.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed1 = bikin_embed_kategori(
+            kategori="Moderasi",
+            halaman_saat_ini=1,
+            halaman_akhir=2,
+            isi="`r!ban`: Mem-Ban seseorang.\n"
+                "`r!clear`: Menghapus pesan.\n"
+                "`r!kick`: Menendang keluar seorang member.\n"
+                "`r!unban`: Melepas Ban seseorang.\n"
+                "`r!changenick`: Mengubah nickname seorang user.\n"
+                "`r!newrole`: Membuat Role baru.\n"
+                "`r!deleterole`: Menghapus Role.\n"
+                "`r!giverole`: Memberikan Role kepada user.\n"
+                "`r!removerole`: Mencabut Role dari seorang user.\n"
+                "`r!slowmode`: Mengatur mode lambat untuk sebuah text channel.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed1.set_author(name='Daftar Command dalam Kategori "Moderasi"', icon_url=self.client.user.avatar_url)
-        embed1.set_footer(text=f"Halaman 1/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
         
-        embed2 = discord.Embed(
-            description = 
-            """
-            `r!createchannel`: Membuat channel baru.
-            `r!deletetextchannel`: Menghapus sebuah text channel.
-            `r!deletevoicechannel`: Menghapus sebuah voice channel.
-            `r!renametextchannel`: Mengubah nama sebuah text channel.
-            `r!renamevoicechannel`: Mengubah nama sebuah voice channel.
-            `r!editchanneltopic`: Mengubah topik sebuah text channel.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed2 = bikin_embed_kategori(
+            kategori="Moderasi",
+            halaman_saat_ini=2,
+            halaman_akhir=2,
+            isi="`r!createchannel`: Membuat channel baru.\n"
+                "`r!deletetextchannel`: Menghapus sebuah text channel.\n"
+                "`r!deletevoicechannel`: Menghapus sebuah voice channel.\n"
+                "`r!renametextchannel`: Mengubah nama sebuah text channel.\n"
+                "`r!renamevoicechannel`: Mengubah nama sebuah voice channel.\n"
+                "`r!editchanneltopic`: Mengubah topik sebuah text channel.",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed2.set_author(name='Daftar Command dalam Kategori "Moderasi"', icon_url=self.client.user.avatar_url)
-        embed2.set_footer(text=f"Halaman 2/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
         paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
         paginator.add_reaction("◀", "back")
@@ -99,43 +131,43 @@ class Help(commands.Cog):
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fun(self, ctx):
-        embed1 = discord.Embed(
-            description = 
-            """
-            `r!8ball`: Menjawab pertanyaan kamu yang bertema Ya/Tidak dengan jawaban acak.
-            `r!keqing`: Menampilkan teks "KEQING WANGY WANGY" lengkap.
-            `r!tes`: Memeberitahu bahwa tes berhasil.
-            `r!geh`: Menampilkan GIF Pepe Julian Onzeima.
-            `r!kaori`: Menampilkan GIF Kaori Miyazono.
-            `r!tabok`: Menampilkan 2 foto orang *nabok* secara acak.
-            `r!bonk`: Menampilkan foto meme doge "bonk"
-            `r!saygoodbye`: Menampilkan GIF parodi video Rickroll
-            `r!say`: Mengikuti apa yang dikatakan user (tapi dengan nama).
-            `r!sayy`: Mengikuti kata user (tapi tanpa nama).
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed1 = bikin_embed_kategori(
+            kategori="Fun",
+            halaman_saat_ini=1,
+            halaman_akhir=2,
+            isi="`r!8ball`: Menjawab pertanyaan kamu yang bertema Ya/Tidak dengan jawaban acak.\n"
+                "`r!keqing`: Menampilkan teks \"KEQING WANGY WANGY\" lengkap.\n"
+                "`r!tes`: Memeberitahu bahwa tes berhasil.\n"
+                "`r!geh`: Menampilkan GIF Pepe Julian Onzeima.\n"
+                "`r!kaori`: Menampilkan GIF Kaori Miyazono.\n"
+                "`r!tabok`: Menampilkan 2 foto orang *nabok* secara acak.\n"
+                "`r!bonk`: Menampilkan foto meme doge \"bonk\"\n"
+                "`r!saygoodbye`: Menampilkan GIF parodi video Rickroll\n"
+                "`r!say`: Mengikuti apa yang dikatakan user (tapi dengan nama).\n"
+                "`r!sayy`: Mengikuti kata user (tapi tanpa nama).",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed1.set_author(name='Daftar Command dalam Kategori "Fun"', icon_url=self.client.user.avatar_url)
-        embed1.set_footer(text=f"Halaman 1/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        
-        embed2 = discord.Embed(
-            description = 
-            """
-            `r!sayem`: Mengikuti apa kata user (tapi diisi dalam embed).
-            `r!rate`: Menilai objek.
-            `r!poll`: Membuat jajak pendapat.
-            `r!lovecalc`: Menghitung persentase tingkat kecintaan, ||eeeaaaa :v||.
-            `r!titit`: Mengukur panjang t*tit orang yang kamu mention :v (jgn dibawa serius awokawok)
-            `r!acakhuruf`: Mengacak huruf dari A sampai Z dan mengirimkan hasilnya ke ruangan chat.
-            `r!acakangka`: Mengacak angka sesuai *range* yang diberikan.
-            `r!face`: Menampilkan emot wajah secara acak.
-            `r!kancuttext`: Membuat teks kancut.
-            `r!wangytext`: Membuat teks WANGY WANGY HU HU HA HA.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+
+        embed2 = bikin_embed_kategori(
+            kategori="Fun",
+            halaman_saat_ini=2,
+            halaman_akhir=2,
+            isi="`r!sayem`: Mengikuti apa kata user (tapi diisi dalam embed).\n"
+                "`r!rate`: Menilai objek.\n"
+                "`r!poll`: Membuat jajak pendapat.\n"
+                "`r!lovecalc`: Menghitung persentase tingkat kecintaan, ||eeeaaaa :v||.\n"
+                "`r!titit`: Mengukur panjang t*tit orang yang kamu mention :v (jgn dibawa serius awokawok)\n"
+                "`r!acakhuruf`: Mengacak huruf dari A sampai Z dan mengirimkan hasilnya ke ruangan chat.\n"
+                "`r!acakangka`: Mengacak angka sesuai *range* yang diberikan.\n"
+                "`r!face`: Menampilkan emot wajah secara acak.\n"
+                "`r!kancuttext`: Membuat teks kancut.\n"
+                "`r!wangytext`: Membuat teks WANGY WANGY HU HU HA HA.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed2.set_author(name='Daftar Command dalam Kategori "Fun"', icon_url=self.client.user.avatar_url)
-        embed2.set_footer(text=f"Halaman 2/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
         paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
         paginator.add_reaction("◀", "back")
@@ -148,50 +180,93 @@ class Help(commands.Cog):
     @h.command(aliases=["minigames"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def minigame(self, ctx):
-        embed = discord.Embed(
-            description = "`r!tebakangka`: Permainan Tebak Angka.\n"
-                          "`r!tebakkarakter`: Bermain tebak karakter.\n"
-                          "`r!tebaksurahjuz30`: Bermain tebak Surah Al-Quran yang ada di Juz 30.",
-            color = ctx.guild.get_member(self.client.user.id).color
+        await ctx.send(embed=bikin_embed_kategori(
+            kategori="Minigame",
+            halaman_saat_ini=1,
+            halaman_akhir=1,
+            isi="`r!tebakangka`: Permainan Tebak Angka.\n"
+                "`r!tebakkarakter`: Bermain tebak karakter.\n"
+                "`r!tebaksurahjuz30`: Bermain tebak Surah Al-Quran yang ada di Juz 30.",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        ))
+
+    @h.command(aliases=["music"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def musik(self, ctx):
+        embed =  bikin_embed_kategori(
+            kategori="Musik",
+            halaman_saat_ini=1,
+            halaman_akhir=2,
+            isi="`r!join`: Memasuki Voice Channel.\n"
+                "`r!play`: Memainkan Audio.\n"
+                "`r!search`: Mencari lagu di YouTube untuk diputar.\n"
+                "`r!pause`: Menjeda Audio.\n"
+                "`r!resume`: Melanjutkan playback Audio yang sedang terjeda.\n"
+                "`r!skip`: Melompat ke lagu selanjutnya.\n"
+                "`r!remove`: Menghapus lagu dalam antrean sesuai dengan nomor lagu yang diberikan.\n"
+                "`r!clearqueue`: Menghapus seluruh lagu dalam antrean.\n"
+                "`r!queue`: Menampilkan daftar antrean lagu.\n"
+                "`r!nowplaying`: Menampilkan judul lagu yang sedang dimainkan.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed.set_author(name='Daftar Command dalam Kategori "Minigame"', icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f"Halaman 1/1 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)
+
+        embed2 = bikin_embed_kategori(
+            kategori="Musik",
+            halaman_saat_ini=2,
+            halaman_akhir=2,
+            isi="`r!volume`: Mengatur volume pemutar.\n"
+                "`r!leave`: Mengeluarkan bot dari Voice Channel.\n"
+                "`r!lyrics`: Mencari lirik lagu.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        )
+
+        paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
+        paginator.add_reaction("◀", "back")
+        paginator.add_reaction("▶", "next")
+        embed_embed = [embed, embed2]
+        await paginator.run(embed_embed)
 
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def interaksi(self, ctx):
-        embed1 = discord.Embed(
-            description = 
-            """
-            `r!hug`: Memeluk seorang user yang kamu mention.
-            `r!pat`: Menepuk seorang user yang kamu mention.
-            `r!wink`: Berkedip.
-            `r!kiss`: Mencium seorang user yang kamu mention.
-            `r!cry`: *Mengsedih*.
-            `r!blush`: Malu :v
-            `r!lick`: Menjilat.
-            `r!nom`: Menggigit.
-            `r!pout`: Ngambek.
-            `r!poke`: Colek pipi.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed1 = bikin_embed_kategori(
+            kategori="Interaksi",
+            halaman_saat_ini=1,
+            halaman_akhir=2,
+            isi="`r!hug`: Memeluk seorang user yang kamu mention.\n"
+                "`r!pat`: Menepuk seorang user yang kamu mention.\n"
+                "`r!wink`: Berkedip.\n"
+                "`r!kiss`: Mencium seorang user yang kamu mention.\n"
+                "`r!cry`: *Mengsedih*.\n"
+                "`r!blush`: Malu :v\n"
+                "`r!lick`: Menjilat.\n"
+                '`r!nom`: Menggigit.\n'
+                "`r!pout`: Ngambek.\n"
+                "`r!poke`: Colek pipi.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed1.set_author(name='Daftar Command dalam Kategori "Interaksi"', icon_url=self.client.user.avatar_url)
-        embed1.set_footer(text=f"Halaman 1/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
         
-        embed2 = discord.Embed(
-            description = """
-            `r!punch`: Tinju orang.
-            `r!slap`: Nampar.
-            `r!sleep`: Tidur.
-            `r!smug`: Nyombong.
-            `r!tickle`: Nggelitik.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed2 = bikin_embed_kategori(
+            kategori="Interaksi",
+            halaman_saat_ini=2,
+            halaman_akhir=2,
+            isi="`r!punch`: Tinju orang.\n"
+                "`r!slap`: Nampar.\n"
+                "`r!sleep`: Tidur.\n"
+                "`r!smug`: Nyombong.\n"
+                "`r!tickle`: Nggelitik.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed2.set_author(name='Daftar Command dalam Kategori "Interaksi"', icon_url=self.client.user.avatar_url)
-        embed2.set_footer(text=f"Halaman 2/2 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
         
         paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
         paginator.add_reaction("◀", "back")
@@ -205,111 +280,110 @@ class Help(commands.Cog):
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gambar(self, ctx):
-        embed1 = discord.Embed(
-            description = 
-            """
-            `r!cat`: Menampilkan foto-foto kucing secara acak.
-            `r!dog`: Menampilkan foto-foto anjing secara acak.
-            `r!bird`: Menampilkan foto-foto burung secara acak.
-            `r!panda`: Menampilkan foto-foto Panda secara acak.
-            `r!pikachu`: Menampilkan GIF-GIF Pikachu secara acak.
-            `r!kopi`: Menampilkan foto-foto kopi secara acak.
-            `r!duck`: Menampilkan gambar-gambar bebek secara acak.
-            `r!wasted`: Menampilkan *overlay* "wasted" ke foto profil seseorang.
-            `r!hitamputih`: Membuat foto profil seseorang menjadi hitam putih.
-            `r!invert`: Membalik warna foto profil seseorang.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed1 = bikin_embed_kategori(
+            kategori="Gambar",
+            halaman_saat_ini=1,
+            halaman_akhir=6,
+            isi="`r!cat`: Menampilkan foto-foto kucing secara acak.\n"
+                "`r!dog`: Menampilkan foto-foto anjing secara acak.\n"
+                "`r!bird`: Menampilkan foto-foto burung secara acak.\n"
+                "`r!panda`: Menampilkan foto-foto Panda secara acak.\n"
+                "`r!pikachu`: Menampilkan GIF-GIF Pikachu secara acak.\n"
+                "`r!kopi`: Menampilkan foto-foto kopi secara acak.\n"
+                "`r!duck`: Menampilkan gambar-gambar bebek secara acak.\n"
+                "`r!wasted`: Menampilkan *overlay* \"wasted\" ke foto profil seseorang.\n"
+                "`r!hitamputih`: Membuat foto profil seseorang menjadi hitam putih.\n"
+                "`r!invert`: Membalik warna foto profil seseorang.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed1.set_author(name='Daftar Command dalam Kategori "Gambar"', icon_url=self.client.user.avatar_url)
-        embed1.set_footer(text=f"Halaman 1/6 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        
-        embed2 = discord.Embed(
-            description = 
-            """
-            `r!bright`: Menerangkan foto profil seseorang.
-            `r!threshold`: Membuat foto profil seseorang menjadi dua warna.
-            `r!sepia`: Membuat foto profil seseorang menguning.
-            `r!redtint`: Memerahkan foto profil seseorang.
-            `r!greentint`: Menghijaukan foto profil seseorang.
-            `r!bluetint`: Membirukan foto profil seseorang.
-            `r!gun`: Menambahkan overlay pistol ke foto profil seseorang.
-            `r!lgbt`: Menambahkan efek bendera LGBT pada foto profil seseorang.
-            `r!grab`: Menambahkan overlay tangan pada foto profil seseorang.
-            `r!truth`: Menambahkan teks pada temmplate meme.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed2.set_author(name='Daftar Command dalam Kategori "Gambar"', icon_url=self.client.user.avatar_url)
-        embed2.set_footer(text=f"Halaman 2/6 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        
-        embed3 = discord.Embed(
-            description = 
-            """
-            `r!simp`: Menambahkan overlay "SIMP" ke foto profil seseorang.
-            `r!glitch`: Menambahkan efek glitch pada foto profil seseorang.
-            `r!hearts`: Menambahkan overlay hati pada foto profil seseorang.
-            `r!spongebobtimecard`: Menambahkan teks pada kartu waktu serial Spongebob.
-            `r!hitlernews`: Menambahkan gambar foto profil sesoerang pada sebuah template berita di kartun Simpsons.
-            `r!like`: Menambahkan foto preofil sesoerand pada sebuah template.
-            `r!dislike`: Menambahkan foto preofil sesoerand pada sebuah template.
-            `r!rip`: Menambahkan foto profil seorang user pada template batu nisan.
-            `r!jokeoverhead`: Menambahkan foto profil seorang user pada template meme.
-            `r!jail`: Menambahkan efek jeruji besi pada foto profil seseorang.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed3.set_author(name='Daftar Command dalam Kategori "Gambar"', icon_url=self.client.user.avatar_url)
-        embed3.set_footer(text=f"Halaman 3/6 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        
-        embed4 = discord.Embed(
-            description = 
-            """
-            `r!beauty`: Menambahkan foto profil sesoerang pada sebuah template meme.
-            `r!communist`: Menambahkan overlay palu arit ke foto profil seorang user.
-            `r!youtubecomment`: Membuat foto komentar YouTube palsu.
-            `r!triggered`: Menambahkan efek *triggered* pada foto profil seseorang.
-            `r!changemymind`: Menabahkan teks pada template *change my mind*.
-            `r!clyde`: Menambahkan teks pada chat Clyde.
-            `r!trash`: Menambahkan foto profil seseorang pada sebuah template meme.
-            `r!fox`: Menampilkan gambar-gambar rubah secara acak.
-            `r!minecraftcompleted`: Menampilkan foto Challenge Completed dari game Minecraft.
-            `r!emergencymeeting`: Menampilkan template meme Emergency Meeting dari game Among Us.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed4.set_author(name='Daftar Command dalam Kategori "Gambar"', icon_url=self.client.user.avatar_url)
-        embed4.set_footer(text=f"Halaman 4/6 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
-        embed5 = discord.Embed(
-            description = 
-            """
-            `r!firsttime`: Menampilkan template First Time.
-            `r!imspeed`: Menampilkan template I'm Speed dari film Cars.
-            `r!heaven`: Menampilkan template surga.
-            `r!stonks`: Menampilkan template Meme Man Stonks.
-            `r!notstonks`: Menampilkan template Meme Man Not Stonks.
-            `r!tableflip`: Menampilkan template Stick Man yang sedang melempar meja.
-            `r!wolverine`: Menampilkan template meme orang guling lagi liat foto.
-            `r!neko`: Menampilkan foto-foto karakter gadis kucing Anime secara acak.
-            `r!animeavatars`: Menampilkan foto-foto profil Anime secara acak.
-            `r!animetraps`: Menampilkan foto-foto karakter *trap* secara acak.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed2 = bikin_embed_kategori(
+            kategori="Gambar",
+            halaman_saat_ini=2,
+            halaman_akhir=6,
+            isi="`r!bright`: Menerangkan foto profil seseorang.\n"
+                "`r!threshold`: Membuat foto profil seseorang menjadi dua warna.\n"
+                "`r!sepia`: Membuat foto profil seseorang menguning.\n"
+                "`r!redtint`: Memerahkan foto profil seseorang.\n"
+                "`r!greentint`: Menghijaukan foto profil seseorang.\n"
+                "`r!bluetint`: Membirukan foto profil seseorang.\n"
+                "`r!gun`: Menambahkan overlay pistol ke foto profil seseorang.\n"
+                "`r!lgbt`: Menambahkan efek bendera LGBT pada foto profil seseorang.\n"
+                "`r!grab`: Menambahkan overlay tangan pada foto profil seseorang.\n"
+                "`r!truth`: Menambahkan teks pada temmplate meme.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed5.set_author(name='Daftar Command dalam Kategori "Gambar"', icon_url=self.client.user.avatar_url)
-        embed5.set_footer(text=f"Halaman 5/6 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-
-        embed6 = discord.Embed(
-            description = 
-            """
-            `r!animewallpapers`: Menampilkan wallpaper-wallpaper Anime secara acak.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        
+        embed3 = bikin_embed_kategori(
+            kategori="Gambar",
+            halaman_saat_ini=3,
+            halaman_akhir=6,
+            isi="`r!simp`: Menambahkan overlay \"SIMP\" ke foto profil seseorang.\n"
+                "`r!glitch`: Menambahkan efek glitch pada foto profil seseorang.\n"
+                "`r!hearts`: Menambahkan overlay hati pada foto profil seseorang.\n"
+                "`r!spongebobtimecard`: Menambahkan teks pada kartu waktu serial Spongebob.\n"
+                "`r!hitlernews`: Menambahkan gambar foto profil sesoerang pada sebuah template berita di kartun Simpsons.\n"
+                "`r!like`: Menambahkan foto preofil sesoerand pada sebuah template.\n"
+                "`r!dislike`: Menambahkan foto preofil sesoerand pada sebuah template.\n"
+                "`r!rip`: Menambahkan foto profil seorang user pada template batu nisan.\n"
+                "`r!jokeoverhead`: Menambahkan foto profil seorang user pada template meme.\n"
+                "`r!jail`: Menambahkan efek jeruji besi pada foto profil seseorang.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed6.set_author(name='Daftar Command dalam Kategori "Gambar"', icon_url=self.client.user.avatar_url)
-        embed6.set_footer(text=f"Halaman 6/6 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
+        embed4 = bikin_embed_kategori(
+            kategori="Gambar",
+            halaman_saat_ini=4,
+            halaman_akhir=6,
+            isi="`r!beauty`: Menambahkan foto profil sesoerang pada sebuah template meme.\n"
+                "`r!communist`: Menambahkan overlay palu arit ke foto profil seorang user.\n"
+                "`r!youtubecomment`: Membuat foto komentar YouTube palsu.\n"
+                '`r!triggered`: Menambahkan efek *triggered* pada foto profil seseorang.\n'
+                "`r!changemymind`: Menabahkan teks pada template *change my mind*.\n"
+                "`r!clyde`: Menambahkan teks pada chat Clyde.\n"
+                "`r!trash`: Menambahkan foto profil seseorang pada sebuah template meme.\n"
+                "`r!fox`: Menampilkan gambar-gambar rubah secara acak.\n"
+                "`r!minecraftcompleted`: Menampilkan foto Challenge Completed dari game Minecraft.\n"
+                "`r!emergencymeeting`: Menampilkan template meme Emergency Meeting dari game Among Us.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        )
+        
+        embed5 = bikin_embed_kategori(
+            kategori="Gambar",
+            halaman_saat_ini=5,
+            halaman_akhir=6,
+            isi="`r!firsttime`: Menampilkan template First Time.\n"
+                "`r!imspeed`: Menampilkan template I'm Speed dari film Cars.\n"
+                "`r!heaven`: Menampilkan template surga.\n"
+                "`r!stonks`: Menampilkan template Meme Man Stonks.\n"
+                "`r!notstonks`: Menampilkan template Meme Man Not Stonks.\n"
+                "`r!tableflip`: Menampilkan template Stick Man yang sedang melempar meja.\n"
+                "`r!wolverine`: Menampilkan template meme orang guling lagi liat foto.\n"
+                "`r!neko`: Menampilkan foto-foto karakter gadis kucing Anime secara acak.\n"
+                "`r!animeavatars`: Menampilkan foto-foto profil Anime secara acak.\n"
+                "`r!animetraps`: Menampilkan foto-foto karakter *trap* secara acak.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        )
+
+        embed6 = bikin_embed_kategori(
+            kategori="Gambar",
+            halaman_saat_ini=6,
+            halaman_akhir=6,
+            isi="`r!animewallpapers`: Menampilkan wallpaper-wallpaper Anime secara acak.",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        )
 
         paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
         paginator.add_reaction("◀", "back")
@@ -323,55 +397,56 @@ class Help(commands.Cog):
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def utilitas(self, ctx):
-        embed1 = discord.Embed(
-            description = 
-            """
-            `r!color`: Menampilkan informasi warna.
-            `r!kbbi`: Menampilkan arti kata dalam KBBI.
-            `r!corona`: Menampilkan statistik virus Corona di Indonesia.
-            `r!gempa`: Menampilkan statistik gempa terkini yang terjadi di Indonesia.
-            `r!kodepos`: Menampilkan info kode pos.
-            `r!translate`: Menerjemahkan kata/kalimat.
-            `r!batik`: Menampilkan info batik.
-            `r!afk`:  Mengatur status AFK.
-            `r!biner`: Mengonversi tulisan biasa menjadi angka biner.
-            `r!binertxt`: Mengonversi angka biner menjadi teks biasa.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed1 = bikin_embed_kategori(
+            kategori="Utilitas",
+            halaman_saat_ini=1,
+            halaman_akhir=3,
+            isi="`r!color`: Menampilkan informasi warna.\n"
+                "`r!kbbi`: Menampilkan arti kata dalam KBBI.\n"
+                "`r!corona`: Menampilkan statistik virus Corona di Indonesia.\n"
+                "`r!gempa`: Menampilkan statistik gempa terkini yang terjadi di Indonesia.\n"
+                "`r!kodepos`: Menampilkan info kode pos.\n"
+                "`r!translate`: Menerjemahkan kata/kalimat.\n"
+                "`r!batik`: Menampilkan info batik.\n"
+                "`r!afk`:  Mengatur status AFK.\n"
+                "`r!biner`: Mengonversi tulisan biasa menjadi angka biner.\n"
+                "`r!binertxt`: Mengonversi angka biner menjadi teks biasa.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed1.set_author(name='Daftar Command dalam Kategori "Utilitas"', icon_url=self.client.user.avatar_url)
-        embed1.set_footer(text=f"Halaman 1/3 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
-        embed2 = discord.Embed(
-            description = 
-            """
-            `r!avatar`: Menampilkan foto profil seorang user.
-            `r!serverinfo`: Menampilkan informasi server.
-            `r!servericon`: Menampilkan foto server.
-            `r!userinfo`: Menampilkan informasi seorang user
-            `r!roleinfo`: Menampilkan informasi Role.
-            `r!emoji`: Menampilkan informasi Emoji.
-            `r!youtube`: Menampilkan video YouTube sesuai dengan kata kunci yang diberikan.
-            `r!youtubeplaylist`: Menampilkan playlist YouTube sesuai dengan kata kunci.
-            `r!youtubechannel`: Menampilkan channel YouTube.
-            `r!youtubesearch`: Menampilkan 10 daftar video sesuai dengan kata kunci pencarian.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+        embed2 = bikin_embed_kategori(
+            kategori="Utilitas",
+            halaman_saat_ini=2,
+            halaman_akhir=3,
+            isi="`r!avatar`: Menampilkan foto profil seorang user.\n"
+                "`r!serverinfo`: Menampilkan informasi server.\n"
+                "`r!servericon`: Menampilkan foto server.\n"
+                "`r!userinfo`: Menampilkan informasi seorang user.\n"
+                "`r!roleinfo`: Menampilkan informasi Role.\n"
+                "`r!emoji`: Menampilkan informasi Emoji.\n"
+                "`r!youtube`: Menampilkan video YouTube sesuai dengan kata kunci yang diberikan.\n"
+                "`r!youtubeplaylist`: Menampilkan playlist YouTube sesuai dengan kata kunci.\n"
+                "`r!youtubechannel`: Menampilkan channel YouTube.\n"
+                "`r!youtubesearch`: Menampilkan 10 daftar video sesuai dengan kata kunci pencarian.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed2.set_author(name='Daftar Command dalam Kategori "Utilitas"', icon_url=self.client.user.avatar_url)
-        embed2.set_footer(text=f"Halaman 2/3 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        
-        embed3 = discord.Embed(
-            description = 
-            """
-            `r!wikipedia`: Menampilkan informasi dari Wikipedia.
-            `r!anime`: Mencari dan menampilkan info Anime dari MyAnimeList.
-            `r!kalender`: Menampilkan kalender.
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
+
+        embed3 = bikin_embed_kategori(
+            kategori="Utilitas",
+            halaman_saat_ini=3,
+            halaman_akhir=3,
+            isi="`r!wikipedia`: Menampilkan informasi dari Wikipedia.\n"
+                "`r!anime`: Mencari dan menampilkan info Anime dari MyAnimeList.\n"
+                "`r!kalender`: Menampilkan kalender.\n"
+                "`r!snipe`: Menangkap pesan yang baru dihapus 5 menit yang lalu pada channel tersebut.",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
         )
-        embed3.set_author(name='Daftar Command dalam Kategori "Utilitas"', icon_url=self.client.user.avatar_url)
-        embed3.set_footer(text=f"Halaman 3/3 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
         paginator = DiscordUtils.Pagination.CustomEmbedPaginator(ctx, remove_reactions=True)
         paginator.add_reaction("◀", "back")
@@ -384,21 +459,18 @@ class Help(commands.Cog):
     @h.command(name="lain-lain")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def lain_lain(self, ctx):
-        embed = discord.Embed(
-            description = 
-            """
-            `r!about`: Menampilkan info bot.
-            `r!invite`: Menampilkan link invite bot.
-            `r!ping`: Menampilkan latensi bot.
-            `r!uptime`: Menampilkan waktu aktif bot.
-            `r!vote`: Menampilkan link untuk nge-Vote saya di [top.gg](https://top.gg/).
-            """,
-            color = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name='Daftar Command dalam Kategori "Lain-Lain"', icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f"Halaman 1/1 • Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)
-
+        await ctx.send(embed=bikin_embed_kategori(
+            kategori="Utilitas",
+            halaman_saat_ini=1,
+            halaman_akhir=1,
+            isi="`r!about`: Menampilkan info bot.\n"
+                "`r!invite`: Menampilkan link invite bot.\n"
+                "`r!ping`: Menampilkan latensi bot.\n"
+                "`r!vote`: Menampilkan link untuk nge-Vote saya di [top.gg](https://top.gg/).\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        ))
 
     #==============================================================================================================
     #==============================================================================================================
@@ -412,147 +484,142 @@ class Help(commands.Cog):
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def ban(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Ban", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`ban`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Mem-Ban seseorang dari server.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya kemudian mention orang yang mau kamu ban.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!ban @Nathz#6498`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="ban",
+            kategori="Moderasi",
+            alias="Tidak ada",
+            cooldown=5,
+            desc="Mem-Ban seseorang dari server.",
+            cara_pakai="Tulis command nya kemudian mention orang yang mau kamu ban.",
+            contoh="r!ban @Nathz#6498",
+            warna=ctx.guild.get_member(self.client.user.id).color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
     @h.command(aliases=["clr", "purge"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def clear(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Clear", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`clear`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='`clr, purge`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menghapus pesan sebanyak jumlah yang diberikan.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya kemudian tuliskan jumlah pesan yang ingin kamu hapus.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!clr 5`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="clear",
+            kategori="Moderasi",
+            alias="clr, purge",
+            cooldown=5,
+            desc="Menghapus pesan sebanyak jumlah yang diberikan.",
+            cara_pakai="Tulis command nya kemudian tuliskan jumlah pesan yang ingin kamu hapus.",
+            contoh="r!clr 5",
+            warna=ctx.guild.get_member(self.client.user.id).color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
     @h.command(aliases=["kck", "hus", "usir", "keluarkan", "tendang"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def kick(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Kick", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`kick`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='`kck, hus, usir, keluarkan, tendang, kck`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Mengeluarkan seorang user dari server.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya kemudian tuliskan mention orang yang mau kamu kick.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!kck @Abin#4405`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="kick",
+            kategori="Moderasi",
+            alias="kck, hus, usir, keluarkan, tendang",
+            cooldown=5,
+            desc="Mengeluarkan seorang user dari server.",
+            cara_pakai="Tulis command nya kemudian tuliskan mention orang yang mau kamu kick.",
+            contoh="r!kck @Abin#4405",
+            warna=ctx.guild.get_member(self.client.user.id).color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def unban(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Unban", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`unban`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Melepas ban seseorang yang pernah di-ban.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya kemudian tuliskan ID orang yang mau kamu unban.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!unban 550953412489904129`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="unban",
+            kategori="Moderasi",
+            alias="Tidak ada",
+            cooldown=5,
+            desc="Melepas ban seseorang yang pernah di-ban.",
+            cara_pakai="Tulis command nya kemudian tuliskan ID orang yang mau kamu unban.",
+            contoh="r!unban 550953412489904129",
+            warna=ctx.guild.get_member(self.client.user.id).color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
     @h.command(aliases=["nickname", "nick", "changename"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def changenick(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Changenick", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`changenick`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='`nickname, nick, changename`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Mengubah nickname seseorang.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya, sebut orang yang nick nya mau kamu ganti, dan tuliskan nickname apa yang mau kamu berikan padanya.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!changenick @Abin#4405 si abin`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="changenick",
+            kategori="Moderasi",
+            alias="nickname, nick, changename",
+            cooldown=5,
+            desc="Mengubah nickname seseorang.",
+            cara_pakai="Tulis command nya, sebut orang yang nick nya mau kamu ganti, dan tuliskan nickname apa yang mau kamu berikan padanya.",
+            contoh="r!changenick @Abin#4405 si abin",
+            warna=ctx.guild.get_member(self.client.user.id).color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
     @h.command(aliases=["createrole", "bikinrole", "makerole", "addrole"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def newrole(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Newrole", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`newrole`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='`createrole, bikinrole, makerole, addrole`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Membuat Role baru.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya, tulis nama role nya (apit menggunakan tanda ""), kemudian tuliskan kode HEX untuk warna role nya (opsional) (tanpa diawali dengan `#`atau `0x`).', inline=False)
-        embed.add_field(name='Contoh:', value='`r!newrole "anak rajin" 00ff00`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="newrole",
+            kategori="Moderasi",
+            alias="createrole, bikinrole, makerole, addrole",
+            cooldown=5,
+            desc="Membuat Role baru.",
+            cara_pakai="Tulis command nya, tulis nama role nya (apit menggunakan tanda ""), kemudian tuliskan kode HEX untuk warna role nya (opsional) (tanpa diawali dengan `#`atau `0x`).",
+            contoh="r!newrole \"anak rajin\" 00ff00",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
     @h.command(aliases=["hapusrole"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def deleterole(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Deleterole", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`deleterole`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='`hapusrole`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Menghapus role.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya kemuidian sebutkan role yang mau kamu hapus.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!deleterole @anak rajin`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="deleterole",
+            kategori="Moderasi",
+            alias="hapusrole",
+            cooldown=5,
+            desc="Menghapus role",
+            cara_pakai="Tulis command nya kemuidian sebutkan role yang mau kamu hapus.",
+            contoh="r!deleterole @anak rajin",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def giverole(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Giverole", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`giverole`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='Tidak ada.')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Memberikan role kepada seorang user.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya, sebutkan orang yang akan kalian berikan role, kemudian sebutkan role mana yang akan kamu kasih.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!giverole @Abin @anak rajin`', inline=False)
-        await ctx.send(embed=embed)   
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="giverole",
+            kategori="Moderasi",
+            alias="Tidak ada",
+            cooldown=5,
+            desc="Memberikan role kepada seorang user.",
+            cara_pakai="Tulis command nya, sebutkan orang yang akan kalian berikan role, kemudian sebutkan role mana yang akan kamu kasih.",
+            contoh="r!giverole @Abin @anak rajin",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+          
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def removerole(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > Removerole", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`removerole`')
-        embed.add_field(name='Kategori:', value='`Moderasi`')
-        embed.add_field(name='Alias:', value='Tidak ada.')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Mencabut role dari seorang user.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value='Tulis command nya, sebutkan orang yang akan kalian cabut role nya, kemudian sebutkan role mana yang akan kamu cabut.', inline=False)
-        embed.add_field(name='Contoh:', value='`r!removerole @Abin @anak rajin`', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="removerole",
+            kategori="Moderasi",
+            alias="Tidak ada",
+            cooldown=5,
+            desc="Mencabut role dari seorang user.",
+            cara_pakai="Tulis command nya, sebutkan orang yang akan kalian cabut role nya, kemudian sebutkan role mana yang akan kamu cabut.",
+            contoh="r!removerole @Abin @anak rajin",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def slowmode(self, ctx):
@@ -1079,12 +1146,239 @@ class Help(commands.Cog):
 
 
 
-        
 
-        
 
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+    @h.command(aliases=["connect","j"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def join(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+                nama_command="join",
+                kategori="Musik",
+                alias="connect, j",
+                cooldown=0,
+                desc="Memasukkan bot ke voice channel.",
+                cara_pakai="Command ini tidak butuh argumen tambahan, tapi bisa juga ada argumen tambahannya, yaitu nama voice channel.",
+                contoh="r!j` (untuk memasuki voice channel yang sama denganmu)\n`r!j [nama voice channel]` (memasuki voice channel sesuai dengan yang ditunjuk).]",
+                warna=ctx.guild.me.color,
+                foto_bot=self.client.user.avatar_url,
+                requester=ctx.author
+            ))
+
+    @h.command(aliases=["p"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def play(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="play",
+            kategori="Musik",
+            alias="p",
+            cooldown=0,
+            desc="Memutar Audio.",
+            cara_pakai="Tulis command-nya kemudian masukkan judul lagu atau link lagu dari YouTube yang ingin kalian putar.",
+            contoh="r!p [link video youtube/judul lagu]",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def search(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="search",
+            kategori="Musik",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Mencari video di YouTube untuk diputar di voice channel.",
+            cara_pakai="Tulis command-nya kemudian masukkan kata kunci pencarian.",
+            contoh="r!search [kata kucnci]",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))  
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def pause(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="pause",
+            kategori="Musik",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Menjeda Audio",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!pause",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["remus"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def resume(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="resume",
+            kategori="Musik",
+            alias="remus",
+            cooldown=0,
+            desc="Melanjutkan Audio yang sedang dijeda.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!resume",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def skip(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="skip",
+            kategori="Musik",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Melompati ke Audio selanjutnya.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!skip",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def remove(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="remove",
+            kategori="Musik",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Menghapus lagu dalam antrean sesuai nomor.",
+            cara_pakai="Tulis command-nya kemudian tulis posisi lagu.",
+            contoh="r!remove 7",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def clearqueue(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="clearqueue",
+            kategori="Musik",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Menghapus semua lagu dalam antrean.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!clearqueue",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["q", "ququ"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def queue(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="queue",
+            kategori="Musik",
+            alias="q, ququ",
+            cooldown=0,
+            desc="Menampilkan daftar antrean lagu.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!q",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["now", "current", "currentsong", "playing", "np"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def nowplaying(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="nowplaying",
+            kategori="Musik",
+            alias="now, current, currentsong, playing, np",
+            cooldown=0,
+            desc="Menampilkan judul lagu yang sedang diputar.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!np",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["vol", "v"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def volume(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="volume",
+            kategori="Musik",
+            alias="v, vol",
+            cooldown=0,
+            desc="Mengatur volume Audio.",
+            cara_pakai="Tulis command-nya kemudian besar/kecil volumenya.\nUntuk melihat volume saat ini, ketikkan `r!volume` saja tanpa argumen.",
+            contoh="r!v\nr!v 100",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["dc", "disconnect"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def leave(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="leave",
+            kategori="Musik",
+            alias="dc, disconnect",
+            cooldown=0,
+            desc="Mengeluarkan bot dari voice channel.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!dc",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["ly", "lirik"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def lyrics(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="lyrics",
+            kategori="Musik",
+            alias="ly, lirik",
+            cooldown=0,
+            desc="Menampilkan lirik.",
+            cara_pakai="Command ini tidak butuh argumen tambahan dan akan langsung menampilkan lirik lagu dari lagu yang sedang diputar. Tapi jika sedang tidak ada lagu yang diputar, maka masukkan judul lagu yang mau kamu lihat liriknya.",
+            contoh="r!ly\nr!ly [judul lagu]",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+
+
+
+
+
+
+
+
+
+
+
+
     @h.command(aliases=["menangis", "nangid", "nangis", "nyedih", "menyedih", "mengsad", "mengsedih"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def cry(self, ctx):
@@ -2519,6 +2813,22 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis tahun-nya, dan tulis bulannya (opsional).", inline=False)
         embed.add_field(name='Contoh:', value='`r!kalender 2021` (kalau mau melihat 1 tahun kalender)\n`r!kalender 2021 juni` (untuk melihat 1 bulan kalender)\n`r!kalender 2021 6` (sama aja, tapi pake angka utk bulannya).', inline=False)
         await ctx.send(embed=embed)
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def snipe(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="snipe",
+            kategori="Utilitas",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Menangkap pesan yang baru dihapus 5 menit yang lalu.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!snipe",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
 
 
 

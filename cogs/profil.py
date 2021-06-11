@@ -101,11 +101,22 @@ class Profil(commands.Cog):
                 embed.add_field(name="Channel Update", value="Tidak ada")
         except:
             embed.add_field(name="Channel Update", value="Tidak dapat memuat info")
-        embed.add_field(name="Level Verifikasi", value=ctx.guild.verification_level)
-
-        embed.add_field(name="Level Autentikasi 2 Faktor", value=ctx.guild.mfa_level)        
-        embed.add_field(name="Notifikasi Default", value=ctx.guild.default_notifications)
-        embed.add_field(name="Level Boost", value=ctx.guild.premium_subscription_count)
+        if ctx.guild.verification_level is not None:
+            embed.add_field(name="Level Verifikasi", value=ctx.guild.verification_level)
+        else:
+            embed.add_field(name="Level Verifikasi", value="Tidak ada")
+        if ctx.guild.mfa_level is not None:
+            embed.add_field(name="Level Autentikasi 2 Faktor", value=ctx.guild.mfa_level)        
+        else:
+            embed.add_field(name="Level Autentikasi 2 Faktor", value="Tidak ada")   
+        if ctx.guild.default_notifications is not None:
+            embed.add_field(name="Notifikasi Default", value=ctx.guild.default_notifications)
+        else:
+            embed.add_field(name="Notifikasi Default", value="Tidak ada")
+        if ctx.guild.premium_subscription_count is not None:
+            embed.add_field(name="Level Boost", value=ctx.guild.premium_subscription_count)
+        else:
+            embed.add_field(name="Level Boost", value="Tidak ada")
 
         emojis = await ctx.guild.fetch_emojis()
         Emojis = " ".join([str(emoji) for emoji in emojis])

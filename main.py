@@ -1,5 +1,5 @@
 #impor segalanya
-import discord, os, json, datetime
+import discord, os, datetime
 from discord.ext import commands, tasks
 from discord_slash import SlashCommand
 from itertools import cycle

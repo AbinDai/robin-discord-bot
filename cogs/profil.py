@@ -66,7 +66,10 @@ class Profil(commands.Cog):
             embed.add_field(name="Pemilik", value=f"Tidak ada")
 
         embed.add_field(name="Jumlah Emoji", value=len(ctx.guild.emojis))
-        embed.add_field(name="Negara", value=ctx.guild.region)
+        if ctx.guild.region is not None:
+            embed.add_field(name="Negara", value=ctx.guild.region)
+        else:
+            embed.add_field(name="Negara", value="Tidak ada")
         embed.add_field(name="Filter Konten Eksplisit", value=ctx.guild.explicit_content_filter)
 
         if ctx.guild.afk_channel is not None:
@@ -84,7 +87,10 @@ class Profil(commands.Cog):
         else:
             embed.add_field(name="Channel Aturan", value="Tidak ada")
 
-        embed.add_field(name="Timeout AFK", value=ctx.guild.afk_timeout)
+        if ctx.guild.afk_timeout is not None:                
+            embed.add_field(name="Timeout AFK", value=ctx.guild.afk_timeout)
+        else:
+            embed.add_field(name="Timeout AFK", value="Tidak ada")
         if ctx.guild.public_updates_channel is not None:
             embed.add_field(name="Channel Update", value=ctx.guild.public_updates_channel.mention)
         else:

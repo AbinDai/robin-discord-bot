@@ -67,7 +67,7 @@ class Help(commands.Cog):
         embed.add_field(name=":musical_note: Musik", value="`join, leave, play, search, pause, resume, skip, remove, clearqueue, queue, nowplaying, volume, lyrics`", inline=False)
         embed.add_field(name=':speaking_head: Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name=':frame_photo: Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
-        embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, afk, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe, serveremojis`", inline=False)
+        embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe, serveremojis`", inline=False)
         embed.add_field(name=':question: Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name=':candle: Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         embed.add_field(name="⠀",value="Dibuat dengan <:Python:845156521972596757> [Python](https://www.python.org/) dan <:discordpy:849276562469945385> [discord.py](https://discordpy.readthedocs.io/en/stable/).",inline=False)
@@ -407,7 +407,6 @@ class Help(commands.Cog):
                 "`r!kodepos`: Menampilkan info kode pos.\n"
                 "`r!translate`: Menerjemahkan kata/kalimat.\n"
                 "`r!batik`: Menampilkan info batik.\n"
-                "`r!afk`:  Mengatur status AFK.\n"
                 "`r!biner`: Mengonversi tulisan biasa menjadi angka biner.\n"
                 "`r!binertxt`: Mengonversi angka biner menjadi teks biasa.\n",
             warna_embed=ctx.guild.get_member(self.client.user.id).color,
@@ -2572,22 +2571,6 @@ class Help(commands.Cog):
         embed.add_field(name='Deskripsi:', value='Mengonversi tulisan biasa menjadi angka biner.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis teks yang mau kamu konversi menjadi angka biner.", inline=False)
         embed.add_field(name='Contoh:', value='`r!biner halo`', inline=False)
-        await ctx.send(embed=embed)
-    @h.command()
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def afk(self, ctx):
-        embed = discord.Embed(
-            colour  = ctx.guild.get_member(self.client.user.id).color
-        )
-        embed.set_author(name="Help > AFK", icon_url=self.client.user.avatar_url)
-        embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Nama Command:', value='`afk`')
-        embed.add_field(name='Kategori:', value='`Utilitas`')
-        embed.add_field(name='Alias:', value='Tidak ada')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
-        embed.add_field(name='Deskripsi:', value='Mengatur status AFK.', inline=False)
-        embed.add_field(name='Cara Menggunakan:', value="Tulis command nya kemudian tulis alasan kenapa kamu AFK.", inline=False)
-        embed.add_field(name='Contoh:', value='`r!afk makan`', inline=False)
         await ctx.send(embed=embed)
     @h.command(aliases=["hex", "colour", "warna"])
     @commands.cooldown(1, 5, commands.BucketType.user)

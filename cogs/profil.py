@@ -61,7 +61,7 @@ class Profil(commands.Cog):
         embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
         embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))
         if ctx.guild.owner is not None:
-            embed.add_field(name="Pemilik", value=f"{ctx.guild.owner.mention} (`{ctx.guild.owner}`)")
+            embed.add_field(name="Pemilik", value=ctx.guild.owner)
         else:
             embed.add_field(name="Pemilik", value=f"Tidak ada")
 

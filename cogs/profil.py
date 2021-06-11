@@ -94,10 +94,13 @@ class Profil(commands.Cog):
             embed.add_field(name="Timeout AFK", value=ctx.guild.afk_timeout)
         else:
             embed.add_field(name="Timeout AFK", value="Tidak ada")
-        if ctx.guild.public_updates_channel is not None:
-            embed.add_field(name="Channel Update", value=ctx.guild.public_updates_channel.mention)
-        else:
-            embed.add_field(name="Channel Update", value="Tidak ada")
+        try:
+            if ctx.guild.public_updates_channel is not None:
+                embed.add_field(name="Channel Update", value=ctx.guild.public_updates_channel.mention)
+            else:
+                embed.add_field(name="Channel Update", value="Tidak ada")
+        except:
+            embed.add_field(name="Channel Update", value="Tidak dapat memuat info")
         embed.add_field(name="Level Verifikasi", value=ctx.guild.verification_level)
 
         embed.add_field(name="Level Autentikasi 2 Faktor", value=ctx.guild.mfa_level)        

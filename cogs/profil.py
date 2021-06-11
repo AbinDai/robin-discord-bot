@@ -77,10 +77,13 @@ class Profil(commands.Cog):
         else:
             embed.add_field(name="Channel AFK", value="Tidak ada")
 
-        if ctx.guild.system_channel is not None:
-            embed.add_field(name="Channel Sistem", value=ctx.guild.system_channel.mention)
-        else:
-            embed.add_field(name="Channel Sistem", value="Tidak ada")
+        try:
+            if ctx.guild.system_channel is not None:
+                embed.add_field(name="Channel Sistem", value=ctx.guild.system_channel.mention)
+            else:
+                embed.add_field(name="Channel Sistem", value="Tidak ada")
+        except:
+            embed.add_field(name="Channel Sistem", value="Tidak dapat memuat info")
 
         if ctx.guild.rules_channel is not None:
             embed.add_field(name="Channel Aturan", value=ctx.guild.rules_channel.mention)

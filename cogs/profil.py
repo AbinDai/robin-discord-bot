@@ -50,8 +50,7 @@ class Profil(commands.Cog):
         dibuat_pada = ctx.guild.created_at
         tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
         jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
-        zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
-        embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun}\n{jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
+        embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik}")
 
         if ctx.guild.description is not None:
             embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
@@ -98,9 +97,7 @@ class Profil(commands.Cog):
 
         embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value=' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]), inline=False)
 
-        roles = await ctx.guild.fetch_roles()
-        rOle = ", ".join([str(role.mention) for role in roles])
-        embed.add_field(name=f"Jumlah Role ({len(roles)})", value=rOle, inline=False)
+        embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value=' '.join([role.mention for role in await ctx.guild.fetch_roles()]), inline=False)
 
         embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
 

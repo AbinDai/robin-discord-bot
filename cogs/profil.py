@@ -94,16 +94,6 @@ class Profil(commands.Cog):
         except:
             embed.add_field(name="Channel Update", value="Gagal memuat info")
 
-        if ' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]) < str(1024):
-            embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value=' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]), inline=False)
-        else:
-            embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value="Jumlah emoji tidak muat disini :'v", inline=False)
-
-        if ' '.join([str(role.mention) for role in await ctx.guild.fetch_roles()]) < str(1024):
-            embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value=' '.join([str(role.mention) for role in await ctx.guild.fetch_roles()]), inline=False)
-        else:
-            embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value="Total Role tidak muat ditulis disini :'v", inline=False)
-
         embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
         await ctx.send(embed=embed)

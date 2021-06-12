@@ -95,18 +95,6 @@ class Profil(commands.Cog):
                 embed.add_field(name="Channel Update", value="Tidak ada")
         except:
             embed.add_field(name="Channel Update", value="Tidak dapat memuat info")
-        if ctx.guild.verification_level is not None:
-            embed.add_field(name="Level Verifikasi", value=ctx.guild.verification_level)
-        else:
-            embed.add_field(name="Level Verifikasi", value="Tidak ada")
-        if ctx.guild.mfa_level is not None:
-            embed.add_field(name="Level Autentikasi 2 Faktor", value=ctx.guild.mfa_level)        
-        else:
-            embed.add_field(name="Level Autentikasi 2 Faktor", value="Tidak ada")   
-        if ctx.guild.premium_subscription_count is not None:
-            embed.add_field(name="Level Boost", value=ctx.guild.premium_subscription_count)
-        else:
-            embed.add_field(name="Level Boost", value="Tidak ada")
 
         emojis = await ctx.guild.fetch_emojis()
         Emojis = " ".join([str(emoji) for emoji in emojis])
@@ -151,24 +139,6 @@ class Profil(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def userinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
-
-        #member = ctx.author if not member else member
-        #roles = [role for role in member.roles]
-        #embed = discord.Embed(
-        #    title = 'Informasi Pengguna',
-        #    color = member.color
-        #)
-        #embed.set_thumbnail(url=f'{member.avatar_url}')
-        #embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
-        #embed.add_field(name='Nama:', value=f'{member}', inline=False)
-        #embed.add_field(name='Nickname di Server Ini:', value=f'{member.display_name}', inline=False)
-        #embed.add_field(name='ID:', value=f'{member.id}', inline=False)
-        #embed.add_field(name='Tanggal Dibuatnya Akun:', value=f'{member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
-        #embed.add_field(name='Tanggal Bergabung Dengan Server Ini:', value=f'{member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
-        #embed.add_field(name=f'Role: ({len(roles)})', value=' '.join([role.mention for role in roles]), inline=False)
-        #embed.add_field(name='Role Tertinggi:', value=f'{member.top_role.mention}', inline=False)
-        #embed.add_field(name='Adalah Bot?', value=f'{member.bot}')
-        #await ctx.send(embed=embed)
 
         embed = discord.Embed(
             title = "Informasi User",

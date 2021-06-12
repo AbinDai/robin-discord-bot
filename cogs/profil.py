@@ -47,18 +47,28 @@ class Profil(commands.Cog):
         embed.add_field(name="Nama", value=ctx.guild.name)
         embed.add_field(name="ID", value=ctx.guild.id)
 
-        dibuat_pada = ctx.guild.created_at
-        tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
-        jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
-        embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik}")
+        try:
+            dibuat_pada = ctx.guild.created_at
+            tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
+            jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
+            embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik}")
+        except:
+            embed.add_field(name="Dibuat pada", value="Gagal memuat info")
 
-        embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
-        embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))
+        try:
+            embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
+            embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))
+        except:
+            embed.add_field(name="Jumlah Text Channel", value="Gagal memuat info")
+            embed.add_field(name="Jumlah Voice Channel", value="Gagal memuat info")
 
-        if ctx.guild.region is not None:
-            embed.add_field(name="Negara", value=ctx.guild.region)
-        else:
-            embed.add_field(name="Negara", value="Tidak ada")
+        try:
+            if ctx.guild.region is not None:
+                embed.add_field(name="Negara", value=ctx.guild.region)
+            else:
+                embed.add_field(name="Negara", value="Tidak ada")
+        except:
+            embed.add_field(name="Negara", value="Gagal memuat info")
 
         try:
             if ctx.guild.system_channel is not None:
@@ -66,23 +76,33 @@ class Profil(commands.Cog):
             else:
                 embed.add_field(name="Channel Sistem", value="Tidak ada")
         except:
-            embed.add_field(name="Channel Sistem", value="Tidak dapat memuat info")
+            embed.add_field(name="Channel Sistem", value="Gagal memuat info")
 
-        if ctx.guild.rules_channel is not None:
-            embed.add_field(name="Channel Aturan", value=ctx.guild.rules_channel.mention)
-        else:
-            embed.add_field(name="Channel Aturan", value="Tidak ada")
+        try:
+            if ctx.guild.rules_channel is not None:
+                embed.add_field(name="Channel Aturan", value=ctx.guild.rules_channel.mention)
+            else:
+                embed.add_field(name="Channel Aturan", value="Tidak ada")
+        except:
+            embed.add_field(name="Channel Aturan", value="Gagal memuat info")
+
         try:
             if ctx.guild.public_updates_channel is not None:
                 embed.add_field(name="Channel Update", value=ctx.guild.public_updates_channel.mention)
             else:
                 embed.add_field(name="Channel Update", value="Tidak ada")
         except:
-            embed.add_field(name="Channel Update", value="Tidak dapat memuat info")
+            embed.add_field(name="Channel Update", value="Gagal memuat info")
 
-        embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value=' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]), inline=False)
+        if ' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]) < str(1024):
+            embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value=' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]), inline=False)
+        else:
+            embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value="Jumlah emoji tidak muat disini :'v", inline=False)
 
-        embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value=' '.join([role.mention for role in await ctx.guild.fetch_roles()]), inline=False)
+        try:
+            embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value=' '.join([str(role.mention) for role in await ctx.guild.fetch_roles()]), inline=False)
+        except:
+            embed.add_field(name="Jumlah Role (???)", value="Gagal memuat info", inline=False)
 
         embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
 

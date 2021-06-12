@@ -96,9 +96,7 @@ class Profil(commands.Cog):
         except:
             embed.add_field(name="Channel Update", value="Tidak dapat memuat info")
 
-        emojis = await ctx.guild.fetch_emojis()
-        Emojis = " ".join([str(emoji) for emoji in emojis])
-        embed.add_field(name=f"Jumlah Emoji ({len(emojis)})", value=Emojis, inline=False)
+        embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value=' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]), inline=False)
 
         roles = await ctx.guild.fetch_roles()
         rOle = ", ".join([str(role.mention) for role in roles])

@@ -99,10 +99,10 @@ class Profil(commands.Cog):
         else:
             embed.add_field(name=f"Jumlah Emoji ({len(await ctx.guild.fetch_emojis())})", value="Jumlah emoji tidak muat disini :'v", inline=False)
 
-        try:
+        if ' '.join([str(role.mention) for role in await ctx.guild.fetch_roles()]) < str(1024):
             embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value=' '.join([str(role.mention) for role in await ctx.guild.fetch_roles()]), inline=False)
-        except:
-            embed.add_field(name="Jumlah Role (???)", value="Gagal memuat info", inline=False)
+        else:
+            embed.add_field(name=f"Jumlah Role ({len(await ctx.guild.fetch_roles())})", value="Total Role tidak muat ditulis disini :'v", inline=False)
 
         embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
 

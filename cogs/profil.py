@@ -52,28 +52,13 @@ class Profil(commands.Cog):
         jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
         embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik}")
 
-        if ctx.guild.description is not None:
-            embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
-        else:
-            embed.add_field(name="Deskripsi", value="Tidak ada", inline=False)
-
         embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
         embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))
-        if ctx.guild.owner is not None:
-            embed.add_field(name="Pemilik", value=ctx.guild.owner)
-        else:
-            embed.add_field(name="Pemilik", value=f"Tidak ada")
 
-        embed.add_field(name="Jumlah Emoji", value=len(ctx.guild.emojis))
         if ctx.guild.region is not None:
             embed.add_field(name="Negara", value=ctx.guild.region)
         else:
             embed.add_field(name="Negara", value="Tidak ada")
-
-        if ctx.guild.afk_channel is not None:
-            embed.add_field(name="Channel AFK", value=ctx.guild.afk_channel.mention)
-        else:
-            embed.add_field(name="Channel AFK", value="Tidak ada")
 
         try:
             if ctx.guild.system_channel is not None:
@@ -148,12 +133,12 @@ class Profil(commands.Cog):
 
         embed.add_field(name="ID", value=member.id)
         if member.bot is True:
-            embed.add_field(name="Adalah Bot?", value=member.bot)
+            embed.add_field(name="Adalah Bot?", value="Ya")
         else:
             embed.add_field(name="Adalah Bot?", value="Bukan")
 
         if member.system is True:
-            embed.add_field(name="Akun Sistem?", value=member.system)
+            embed.add_field(name="Akun Sistem?", value="Ya")
         else:
             embed.add_field(name="Akun Sistem?", value="Bukan")
 

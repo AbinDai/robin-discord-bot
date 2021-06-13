@@ -67,7 +67,7 @@ class Help(commands.Cog):
         embed.add_field(name=":musical_note: Musik", value="`join, leave, play, search, pause, resume, skip, remove, clearqueue, queue, nowplaying, volume, lyrics`", inline=False)
         embed.add_field(name=':speaking_head: Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name=':frame_photo: Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
-        embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe, serveremojis`", inline=False)
+        embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe, serveremojis, enlarge`", inline=False)
         embed.add_field(name=':question: Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name=':candle: Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
         embed.add_field(name="⠀",value="Dibuat dengan <:Python:845156521972596757> [Python](https://www.python.org/) dan <:discordpy:849276562469945385> [discord.py](https://discordpy.readthedocs.io/en/stable/).",inline=False)
@@ -441,7 +441,8 @@ class Help(commands.Cog):
                 "`r!anime`: Mencari dan menampilkan info Anime dari MyAnimeList.\n"
                 "`r!kalender`: Menampilkan kalender.\n"
                 "`r!snipe`: Menangkap pesan yang baru dihapus 5 menit yang lalu pada channel tersebut.\n"
-                "`r!serveremojis`: Menampilkan semua emoji yang ada di server.",
+                "`r!serveremojis`: Menampilkan semua emoji yang ada di server.\n"
+                "`r!enlarge`: Memperbesar emoji. (Kurang efektif untuk emoji .gif)",
             warna_embed=ctx.guild.get_member(self.client.user.id).color,
             requester=ctx.author,
             foto_bot=self.client.user
@@ -2824,6 +2825,22 @@ class Help(commands.Cog):
             desc="Menampilkan semua emoji yang ada di server.",
             cara_pakai="Command ini tidak butuh argumen tambahan.",
             contoh="r!serveremojis",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command(aliases=["e"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def enlarge(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="enlarge",
+            kategori="Utilitas",
+            alias="e",
+            cooldown=0,
+            desc="Memperbesar emoji.",
+            cara_pakai="Tulis command-nya kemudian sertakan emoji yang akan diperbesar.",
+            contoh="r!e :keanu_nunjuk:",
             warna=ctx.guild.me.color,
             foto_bot=self.client.user.avatar_url,
             requester=ctx.author

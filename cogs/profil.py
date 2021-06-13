@@ -12,27 +12,30 @@ class Profil(commands.Cog):
     async def avatar(self, ctx, *, member: discord.Member=None):
         member = ctx.author if not member else member
 
-        response = requests.get(member.avatar_url_as(format="png",size=4096))
-        file = open("pp.png", "wb")
-        file.write(response.content)
-        file.close()
-        
-        #kita coba detect warna yg pling dominan di foto profilnya
-        #kemudian kita pake buat warna embed
-        colors, ratios = detect_colors("pp.png", 3)
-        warna = colors[0][1:]
-        warna_akhir = int(warna, 16)
+        #gunakan "mengetik"
+        async with ctx.typing():
+            #kita coba donlot pp nya
+            response = requests.get(member.avatar_url_as(format="png",size=4096))
+            file = open("pp.png", "wb")
+            file.write(response.content)
+            file.close()
+            
+            #setelah itu kita coba detect warna yg pling dominan di foto profilnya
+            #kemudian kita pake buat warna embed
+            colors, ratios = detect_colors("pp.png", 3)
+            warna = colors[0][1:]
+            warna_akhir = int(warna, 16)
+            os.remove("pp.png")
 
-        os.remove("pp.png")
-
-        embed = discord.Embed(
-            title = f'Berikut ini avatarnya si {member.name}:',
-            description = f'Butuh link dalam format lain?\n[jpeg]({member.avatar_url_as(format="jpeg", size=4096)}) | [jpg]({member.avatar_url_as(format="jpg", size=4096)}) | [webp]({member.avatar_url_as(format="webp", size=4096)})',
-            colour = warna_akhir
-        )
-        embed.set_image(url=f'{member.avatar_url_as(format=None, static_format="png", size=4096)}')
-        embed.set_footer(text=f'Di-Request oleh {ctx.author}', icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)
+            #bikin embed
+            embed = discord.Embed(
+                title = f'Berikut ini foto profilnya si {member.name}:',
+                description = f'Link untuk format lain:\n[jpeg]({member.avatar_url_as(format="jpeg", size=4096)}) | [jpg]({member.avatar_url_as(format="jpg", size=4096)}) | [webp]({member.avatar_url_as(format="webp", size=4096)})',
+                colour = warna_akhir #warna dominan pada foto profil seseorang
+            )
+            embed.set_image(url=member.avatar_url_as(format=None, static_format="png", size=4096))
+            embed.set_footer(text=f'Di-Request oleh {ctx.author.name}', icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=embed)
 
     #command serverinfo
     @commands.command(aliases=['infoserver'])
@@ -43,10 +46,15 @@ class Profil(commands.Cog):
             color = ctx.guild.me.color
         )
         embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
-        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_thumbnail(url=ctx.guild.icon_url_as(format=None, static_format="png", size=4096))
+
+        if ctx.guild.banner is not None:
+            embed.set_image(url=ctx.guild.banner)
+        else:
+            pass
+
         embed.add_field(name="Nama", value=ctx.guild.name)
         embed.add_field(name="ID", value=ctx.guild.id)
-
         try:
             dibuat_pada = ctx.guild.created_at
             tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
@@ -55,20 +63,46 @@ class Profil(commands.Cog):
         except:
             embed.add_field(name="Dibuat pada", value="Gagal memuat info")
 
+        if ctx.guild.description is not None:
+            embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
+        else:
+            embed.add_field(name="Deskripsi", value="Tidak ada deskripsi", inline=False)
+
         try:
             embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
             embed.add_field(name="Jumlah Voice Channel", value=len(ctx.guild.voice_channels))
+            embed.add_field(name="Jumlah Kategori", value=len(ctx.guild.categories))
         except:
             embed.add_field(name="Jumlah Text Channel", value="Gagal memuat info")
             embed.add_field(name="Jumlah Voice Channel", value="Gagal memuat info")
+            embed.add_field(name="Jumlah Kategori", value="Gagal memuat info")
 
         try:
             if ctx.guild.region is not None:
-                embed.add_field(name="Negara", value=ctx.guild.region)
+                embed.add_field(name="Negara", value=str(ctx.guild.region).capitalize())
             else:
                 embed.add_field(name="Negara", value="Tidak ada")
         except:
             embed.add_field(name="Negara", value="Gagal memuat info")
+
+        if ctx.guild.shard_id is not None:
+            embed.add_field(name="ID Shard", value=ctx.guild.shard_id)
+        else:
+            embed.add_field(name="ID Shard", value="Tidak ada")
+        if ctx.guild.afk_channel is not None:
+            embed.add_field(name="Channel AFK", value=len(ctx.guild.afk_channel.mention))
+        else:
+            embed.add_field(name="Channel AFK", value="Tidak ada")
+
+        if ctx.guild.owner is not None:
+            embed.add_field(name="Pemilik", value=f"{ctx.guild.owner.mention} (`{ctx.guild.owner}`)")
+        else:
+            embed.add_field(name="Pemilik", value="Tidak dapat menemukan pemilik server.")
+        embed.add_field(name="Level Boost", value=f"Level {ctx.guild.premium_tier} ({ctx.guild.premium_subscription_count} Boost)")
+        if ctx.guild.premium_subscriber_role is not None:
+            embed.add_field(name="Role Eksklusif Booster", value=ctx.guild.premium_subscriber_role.mention)
+        else:
+            embed.add_field(name="Role Eksklusif Booster", value="Tidak ada")
 
         try:
             if ctx.guild.system_channel is not None:
@@ -93,6 +127,19 @@ class Profil(commands.Cog):
                 embed.add_field(name="Channel Update", value="Tidak ada")
         except:
             embed.add_field(name="Channel Update", value="Gagal memuat info")
+
+        try:
+            if sum(len(emoji) for emoji in ", ".join([str(emoji) for emoji in await ctx.guild.fetch_emojis()])) < 1024:
+                embed.add_field(name=f"Emoji ({len(ctx.guild.emojis)})", value=' '.join([str(emoji) for emoji in await ctx.guild.fetch_emojis()]), inline=False)
+            else:
+                embed.add_field(name=f"Emoji ({len(ctx.guild.emojis)})", value="Emoji terlalu banyak sehingga tidak muat disini.", inline=False)
+        except:
+            embed.add_field(name=f"Emoji (???)", value="Gagal memuat info.", inline=False)
+
+        if sum(len(role) for role in ", ".join([str(role) for role in await ctx.guild.fetch_roles()])) < 1024:
+            embed.add_field(name=f"Role ({len(ctx.guild.roles)})", value=' '.join([str(role.mention) for role in await ctx.guild.fetch_roles()]), inline=False)
+        else:
+            embed.add_field(name=f"Role ({len(ctx.guild.roles)})", value="Role terlalu banyak sehingga tidak muat disini.", inline=False)
 
         embed.set_footer(text=f"Di-Request oleh {ctx.author.name}", icon_url=ctx.author.avatar_url)
 

@@ -7,6 +7,7 @@ from itertools import cycle
 #===============================================================================================
 
 #setel prefix + bikin variabel client
+intents = discord.Intents.all()
 client = commands.Bot(
     command_prefix=[
         "r!",
@@ -26,7 +27,8 @@ client = commands.Bot(
         "rOBIn ",
         "roBIN "
     ], 
-    case_insensitive=True
+    case_insensitive=True,
+    intents=intents
 )
 slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
 

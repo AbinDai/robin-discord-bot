@@ -1,4 +1,5 @@
 import discord, requests, os
+from discord.flags import PublicUserFlags
 from discord.ext import commands
 from dominant_color_detection import detect_colors
 
@@ -174,7 +175,7 @@ class Profil(commands.Cog):
     #command userinfo
     @commands.command(aliases=['infopengguna, infoorang'])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def userinfo(self, ctx, member: discord.Member = None):
+    async def userinfo(self, ctx, *, member: discord.Member = None):
         member = ctx.author if not member else member
 
         embed = discord.Embed(
@@ -193,29 +194,114 @@ class Profil(commands.Cog):
             embed.add_field(name="Adalah Bot?", value="Ya")
         else:
             embed.add_field(name="Adalah Bot?", value="Bukan")
-
-        if member.system is True:
-            embed.add_field(name="Akun Sistem?", value="Ya")
+        if member.top_role is not None:
+            embed.add_field(name="Role Teratas", value=member.top_role.mention)
         else:
-            embed.add_field(name="Akun Sistem?", value="Bukan")
+            embed.add_field(name="Role Teratas", value="Tidak ada")
+
+        embed.add_field(name="HEX Warna Nama", value=member.color)
+        if member.voice is not None:
+            try:
+                embed.add_field(name="Sedang Berada di Voice Channel", value=member.voice.channel.name.mention)
+            except:
+                embed.add_field(name="Sedang Berada di Voice Channel", value=member.voice.channel.name)
+        else:
+            embed.add_field(name="Sedang Berada di Voice Channel", value="Tidak ada")
+
+        list_badge = []
+        badge = str(member.public_flags.all())
+        if "bug_hunter" in badge:
+            list_badge.append("<:BugHunterLevel_1:853628065376763904> Bug Hunter (Pemburu Bug)")
+
+        if "bug_hunter_level_2" in badge:
+            list_badge.append("<:BugHunterLevel_2:853628340875296800> Bug Hunter Level 2 (Pemburu Bug Level 2)")
+
+        if "early_supporter" in badge:
+            list_badge.append("<:EarlySupporter:853628130816032810> Early Supporter (Pendukung Terdahulu Discord)")
+
+        if "early_verified_bot_developer" in badge:
+            list_badge.append("<:EarlyVerifiedBotDev:853624406399647774> Early Verified Bot Developer (Pengembang Bot Terdahulu yang Terverifikasi)")
+
+        if "hypesquad_balance" in badge:
+            list_badge.append("<:HypesquadBalance:853619058699796491> HypeSquad Balance")
+
+        if "hypesquad_bravery" in badge:
+            list_badge.append("<:HypesquadBravery:853619039615320064> HypeSquad Bravery")
+
+        if "hypesquad_brilliance" in badge:
+            list_badge.append("<:HypesquadBrilliance:853619079051345952> HypeSquad Brilliance")
+
+        if "partner" in badge:
+            list_badge.append("<:ServerPartner:853620957037592656> Server Partner (Pemilik Server yang ber-Partner dengan Discord)")
+
+        if "staff" in badge:
+            list_badge.append("<:DiscordEmployee:853619019192991744> Discord Staff (Karyawan Discord)")
+
+        if "verified_bot" in badge:
+            list_badge.append("<:VerifiedBot:853619094883270676> Verified Bot (Bot yang Sudah Terverifikasi)")
+
+        if len(list_badge) == 0:
+            embed.add_field(name=f"Badge ({len(list_badge)})", value="Tidak ada")
+        else:
+            embed.add_field(name=f"Badge ({len(list_badge)})", value="\n".join([badge for badge in list_badge]))
+            list_badge.clear()
 
         dibuat_pada = member.created_at
         tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
         jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
         zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
         embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
-
+        ###########################################
         dibuat_pada = member.joined_at
         tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
         jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
         zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
         embed.add_field(name="Bergabung pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
+        ###########################################
 
         roles = [role for role in member.roles]
-        embed.add_field(name=f'Jumlah Role ({len(roles)})', value=' '.join([role.mention for role in roles]), inline=False)
+        if sum(len(ROLE) for ROLE in ', '.join([role.mention for role in roles])) < 1024:
+            embed.add_field(name=f'Jumlah Role ({len(roles)})', value=' '.join([role.mention for role in roles]), inline=False)
+        else:
+            embed.add_field(name=f'Jumlah Role ({len(roles)})', value="Role kebanyakan, sehingga tidak muat ditulis disini.", inline=False)
 
-        embed.add_field(name="Role Teratas", value=member.top_role.mention)
-        embed.add_field(name="Warna Nama", value=member.color)
+        if sum(len(izin) for izin in [perm[0] for perm in member.guild_permissions if perm[1]]) < 1024:
+            embed.add_field(name=f"Izin-Izin ({len([perm[0] for perm in member.guild_permissions if perm[1]])})", value=f'`{", ".join([perm[0] for perm in member.guild_permissions if perm[1]]).replace("_", " ").capitalize()}`', inline=False)
+        else:
+            embed.add_field(name=f"Izin-Izin ({len([perm[0] for perm in member.guild_permissions if perm[1]])})", value=f'Izin kebanyakan, jadi tidak muat disini.', inline=False)
+
+        if member.status == discord.Status.online:
+            if member.is_on_mobile() == True:
+                embed.add_field(name="Status", value="<:mobilestatus:853831784114028584> Online (Daring)")
+            else:
+                embed.add_field(name="Status", value="<:online:853835349461434369> Online (Daring)")
+        elif member.status == discord.Status.idle:
+            embed.add_field(name="Status", value="<:idle:853834320777969694> Idle (Diam)")
+        elif member.status == discord.Status.dnd:
+            embed.add_field(name="Status", value="<:dnd:853834680914673664> Do Not Disturb (Jangan Ganggu)")
+        elif member.status == discord.Status.offline:
+            embed.add_field(name="Status", value="<:offline:853836251462500372> Offline (Luring)")
+        elif member.status == discord.Status.invisible:
+            embed.add_field(name="Status", value="<:offline:853836251462500372> Invisible (Tak Terlihat)")
+        else:
+            embed.add_field(name="Status", value="Gagal mendapatkan info")
+
+        for activity in member.activities:
+            if isinstance(activity, discord.Game):
+                embed.add_field(name="Aktifitas", value=f"Bermain **{activity.name}**")
+            elif isinstance(activity, discord.Spotify):
+                embed.add_field(name="Aktifitas", value=f"Mendengarkan **Spotify**")
+            elif isinstance(activity, discord.Streaming):
+                embed.add_field(name="Aktifitas", value=f"Streaming di **{activity.platform}**")
+
+        for activity in member.activities:
+            if isinstance(activity, discord.CustomActivity):
+                if activity.name and activity.emoji:
+                    embed.add_field(name="Status Kustom", value=f"{activity.emoji} {activity.name}")
+                elif activity.emoji is None:
+                    embed.add_field(name="Status Kustom", value=activity.name)
+                elif activity.name is None:
+                    embed.add_field(name="Status Kustom", value=activity.emoji)
 
         await ctx.send(embed=embed)
 

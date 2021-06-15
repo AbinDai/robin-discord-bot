@@ -10,3 +10,4 @@ akinator.py
 youtube_dl
 PyNaCl
 discord-py-slash-command
+psutil

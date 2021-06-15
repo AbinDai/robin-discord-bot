@@ -53,9 +53,7 @@ for filename in os.listdir('./cogs/slashes'):
 #isi status
 status = cycle([
     'r!help',
-    "r!vote",
-    f"{len(client.guilds)} Server :v",
-    f"{len(client.users)} Orang :v"
+    "r!vote"
 ])
 
 #===============================================================================================

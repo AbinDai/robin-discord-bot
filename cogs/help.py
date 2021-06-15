@@ -69,7 +69,7 @@ class Help(commands.Cog):
         embed.add_field(name=':frame_photo: Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
         embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe, serveremojis, enlarge, spotify`", inline=False)
         embed.add_field(name=':question: Command Rahasia', value='||`???`||', inline=False)
-        embed.add_field(name=':candle: Lain-Lain:', value='`about, invite, ping, vote`', inline=False)
+        embed.add_field(name=':candle: Lain-Lain:', value='`about, invite, ping, uptime, vote`', inline=False)
         embed.add_field(name="⠀",value="Dibuat dengan <:Python:845156521972596757> [Python](https://www.python.org/) dan <:discordpy:849276562469945385> [discord.py](https://discordpy.readthedocs.io/en/stable/).",inline=False)
         await ctx.send(embed = embed)
 
@@ -467,6 +467,7 @@ class Help(commands.Cog):
             isi="`r!about`: Menampilkan info bot.\n"
                 "`r!invite`: Menampilkan link invite bot.\n"
                 "`r!ping`: Menampilkan latensi bot.\n"
+                "`r!uptime`: Menampilkan waktu aktif bot.\n"
                 "`r!vote`: Menampilkan link untuk nge-Vote saya di [top.gg](https://top.gg/).\n",
             warna_embed=ctx.guild.get_member(self.client.user.id).color,
             requester=ctx.author,
@@ -2880,7 +2881,7 @@ class Help(commands.Cog):
 
 
 
-    @h.command(aliases=["tentangbot", "aboutme", "aboutbot", "tentang", "info", "infobot"])
+    @h.command(aliases=["tentangbot", "aboutme", "aboutbot", "tentang", "info", "infobot", "botinfo"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def about(self, ctx):
         embed = discord.Embed(
@@ -2890,8 +2891,8 @@ class Help(commands.Cog):
         embed.set_footer(text=f'Di-Request oleh {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         embed.add_field(name='Nama Command:', value='`about`')
         embed.add_field(name='Kategori:', value='`Lain-Lain`')
-        embed.add_field(name='Alias:', value='`tentangbot, aboutme, aboutbot, tentang, info, infobot`')
-        embed.add_field(name="Cooldown", value="5 detik", inline=False)
+        embed.add_field(name='Alias:', value='`tentangbot, aboutme, aboutbot, tentang, info, infobot, botinfo`')
+        embed.add_field(name="Cooldown", value="0 detik", inline=False)
         embed.add_field(name='Deskripsi:', value='Menampilkan informasi & statistik bot.', inline=False)
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
         embed.add_field(name='Contoh:', value='`r!about`', inline=False)
@@ -2928,6 +2929,23 @@ class Help(commands.Cog):
         embed.add_field(name='Cara Menggunakan:', value="Command ini tidak butuh argumen tambahan.", inline=False)
         embed.add_field(name='Contoh:', value='`r!ping`', inline=False)
         await ctx.send(embed=embed)
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def uptime(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="uptime",
+            kategori="Lain-Lain",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Menampilkan informasi & statisik bot.",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!uptime",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
     @h.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def vote(self, ctx):

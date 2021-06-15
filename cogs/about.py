@@ -1,4 +1,4 @@
-import discord, platform, datetime, time
+import discord, platform, datetime, time, psutil
 from discord.ext import commands
 from discord.ext.commands.context import Context
 
@@ -39,7 +39,7 @@ class About(commands.Cog):
         embed.add_field(name="Ping Bot", value=f"{round(self.client.latency*1000)}ms")
 
         embed.add_field(name="Waktu Aktif", value=str(datetime.timedelta(seconds=int(round(time.time()-startTime)))))
-        embed.add_field(name="Jumlah Emoji", value=len(self.client.emojis))
+        embed.add_field(name="Penggunaan Memori", value=f"CPU: {psutil.cpu_percent()}%\nRAM: {psutil.virtual_memory().percent}%")
         embed.add_field(name="ID Bot", value=self.client.user.id)
 
         embed.add_field(

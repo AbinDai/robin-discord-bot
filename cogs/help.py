@@ -2938,7 +2938,7 @@ class Help(commands.Cog):
             kategori="Lain-Lain",
             alias="Tidak ada",
             cooldown=0,
-            desc="Menampilkan informasi & statisik bot.",
+            desc="Menampilkan waktu aktif bot.",
             cara_pakai="Command ini tidak butuh argumen tambahan.",
             contoh="r!uptime",
             warna=ctx.guild.me.color,

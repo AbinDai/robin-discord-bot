@@ -43,10 +43,7 @@ class About(commands.Cog):
 
         embed.add_field(
             name="⠀",
-            value="[Link Invite](https://top.gg/bot/805876219647361053/invite) |\
-                   [Vote Disini!](https://top.gg/bot/805876219647361053/vote) |\
-                   [Repositori GitHub](https://github.com/AbinDai/robin-discord-bot/) |\
-                   [Help Server](https://discord.gg/rZqsvrMdwR)",
+            value="[Link Invite](https://top.gg/bot/805876219647361053/invite) | [Vote Disini!](https://top.gg/bot/805876219647361053/vote) | [Repositori GitHub](https://github.com/AbinDai/robin-discord-bot/) | [Help Server](https://discord.gg/rZqsvrMdwR)",
             inline=False
         )
 

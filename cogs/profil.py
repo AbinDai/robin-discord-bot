@@ -274,15 +274,15 @@ class Profil(commands.Cog):
             if member.is_on_mobile() == True:
                 embed.add_field(name="Status", value="<:mobilestatus:853831784114028584> Online (Daring)")
             else:
-                embed.add_field(name="Status", value="<:online:853835349461434369> Online (Daring)")
+                embed.add_field(name="Status", value="<:online:854258699908022302> Online (Daring)")
         elif member.status == discord.Status.idle:
-            embed.add_field(name="Status", value="<:idle:853834320777969694> Idle (Diam)")
+            embed.add_field(name="Status", value="<:idle:854258886282313749> Idle (Diam)")
         elif member.status == discord.Status.dnd:
-            embed.add_field(name="Status", value="<:dnd:853834680914673664> Do Not Disturb (Jangan Ganggu)")
+            embed.add_field(name="Status", value="<:dnd:854258993785733130> Do Not Disturb (Jangan Ganggu)")
         elif member.status == discord.Status.offline:
-            embed.add_field(name="Status", value="<:offline:853836251462500372> Offline (Luring)")
+            embed.add_field(name="Status", value="<:offline:854259075608084480> Offline (Luring)")
         elif member.status == discord.Status.invisible:
-            embed.add_field(name="Status", value="<:offline:853836251462500372> Invisible (Tak Terlihat)")
+            embed.add_field(name="Status", value="<:offline:854259075608084480> Invisible (Tak Terlihat)")
         else:
             embed.add_field(name="Status", value="Gagal mendapatkan info")
 

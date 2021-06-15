@@ -1,4 +1,4 @@
-import discord
+import discord, requests, datetime, os
 from discord.ext import commands
 
 class Spotipai(commands.Cog):
@@ -26,14 +26,21 @@ class Spotipai(commands.Cog):
                 return await ctx.reply(embed=embed)
 
         embed = discord.Embed(
-            title= f"Lagu yang Sedang Didengar oleh {orang.name}",
+            title= f"Yang Sedang Didengar oleh {orang.name}",
             color= crotify.color
         )
         embed.set_author(name="Spotify", icon_url="https://user-images.githubusercontent.com/75367930/120773067-293cc680-c54b-11eb-950e-a4518c464124.png")
         embed.add_field(name="Judul", value=f"[{crotify.title}](https://open.spotify.com/track/{crotify.track_id})")
         embed.add_field(name="Artis", value=crotify.artist)
         embed.add_field(name="Album", value=crotify.album)
-        embed.set_footer(text=orang, icon_url=orang.avatar_url)
+
+        waktusekarang = datetime.datetime.utcnow() - crotify.start
+        durasilagu = crotify.duration
+
+        bar = requests.get(f"https://api.jastinch.xyz/progressbar?key={os.environ['JASTINCH_API']}&now={waktusekarang.total_seconds()}&max={durasilagu.total_seconds()}").json()
+        embed.add_field(name="⠀", value=f"{str(waktusekarang)[:-7]}   `{bar['bar']}`   {str(durasilagu)[:-7]}")
+
+        embed.set_footer(text=f"Pendengar: {orang}", icon_url=orang.avatar_url)
         embed.set_thumbnail(url=crotify.album_cover_url)
         await ctx.send(embed=embed)
 

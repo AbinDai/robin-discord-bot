@@ -66,6 +66,7 @@ async def on_ready():
     
     channel = client.get_channel(839749452322963466)
     await channel.send(f"🟢 {client.user} telah online!")
+    await client.get_channel(853227353169199115).send(f"🟢 {client.user} telah online!")
     
 #===============================================================================================
 

@@ -39,11 +39,7 @@ class About(commands.Cog):
         embed.add_field(name="Ping Bot", value=f"{round(self.client.latency*1000)}ms")
 
         embed.add_field(name="Waktu Aktif", value=str(datetime.timedelta(seconds=int(round(time.time()-startTime)))))
-        #
-        #menghitung ram dalam GB
-        x = dict(psutil.virtual_memory()._asdict())
-        ukuran_ram = float(round(x["total"]/1024/1024/1024))
-        embed.add_field(name="Penggunaan Memori", value=f"CPU: {psutil.cpu_percent()}%\nRAM: {psutil.virtual_memory().percent}% ({ukuran_ram} GB)")
+        embed.add_field(name="Penggunaan Memori", value=f"CPU: {psutil.cpu_percent()}%\nRAM: {psutil.virtual_memory().percent}%")
         embed.add_field(name="ID Bot", value=self.client.user.id)
 
         embed.add_field(

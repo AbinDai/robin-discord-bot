@@ -3,7 +3,6 @@ import discord, os, datetime
 from discord.ext import commands, tasks
 from discord_slash import SlashCommand
 from itertools import cycle
-from keep_alive import keep_alive
 
 #===============================================================================================
 

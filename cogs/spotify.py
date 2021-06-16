@@ -41,7 +41,12 @@ class Spotipai(commands.Cog):
         embed.add_field(name="⠀", value=f"{str(waktusekarang)[:-7]}   `{bar['bar']}`   {str(durasilagu)[:-7]}")
 
         embed.set_footer(text=f"Pendengar: {orang}", icon_url=orang.avatar_url)
-        embed.set_thumbnail(url=crotify.album_cover_url)
+        #
+        try:
+            embed.set_thumbnail(url=crotify.album_cover_url)
+        except:
+            pass
+        #
         await ctx.send(embed=embed)
 
 def setup(client):

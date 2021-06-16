@@ -1,4 +1,4 @@
-#impor segalanya
+#impor segalanya#
 import discord, os, datetime
 from discord.ext import commands, tasks
 from discord_slash import SlashCommand

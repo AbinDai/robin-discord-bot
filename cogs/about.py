@@ -39,8 +39,12 @@ class About(commands.Cog):
         embed.add_field(name="Ping Bot", value=f"{round(self.client.latency*1000)}ms")
 
         embed.add_field(name="Waktu Aktif", value=str(datetime.timedelta(seconds=int(round(time.time()-startTime)))))
-        embed.add_field(name="Penggunaan Memori", value=f"CPU: {psutil.cpu_percent()}%\nRAM: {psutil.virtual_memory().percent}%")
+        embed.add_field(name="Jumlah Emoji", value=len(self.client.emojis))
         embed.add_field(name="ID Bot", value=self.client.user.id)
+
+        embed.add_field(name="Total Command", value=len(self.client.commands))
+        embed.add_field(name="Sistem Operasi", value=platform.system())
+        embed.add_field(name="Penggunaan Memori", value=f"CPU: {psutil.cpu_percent()}%\nRAM: {psutil.virtual_memory().percent}%")
 
         embed.add_field(
             name="⠀",

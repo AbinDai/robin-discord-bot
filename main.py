@@ -78,5 +78,4 @@ async def change_status():
 #===============================================================================================
 
 #nyalakan bot.
-keep_alive()
 client.run(os.environ['BOT_TOKEN'])

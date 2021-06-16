@@ -36,7 +36,7 @@ class Spotipai(commands.Cog):
 
         waktusekarang = datetime.datetime.utcnow() - crotify.start
         durasilagu = crotify.duration
-
+		
         bar = requests.get(f"https://api.jastinch.xyz/progressbar?key={os.environ['JASTINCH_API']}&now={waktusekarang.total_seconds()}&max={durasilagu.total_seconds()}").json()
         embed.add_field(name="⠀", value=f"{str(waktusekarang)[:-7]}   `{bar['bar']}`   {str(durasilagu)[:-7]}")
 

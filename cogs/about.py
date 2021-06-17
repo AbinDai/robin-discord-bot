@@ -21,7 +21,23 @@ class About(commands.Cog):
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png", size=4096))
 
         embed.add_field(name="Nama", value=f"[{self.client.user.name}](https://onepiece.fandom.com/id/wiki/Nico_Robin)")
-        embed.add_field(name="Pengembang", value="Abin#4405")
+        #
+        member = discord.utils.find(lambda m: m.name == 'Abin', ctx.guild.members)
+        if member.status == discord.Status.online:
+            if member.is_on_mobile():
+                status = "<:mobilestatus:853831784114028584>"
+            else:
+                status = "<:online:854258699908022302>"
+        elif member.status == discord.Status.idle:
+            status = "<:idle:854258886282313749>"
+        elif member.status == discord.Status.dnd:
+            status = "<:dnd:854258993785733130>"
+        elif member.status == discord.Status.offline or member.status == discord.Status.invisible:
+            status = "<:offline:854259075608084480>"
+        try:
+            embed.add_field(name="Pengembang", value=f"{status} Abin#4405")
+        except:
+            embed.add_field(name="Pengembang", value=f"Abin#4405")
         embed.add_field(name="Dibuat", value=self.client.user.created_at.strftime("%d/%m/%Y %H:%M:%S"))
 
         embed.add_field(name="Jumlah Server", value=len(self.client.guilds))

@@ -1,5 +1,5 @@
 #impor segalanya#
-import discord, os, datetime
+import discord, os
 from discord.ext import commands, tasks
 from discord_slash import SlashCommand
 from itertools import cycle
@@ -7,7 +7,6 @@ from itertools import cycle
 #===============================================================================================
 
 #setel prefix + bikin variabel client
-intents = discord.Intents.all()
 client = commands.Bot(
     command_prefix=[
         "r!",
@@ -28,7 +27,7 @@ client = commands.Bot(
         "roBIN "
     ], 
     case_insensitive=True,
-    intents=intents
+    intents=discord.Intents.all()
 )
 slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
 
@@ -41,10 +40,6 @@ client.remove_command('help')
 
 #daftarin cog
 for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
-        
-for filename in os.listdir('./cogs/slashes'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 

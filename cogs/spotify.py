@@ -36,11 +36,8 @@ class Spotipai(commands.Cog):
 
         waktusekarang = datetime.datetime.utcnow() - crotify.start
         durasilagu = crotify.duration
-		
-        bar = requests.get(f"https://api.jastinch.xyz/progressbar?key={os.environ['JASTINCH_API']}&now={waktusekarang.total_seconds()}&max={durasilagu.total_seconds()}").json()
-        embed.add_field(name="⠀", value=f"{str(waktusekarang)[:-7]}   `{bar['bar']}`   {str(durasilagu)[:-7]}")
 
-        embed.set_footer(text=f"Pendengar: {orang}", icon_url=orang.avatar_url)
+        embed.set_footer(text=f"Durasi: {str(waktusekarang)[:-7]} / {str(durasilagu)[:-7]}", icon_url=orang.avatar_url)
         #
         try:
             embed.set_thumbnail(url=crotify.album_cover_url)

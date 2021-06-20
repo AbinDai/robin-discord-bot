@@ -1,5 +1,5 @@
 import discord, json, asyncio
-from discord.ext import commands
+from discord.ext import commands#
 from discord.message import Message
 
 class Autoreplier(commands.Cog):

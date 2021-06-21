@@ -3,6 +3,7 @@ asyncio
 dblpy
 discord
 discord-py-slash-command
+discord-together
 DiscordUtils
 dominant-color-detection
 psutil

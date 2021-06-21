@@ -1,4 +1,4 @@
-import discord, DiscordUtils, random
+import discord, DiscordUtils, random#
 from discord.ext import commands
 
 def bikin_embed_cmd(nama_command:str, kategori:str, alias:str, cooldown:int, desc:str, \

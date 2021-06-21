@@ -68,6 +68,7 @@ class Help(commands.Cog):
         embed.add_field(name=':speaking_head: Interaksi', value='`blush, kiss, lick, nom, pout, cry, poke, punch, slap, sleep, smug, tickle, hug, pat, wink`', inline=False)
         embed.add_field(name=':frame_photo: Gambar', value='`cat, dog, bird, panda, pikachu, kopi, youtubecomment, duck, wasted, hitamputih, invert, bright, threshold, sepia, redtint, greentint, bluetint, gun, lgbt, grab, truth, simp, glitch, hearts, spongebobtimecard, hitlernews, like, dislike, rip, jokeoverhead, jail, beauty, communist, triggered, changemymind, clyde, trash, fox, minecraftcompleted, emergencymeeting, firsttime, imspeed, heaven, stonks, notstonks, tableflip, wolverine, neko, animeavatars, animetraps, animewallpapers`', inline=False)
         embed.add_field(name=":wrench: Utilitas", value="`avatar, serverinfo, servericon, userinfo, roleinfo, emoji, biner, binertxt, color, kbbi, corona, gempa, kodepos, translate, batik, youtube, youtubeplaylist, youtubechannel, youtubesearch, wikipedia, anime, kalender, snipe, serveremojis, enlarge, spotify`", inline=False)
+        embed.add_field(name="<:discord:856566941438967888> Discord Together (BET | PC ONLY)", value="`youtubetogether, chess, betrayal, fishing`", inline=False)
         embed.add_field(name=':question: Command Rahasia', value='||`???`||', inline=False)
         embed.add_field(name=':candle: Lain-Lain:', value='`about, invite, ping, uptime, vote`', inline=False)
         embed.add_field(name="⠀",value="Dibuat dengan <:Python:845156521972596757> [Python](https://www.python.org/) dan <:discordpy:849276562469945385> [discord.py](https://discordpy.readthedocs.io/en/stable/).",inline=False)
@@ -457,11 +458,27 @@ class Help(commands.Cog):
 
         await paginator.run(embed_embed)
 
+    @h.command(name="discord-together")
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def discordtogether(self, ctx):
+        await ctx.send(embed=bikin_embed_kategori(
+            kategori="Discord Together",
+            halaman_saat_ini=1,
+            halaman_akhir=1,
+            isi="`r!youtubetogether`: Membuat link untuk YouTube Together untuk satu Voice Channel.\n"
+                "`r!chess`: Membuat link untuk Discord Chess untuk satu Voice Channel.\n"
+                "`r!betrayal`: Membuat link untuk Discord Betrayal untuk satu Voice Channel.\n"
+                "`r!fishing`: Membuat link untuk Discord Fishing untuk satu Voice Channel.\n",
+            warna_embed=ctx.guild.get_member(self.client.user.id).color,
+            requester=ctx.author,
+            foto_bot=self.client.user
+        ))
+
     @h.command(name="lain-lain")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def lain_lain(self, ctx):
         await ctx.send(embed=bikin_embed_kategori(
-            kategori="Utilitas",
+            kategori="Lain-Lain",
             halaman_saat_ini=1,
             halaman_akhir=1,
             isi="`r!about`: Menampilkan info bot.\n"
@@ -2864,6 +2881,85 @@ class Help(commands.Cog):
             requester=ctx.author
         ))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def youtubetogether(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="YouTubeTogether",
+            kategori="Discord Together",
+            alias="yttogether, ytt",
+            cooldown=0,
+            desc="Membuat link YouTube Together untuk satu Voice Channel. (Fitur ini masih BETA belum tersedia untuk mobile).",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!ytt",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def chess(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="Chess",
+            kategori="Discord Together",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Membuat link Discord Chess Game untuk satu Voice Channel. (Fitur ini masih BETA belum tersedia untuk mobile).",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!chess",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def betrayal(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="Betrayal",
+            kategori="Discord Together",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Membuat link Discord Betrayal Game untuk satu Voice Channel. (Fitur ini masih BETA belum tersedia untuk mobile).",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!betrayal",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+
+    @h.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def fishing(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="Fishing",
+            kategori="Discord Together",
+            alias="Tidak ada",
+            cooldown=0,
+            desc="Membuat link Discord Fishing Game untuk satu Voice Channel. (Fitur ini masih BETA belum tersedia untuk mobile).",
+            cara_pakai="Command ini tidak butuh argumen tambahan.",
+            contoh="r!fishing",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
 
 
 

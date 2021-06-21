@@ -3,6 +3,7 @@ import discord, os
 from discord.ext import commands, tasks
 from discord_slash import SlashCommand
 from itertools import cycle
+from discordTogether import DiscordTogether
 
 #===============================================================================================
 
@@ -30,6 +31,7 @@ client = commands.Bot(
     intents=discord.Intents.all()
 )
 slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
+togetherControl = DiscordTogether(client)
 
 #===============================================================================================
 

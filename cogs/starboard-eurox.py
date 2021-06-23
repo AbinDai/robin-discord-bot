@@ -30,18 +30,10 @@ class Starboard(commands.Cog):
                 pass
 
             if reaction.message.guild.id in eurox:
-                if reaction.count == 1:
-                    global pesan_awal
-                    pesan_awal = await channel.send(
-                        f"⭐ **{reaction.count}** | {reaction.message.channel.mention}\n{reaction.message.jump_url}",
-                        embed = embed
-                    )
-                
-                while reaction.count > 1 or reaction.count == 1:
-                    await pesan_awal.edit(content=f"⭐ **{reaction.count}** | {reaction.message.channel.mention}\n{reaction.message.jump_url}", embed=embed)
-
-                    if reaction.count == 0:
-                        await pesan_awal.delete()
+                await channel.send(
+                    f"⭐ {reaction.message.channel.mention}\n{reaction.message.jump_url}",
+                    embed = embed
+                )
 
 def setup(client):
     client.add_cog(Starboard(client))

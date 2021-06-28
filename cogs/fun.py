@@ -12,7 +12,7 @@ class Fun(commands.Cog):
         print('kategori fun, siap ngebut!')
     
     #perintah 8ball
-    @commands.command(aliases=['8ball', '8b'])
+    @commands.command(name="8ball", aliases=['8b'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def _8ball(self, ctx):
         responses = [

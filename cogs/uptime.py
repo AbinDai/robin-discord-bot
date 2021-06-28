@@ -21,7 +21,7 @@ class Uptime(commands.Cog):
 
         embed = discord.Embed(
             title = "⏲ Waktu Aktif Bot",
-            description = f"{hari} hari, {jam} jam, {menit} menit, dan {detik} detik.",
+            description = f"{hari} hari {jam} jam {menit} menit {detik} detik.",
             color = ctx.guild.me.color
         )
         await ctx.send(embed=embed)

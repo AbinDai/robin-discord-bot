@@ -120,7 +120,7 @@ class Moderasi(commands.Cog):
     @commands.bot_has_guild_permissions(manage_messages=True)
     async def clear(self, ctx, jumlah:int):
         await ctx.channel.purge(limit=jumlah)
-        await ctx.author.send(f"Behasil menghapus {jumlah} pesan.")
+        await ctx.author.send(f"Behasil menghapus {jumlah} pesan.", delete_after=10)
     @clear.error
     async def on_clear_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):

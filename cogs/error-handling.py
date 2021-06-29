@@ -11,7 +11,7 @@ class ErrorHandle(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
-            pass
+            await ctx.reply("❌ **Command tidak ditemukan!**", delete_after=5)
         elif isinstance(error, commands.CommandOnCooldown):
             await ctx.reply(f"❌ **Santai bro!** Tunggu **{error.retry_after:.2f}** detik lagi sebelum menggunakan command ini!")
         elif isinstance(error, commands.EmojiNotFound):

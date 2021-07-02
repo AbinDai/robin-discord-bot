@@ -60,7 +60,7 @@ class Help(commands.Cog):
         embed.set_thumbnail(url=self.client.user.avatar_url_as(format="png",size=4096))
         embed.set_footer(text='Gunakan "r!saran [isi saran]" untuk memberikan saran:)')
         embed.add_field(name=':hammer: Moderasi', value='`ban` `changenick` `clear` `createchannel` `deleterole` `deletetextchannel` `deletevoicechannel` `editchanneltopic` `giverole` `kick` `newrole` `removerole` `renametextchannel` `renamevoicechannel` `slowmode` `unban`', inline=False)
-        embed.add_field(name=':grin: Fun', value='`8ball` `acakangka` `acakhuruf` `bahasa-i` `bonk` `face` `geh` `kancuttext` `kaori` `keqing` `lovecalc` `poll` `rate` `say` `sayem` `saygoodbye` `sayy` `tabok` `tes` `titit` `wangytext`', inline=False)
+        embed.add_field(name=':grin: Fun', value='`8ball` `acakangka` `acakhuruf` `bahasa-i` `bonk` `face` `geh` `kancuttext` `kaori` `keqing` `lovecalc` `poll` `quote` `rate` `say` `sayem` `saygoodbye` `sayy` `tabok` `tes` `titit` `wangytext`', inline=False)
         embed.add_field(name=":video_game: Minigame", value="`tebakangka` `tebakkarakter` `tebaksurahjuz30`", inline=False)
         embed.add_field(name=":musical_note: Musik", value="`clearqueue` `join` `leave` `lyrics` `nowplaying` `pause` `play` `queue` `remove` `resume` `search` `skip` `volume`", inline=False)
         embed.add_field(name=':speaking_head: Interaksi', value='`blush` `cry` `hug` `kiss` `lick` `nom` `pat` `poke` `pout` `punch` `slap` `sleep` `smug` `tickle` `wink`', inline=False)
@@ -179,7 +179,8 @@ class Help(commands.Cog):
             kategori="Fun",
             halaman_saat_ini=3,
             halaman_akhir=3,
-            isi="`r!bahasa-i`: Mengubah semua huruf vokal dari kalimat yang diberikan menjadi I.",
+            isi="`r!bahasa-i`: Mengubah semua huruf vokal dari kalimat yang diberikan menjadi I.\n"
+                "`r!quote`: Menampilkan kata-kata bijak.",
             warna_embed=ctx.guild.get_member(self.client.user.id).color,
             requester=ctx.author,
             foto_bot=self.client.user
@@ -810,6 +811,22 @@ class Help(commands.Cog):
             desc="Mengubah semua huruf vokal pada teks menjadi I.",
             cara_pakai="Tulis command nya kemuidian tuliskan teksnya.",
             contoh="r!bahasa-i ini adalah tes",
+            warna=ctx.guild.me.color,
+            foto_bot=self.client.user.avatar_url,
+            requester=ctx.author
+        ))
+        
+    @h.command(aliases=["quotes"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def quote(self, ctx):
+        await ctx.send(embed=bikin_embed_cmd(
+            nama_command="quote",
+            kategori="Fun",
+            alias="quotes",
+            cooldown=0,
+            desc="Menampilkan kata-kata bijak sesuai dengan kategori yang dipilih.",
+            cara_pakai="Tulis command nya kemuidian tuliskan kategorinya.",
+            contoh="r!quote [bucin/galau/kehidupan/random]",
             warna=ctx.guild.me.color,
             foto_bot=self.client.user.avatar_url,
             requester=ctx.author

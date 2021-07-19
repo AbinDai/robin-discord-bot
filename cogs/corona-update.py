@@ -13,10 +13,11 @@ class CoronaUpdate(commands.Cog):
         if int(jam) == 9 and int(menit) == 35: 
             api = requests.get("https://coronavirus-19-api.herokuapp.com/countries/indonesia").json()
 
+            #tambahkan titik setelah tiga angka (contoh: 2.937.212)
             terinfeksi = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(api['cases']))
             sembuh = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(api['recovered']))
             meninggal = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(api['deaths']))
-            
+            #
             pertambahan_kasus = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(api['todayCases']))
             pertambahan_kematian = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(api['todayDeaths']))
             

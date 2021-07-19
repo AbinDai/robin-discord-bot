@@ -50,7 +50,9 @@ for filename in os.listdir('./cogs'):
 #isi status
 status = cycle([
     'r!help',
-    "r!vote"
+    "r!vote",
+    "Selamat Hari Raya Idul Adha 1442 H!",
+    "Mohon Maaf Lahir dan Batin"
 ])
 
 #===============================================================================================

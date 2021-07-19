@@ -12,7 +12,7 @@ class Starboard(commands.Cog):
                 description = reaction.message.content,
                 color = 0xffac33
             )
-            embed.set_author(name=user, icon_url=user.avatar_url)
+            embed.set_author(name=reaction.message.author, icon_url=reaction.message.author.avatar_url)
 
             try:
                 embed.set_image(url=reaction.message.attachments[0].url)
@@ -25,7 +25,7 @@ class Starboard(commands.Cog):
                 except:
                     pass
 
-            if user.guild.id == 783016541712154674:
+            if reaction.message.author.guild.id == 783016541712154674:
                 await self.client.get_channel(866550228773503009).send(content=f"⭐ {reaction.message.channel.mention}\n{reaction.message.jump_url}", embed=embed)
 
 def setup(client):

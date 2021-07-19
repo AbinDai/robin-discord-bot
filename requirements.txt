@@ -9,6 +9,7 @@ discord-together
 discord_components
 dominant-color-detection
 psutil
+re
 requests
 wikipedia
 youtube-search-python

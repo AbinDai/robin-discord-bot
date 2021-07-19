@@ -10,7 +10,7 @@ class CoronaUpdate(commands.Cog):
         jam = datetime.datetime.utcnow().hour
         menit = datetime.datetime.utcnow().minute
         
-        if int(jam) == 10 and int(menit) == 10: 
+        if int(jam) == 09 and int(menit) == 35: 
             api = requests.get("https://coronavirus-19-api.herokuapp.com/countries/indonesia").json()
 
             terinfeksi = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(api['cases']))

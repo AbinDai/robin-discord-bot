@@ -1,65 +1,43 @@
-import discord, requests
+import discord, re, requests
 from discord.ext import commands
 
-
-class covid(commands.Cog):
+class Corona(commands.Cog):
     def __init__(self, client):
         self.client = client
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("corona.py siap")
-
+        
     @commands.command(aliases=["covid-19", "covid19", "coronavirus", "korona", "corona"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def covid(self, ctx, *countryName):
-        try:
-            if not countryName:
-                api = requests.get(f"https://coronavirus-19-api.herokuapp.com/countries/indonesia").json()
-                positif = api["cases"]
-                sembuh = api["recovered"]
-                meninggoy = api["deaths"]
-                dirawat = api["active"]
-
-                embed = discord.Embed(
-                    color = discord.Colour.red()
-                )
-                embed.set_author(name="Status COVID-19 di Indonesia", icon_url="https://www.suse.com/c/wp-content/uploads/2020/03/corona.gif")
-                embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/805880890194264137/817023521946599475/220px-SARS-CoV-2_without_background.png")
-                embed.set_footer(text=f"Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-                embed.add_field(name="Kasus Positif", value=positif, inline=False)
-                embed.add_field(name="Kasus Sembuh", value=sembuh, inline=False)
-                embed.add_field(name="Kasus Meninggal", value=f"{meninggoy}\n", inline=False)
-                embed.add_field(name="Masih Dirawat", value=f"{dirawat}\n\nTetap patuhi protokol kesehatan. Gunakan masker ketika berada di luar rumah, jaga jarak untuk meminimalisir kemungkinan tertular, selalu cuci tangan pakai sabun, dan jangan sampai tertular.", inline=False)
-                await ctx.send(embed=embed)
-            else:
-                negara = "%20".join(countryName)
-                api = requests.get(f"https://coronavirus-19-api.herokuapp.com/countries/{negara}").json()
-                neggara = api["country"]
-                confirmed = api["cases"]
-                recovered = api["recovered"]
-                deaths = api["deaths"]
-                active = api["active"]
-
-                embed = discord.Embed(
-                    color = discord.Colour.red()
-                )
-                embed.set_author(name=f"Status COVID-19 di {neggara}", icon_url="https://www.suse.com/c/wp-content/uploads/2020/03/corona.gif")
-                embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/805880890194264137/817023521946599475/220px-SARS-CoV-2_without_background.png")
-                embed.set_footer(text=f"Di-Request oleh {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-                embed.add_field(name="Kasus Positif", value=confirmed, inline=False)
-                embed.add_field(name="Kasus Sembuh", value=recovered, inline=False)
-                embed.add_field(name="Kasus Meninggal", value=f"{deaths}\n", inline=False)
-                embed.add_field(name="Masih Dirawat", value=f"{active}\n\nTetap patuhi protokol kesehatan. Gunakan masker ketika berada di luar rumah, jaga jarak untuk meminimalisir kemungkinan tertular, selalu cuci tangan pakai sabun, dan jangan sampai tertular.", inline=False)
-                await ctx.send(embed=embed)
-        except:
-            embed = discord.Embed(
-                title = "Nama negara tidak valid!",
-                color = 0xff0000
-            )
-            await ctx.reply(embed=embed)
-
-
-
+    async def covid(self, ctx, *negara):
+        #negara = "indonesia" if not negara else negara
+        if not negara:
+            link_api = "https://coronavirus-19-api.herokuapp.com/countries/indonesia"
+        else:
+            link_api = f"https://coronavirus-19-api.herokuapp.com/countries/{'%20'.join(negara)}"
+        
+        api = requests.get(link_api).json()
+        
+        kasus = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', f"{api['cases']}")
+        penambahan_kasus = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', f"{api['todayCases']}")
+        
+        sembuh = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', f"{api['recovered']}")
+        
+        meninggal = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', f"{api['deaths']}")
+        penambahan_kematian = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', f"{api['todayDeaths']}")
+        
+        embed = discord.Embed(
+            title = f"Kasus COVID-19 di {api['country']}",
+            color = 0xb64242
+        )
+        embed.set_author(name="Info COVID-19", icon_url="https://images-ext-2.discordapp.net/external/GFdeHKPhhW3dRT-6NUhI2iwpfooeaFIAosENDxcVxog/https/www.suse.com/c/wp-content/uploads/2020/03/corona.gif")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/805880890194264137/817023521946599475/220px-SARS-CoV-2_without_background.png")
+        
+        embed.add_field(name="🟨 Kasus", value=f"{kasus}\n`+ {penambahan_kasus}`")
+        embed.add_field(name="🟩 Sembuh", value=sembuh)
+        embed.add_field(name="🟥 Meninggal", value=f"{meninggal}\n`+ {penambahan_kematian}`")
+        
+        embed.add_field(name="⠀", value="Tetap patuhi protokol kesehatan. Gunakan masker ketika berada di luar rumah, jaga jarak untuk meminimalisir kemungkinan tertular, selalu cuci tangan pakai sabun, dan jangan sampai tertular.")
+        
+        await ctx.send(embed=embed)
+        
 def setup(client):
-    client.add_cog(covid(client))
+    client.add_cog(client(Corona))

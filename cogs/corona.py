@@ -40,4 +40,4 @@ class Corona(commands.Cog):
         await ctx.send(embed=embed)
         
 def setup(client):
-    client.add_cog(client(Corona))
+    client.add_cog(Corona(client))

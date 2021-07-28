@@ -30,22 +30,22 @@ class KBBI(commands.Cog):
             return embed
 
         pesan_awal = await ctx.send(embed=bikin_embed(
-            title = " ".join(kata),
+            title = str(" ".join(kata)).upper(),
             desc = "<a:loading:854013569552220200> Mencari kata...",
             color = discord.Color.blurple()
         ))
 
         try:
-            api = requests.get(f"https://kbbi-api-zhirrr.vercel.app/api/kbbi?text={'%20'.join(kata)}")
+            api = requests.get(f"https://kbbi-api-zhirrr.vercel.app/api/kbbi?text={'%20'.join(kata)}").json()
 
             await pesan_awal.edit(embed=bikin_embed(
-                title = api["lema"],
+                title = str(api["lema"]).upper(),
                 desc = api["arti"][0],
                 color = ctx.guild.me.color
             ))
         except:
             await pesan_awal.edit(embed=bikin_embed(
-                title = " ".join(kata),
+                title = str(" ".join(kata)).upper(),
                 desc = "Kata tidak ditemukan!",
                 color = 0xff0000
             ))

@@ -39,7 +39,7 @@ class KBBI(commands.Cog):
 
             await pesan_awal.edit(embed=bikin_embed(
                 title = str(api["lema"]).upper(),
-                desc = api["arti"][0],
+                desc = "\n\n".join(api["arti"]),
                 color = ctx.guild.me.color
             ))
         except:

@@ -6,7 +6,7 @@ class Spotipai(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def spotify(self, ctx, orang:discord.Member=None):
+    async def spotify(self, ctx, *, orang:discord.Member=None):
         orang = ctx.author if not orang else orang
 
         crotify = next((activity for activity in orang.activities if isinstance(activity, discord.Spotify)), None)

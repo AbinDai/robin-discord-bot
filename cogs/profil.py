@@ -1,6 +1,7 @@
 import discord, requests, os
 from discord.flags import PublicUserFlags
 from discord.ext import commands
+from discord.ext.commands import Context
 from dominant_color_detection import detect_colors
 
 class Profil(commands.Cog):
@@ -41,7 +42,7 @@ class Profil(commands.Cog):
     #command serverinfo
     @commands.command(aliases=['infoserver'])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def serverinfo(self, ctx):
+    async def serverinfo(self, ctx:Context):
         embed = discord.Embed(
             title = "Informasi Server",
             color = ctx.guild.me.color
@@ -49,25 +50,20 @@ class Profil(commands.Cog):
         embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
         embed.set_thumbnail(url=ctx.guild.icon_url_as(format=None, static_format="png", size=4096))
 
-        if ctx.guild.banner is not None:
-            embed.set_image(url=ctx.guild.banner)
-        else:
-            pass
+        if ctx.guild.banner_url:
+            embed.set_image(url=ctx.guild.banner_url)
 
         embed.add_field(name="Nama", value=ctx.guild.name)
         embed.add_field(name="ID", value=ctx.guild.id)
         try:
-            dibuat_pada = ctx.guild.created_at
-            tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
-            jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
-            embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik}")
+            embed.add_field(name="Dibuat pada", value=ctx.guild.created_at.strftime(f'%d/%m/%Y {int(ctx.guild.created_at.hour)+8}:%M:%S WITA'))
         except:
             embed.add_field(name="Dibuat pada", value="Gagal memuat info")
 
         if ctx.guild.description is not None:
             embed.add_field(name="Deskripsi", value=ctx.guild.description, inline=False)
         else:
-            embed.add_field(name="Deskripsi", value="Tidak ada deskripsi", inline=False)
+            embed.add_field(name="Deskripsi", value="Tidak ada deskripsi.", inline=False)
 
         try:
             embed.add_field(name="Jumlah Text Channel", value=len(ctx.guild.text_channels))
@@ -175,7 +171,7 @@ class Profil(commands.Cog):
     #command userinfo
     @commands.command(aliases=['infopengguna, infoorang'])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def userinfo(self, ctx, *, member: discord.Member = None):
+    async def userinfo(self, ctx:Context, *, member: discord.Member = None):
         member = ctx.author if not member else member
 
         embed = discord.Embed(
@@ -246,18 +242,8 @@ class Profil(commands.Cog):
             embed.add_field(name=f"Badge ({len(list_badge)})", value="\n".join([badge for badge in list_badge]))
             list_badge.clear()
 
-        dibuat_pada = member.created_at
-        tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
-        jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
-        zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
-        embed.add_field(name="Dibuat pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
-        ###########################################
-        dibuat_pada = member.joined_at
-        tanggal, bulan, tahun = dibuat_pada.strftime("%d"), dibuat_pada.strftime("%m"), dibuat_pada.strftime("%Y")
-        jam, menit, detik = dibuat_pada.strftime("%H"), dibuat_pada.strftime("%M"), dibuat_pada.strftime("%S")
-        zonawaktu, ZONAWAKTU = dibuat_pada.strftime("%z"), dibuat_pada.strftime("%Z")
-        embed.add_field(name="Bergabung pada", value=f"{tanggal}/{bulan}/{tahun} {jam}:{menit}:{detik} {ZONAWAKTU} {zonawaktu}")
-        ###########################################
+        embed.add_field(name="Dibuat pada", value=member.created_at.strftime(f"%d/%m/%Y {int(member.created_at.hour)+8}:%M:%S WITA"))
+        embed.add_field(name="Bergabung pada", value=member.joined_at.strftime(f"%d/%m/%Y {int(member.joined_at.hour)+8}:%M:%S WITA"))
 
         roles = [role for role in member.roles]
         if sum(len(ROLE) for ROLE in ', '.join([role.mention for role in roles])) < 1024:

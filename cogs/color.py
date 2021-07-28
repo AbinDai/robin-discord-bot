@@ -18,9 +18,9 @@ class Color(commands.Cog):
                 await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan HEX warna yang ingin kamu ketahui detailnya.\nContoh: `r!color #ffff00`")
             else:
                 if "#" in color:
-                    warna = color.replace("#", "")
+                    warna = color[1:]
                 elif "0x" in color:
-                    warna = color.replace("0x", "")
+                    warna = color[2:]
                 else:
                     warna = color
 

@@ -25,15 +25,19 @@ class Corona(commands.Cog):
         penambahan_kematian = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', f"{api['todayDeaths']}")
         
         embed = discord.Embed(
-            title = f"Kasus COVID-19 di {api['country']}",
             color = 0xb64242
         )
         embed.set_author(name="Info COVID-19", icon_url="https://images-ext-2.discordapp.net/external/GFdeHKPhhW3dRT-6NUhI2iwpfooeaFIAosENDxcVxog/https/www.suse.com/c/wp-content/uploads/2020/03/corona.gif")
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/805880890194264137/817023521946599475/220px-SARS-CoV-2_without_background.png")
         
-        embed.add_field(name="🟨 Kasus", value=f"{kasus}\n`+ {penambahan_kasus}`")
-        embed.add_field(name="🟩 Sembuh", value=sembuh)
-        embed.add_field(name="🟥 Meninggal", value=f"{meninggal}\n`+ {penambahan_kematian}`")
+        if negara == "world":
+            embed.title = "Kasus COVID-19 di Seluruh Dunia"
+        else:
+            embed.title = f"Kasus COVID-19 di {api['country']}"
+        
+        embed.add_field(name="🟡 Terinfeksi", value=f"{kasus}\n`+ {penambahan_kasus}`")
+        embed.add_field(name="🟢 Sembuh", value=sembuh)
+        embed.add_field(name="🔴 Meninggal", value=f"{meninggal}\n`+ {penambahan_kematian}`")
         
         embed.add_field(name="⠀", value="Tetap patuhi protokol kesehatan. Gunakan masker ketika berada di luar rumah, jaga jarak untuk meminimalisir kemungkinan tertular, selalu cuci tangan pakai sabun, dan jangan sampai tertular.")
         

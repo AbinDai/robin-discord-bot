@@ -56,7 +56,7 @@ class Profil(commands.Cog):
         embed.add_field(name="Nama", value=ctx.guild.name)
         embed.add_field(name="ID", value=ctx.guild.id)
         try:
-            embed.add_field(name="Dibuat pada", value=ctx.guild.created_at.strftime(f'%d/%m/%Y {int(ctx.guild.created_at.hour)+8}:%M:%S WITA'))
+            embed.add_field(name="Dibuat pada", value=ctx.guild.created_at.strftime('%d/%m/%Y %H:%M:%S UTC'))
         except:
             embed.add_field(name="Dibuat pada", value="Gagal memuat info")
 
@@ -242,8 +242,8 @@ class Profil(commands.Cog):
             embed.add_field(name=f"Badge ({len(list_badge)})", value="\n".join([badge for badge in list_badge]))
             list_badge.clear()
 
-        embed.add_field(name="Dibuat pada", value=member.created_at.strftime(f"%d/%m/%Y {int(member.created_at.hour)+8}:%M:%S WITA"))
-        embed.add_field(name="Bergabung pada", value=member.joined_at.strftime(f"%d/%m/%Y {int(member.joined_at.hour)+8}:%M:%S WITA"))
+        embed.add_field(name="Dibuat pada", value=member.created_at.strftime('%d/%m/%Y %H:%M:%S UTC'))
+        embed.add_field(name="Bergabung pada", value=member.joined_at.strftime('%d/%m/%Y %H:%M:%S UTC'))
 
         roles = [role for role in member.roles]
         if sum(len(ROLE) for ROLE in ', '.join([role.mention for role in roles])) < 1024:

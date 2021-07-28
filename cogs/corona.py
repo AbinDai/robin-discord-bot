@@ -30,7 +30,7 @@ class Corona(commands.Cog):
         embed.set_author(name="Info COVID-19", icon_url="https://images-ext-2.discordapp.net/external/GFdeHKPhhW3dRT-6NUhI2iwpfooeaFIAosENDxcVxog/https/www.suse.com/c/wp-content/uploads/2020/03/corona.gif")
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/805880890194264137/817023521946599475/220px-SARS-CoV-2_without_background.png")
         
-        if negara == "world":
+        if str(negara) == "world":
             embed.title = "Kasus COVID-19 di Seluruh Dunia"
         else:
             embed.title = f"Kasus COVID-19 di {api['country']}"

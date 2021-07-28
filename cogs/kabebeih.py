@@ -17,12 +17,12 @@ class KBBI(commands.Cog):
         if not kata:
             return await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan kata yang ingin kamu lihat di KBBI!\nContoh: `r!kbbi bantal`")
 
-        def bikin_embed(title:str, desc:str, color):
+        def bikin_embed(title:str, desc:str, color=None):
             embed = discord.Embed(
                 title = title,
                 description = desc
             )
-            embed.set_footer(text="Diberayakan oleh Badan Pengembangan dan Pembinaan Bahasa, Kemendikbud RI", icon_url="https://www.kemdikbud.go.id/main/files/large/83790f2b43f00be")
+            embed.set_footer(text="Diberayakan oleh Badan Pengembangan dan Pembinaan Bahasa", icon_url="https://www.kemdikbud.go.id/main/files/large/83790f2b43f00be")
 
             if color:
                 embed.color = color
@@ -32,7 +32,6 @@ class KBBI(commands.Cog):
         pesan_awal = await ctx.send(embed=bikin_embed(
             title = str(" ".join(kata)).upper(),
             desc = "<a:loading:854013569552220200> Mencari kata...",
-            color = discord.Color.blurple()
         ))
 
         try:

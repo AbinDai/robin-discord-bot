@@ -1,4 +1,5 @@
 import discord
+from discord.ext.commands.context import Context
 import requests
 from discord.ext import commands
 
@@ -12,33 +13,42 @@ class KBBI(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 7, commands.BucketType.user)
-    async def kbbi(self, ctx, *kata):
-        try:
-            if not kata:
-                await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan kata yang ingin kamu lihat di KBBI!\nContoh: `r!kbbi bantal`")
-            else:
-                async with ctx.typing():
-                    khata = "%20".join(kata)
-                    api_panas = requests.get(f"https://kbbi-api-zhirrr.vercel.app/api/kbbi?text={khata}").json()
-                    katah = api_panas["lema"]
-                    arti = api_panas["arti"][0]
+    async def kbbi(self, ctx:Context, *kata):
+        if not kata:
+            return await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan kata yang ingin kamu lihat di KBBI!\nContoh: `r!kbbi bantal`")
 
-                    tabera = discord.Embed(
-                        title = katah.upper(),
-                        description = arti,
-                        color = ctx.guild.get_member(self.client.user.id).color
-                    )
-                    tabera.set_footer(text='Diberayakan oleh Badan Pengembangan dan Pembinaan Bahasa, Kemendikbud RI', icon_url=ctx.author.avatar_url)
-                    await ctx.send(embed=tabera)
-        except:
-            kahta = " ".join(kata)
+        def bikin_embed(title:str, desc:str, color):
             embed = discord.Embed(
-                title = f"{kahta.upper()}",
-                description = "Kata tidak ditemukan...",
-                color = 0xff0000
+                title = title,
+                description = desc
             )
-            embed.set_footer(text='Diberayakan oleh Badan Pengembangan dan Pembinaan Bahasa, Kemendikbud RI', icon_url=ctx.author.avatar_url)
-            await ctx.reply(embed=embed)
+            embed.set_footer(text="Diberayakan oleh Badan Pengembangan dan Pembinaan Bahasa, Kemendikbud RI", icon_url="https://www.kemdikbud.go.id/main/files/large/83790f2b43f00be")
+
+            if color:
+                embed.color = color
+
+            return embed
+
+        pesan_awal = await ctx.send(embed=bikin_embed(
+            title = " ".join(kata),
+            desc = "<a:loading:854013569552220200> Mencari kata...",
+            color = discord.Color.blurple()
+        ))
+
+        try:
+            api = requests.get(f"https://kbbi-api-zhirrr.vercel.app/api/kbbi?text={'%20'.join(kata)}")
+
+            await pesan_awal.edit(embed=bikin_embed(
+                title = api["lema"],
+                desc = api["arti"][0],
+                color = ctx.guild.me.color
+            ))
+        except:
+            await pesan_awal.edit(embed=bikin_embed(
+                title = " ".join(kata),
+                desc = "Kata tidak ditemukan!",
+                color = 0xff0000
+            ))
 
 def setup(client):
     client.add_cog(KBBI(client))

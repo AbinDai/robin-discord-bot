@@ -1,4 +1,5 @@
 import discord, requests
+from discord.ext.commands.context import Context
 from discord.ext import commands
 
 class Color(commands.Cog):
@@ -11,12 +12,19 @@ class Color(commands.Cog):
 
     @commands.command(aliases=["hex", "colour", "warna"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def color(self, ctx, color=None):
+    async def color(self, ctx:Context, color:str=None):
         try:
             if not color:
-                await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan HEX warna yang ingin kamu ketahui detailnya **tanpa tanda `#`**.\nContoh: `r!color ffff00`")
+                await ctx.reply("<:robin_palato:818892964457349220> **Sintaks tidak valid!** Masukkan HEX warna yang ingin kamu ketahui detailnya.\nContoh: `r!color #ffff00`")
             else:
-                hasil = requests.get(f"https://www.thecolorapi.com/id?hex={color}").json()
+                if "#" in color:
+                    warna = color.replace("#", "")
+                elif "0x" in color:
+                    warna = color.replace("0x", "")
+                else:
+                    warna = color
+
+                hasil = requests.get(f"https://www.thecolorapi.com/id?hex={warna}").json()
                 nama_warna = hasil["name"]["value"]
                 kode_hex = hasil["hex"]["value"]
                 rgb_R = hasil["rgb"]["r"]

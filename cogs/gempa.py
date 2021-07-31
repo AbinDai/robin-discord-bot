@@ -14,9 +14,9 @@ class Gempa(commands.Cog):
             title = "Info Gempa Terkini di Indonesia",
             color = 0xff0000
         )
-        #embed.set_thumbnail(url="http://iconsetc.com/icons-watermarks/simple-red/ocha/ocha_disaster-earthquake/ocha_disaster-earthquake_simple-red_512x512.png")
+        embed.set_thumbnail(url="http://iconsetc.com/icons-watermarks/simple-red/ocha/ocha_disaster-earthquake/ocha_disaster-earthquake_simple-red_512x512.png")
         #embed.set_image(url=api["Infogempa"]["gempa"]["Shakemap"])
-        #embed.set_footer(text="Badan Meteorologi, Klimatologi, dan Geofisika", icon_url="https://cdn.bmkg.go.id/Web/Logo-BMKG-new-242x300.png")
+        embed.set_footer(text="Badan Meteorologi, Klimatologi, dan Geofisika", icon_url="https://cdn.bmkg.go.id/Web/Logo-BMKG-new-242x300.png")
         
         embed.add_field(name="Tanggal", value=api["Infogempa"]["gempa"]["Tanggal"])
         embed.add_field(name="Jam", value=api["Infogempa"]["gempa"]["Jam"])

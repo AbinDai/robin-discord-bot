@@ -1,4 +1,4 @@
-#impor segalanya#
+#impor segalanya
 import discord, os
 from discord.ext import commands, tasks
 from discord_slash import SlashCommand
@@ -50,9 +50,7 @@ for filename in os.listdir('./cogs'):
 #isi status
 status = cycle([
     'r!help',
-    "r!vote",
-    "Selamat Hari Kemerdekaan Republik Indonesia yang ke-74!",
-    "Indonesia Tangguh, Indonesia Tumbuh"
+    "r!vote"
 ])
 
 #===============================================================================================

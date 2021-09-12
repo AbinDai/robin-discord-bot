@@ -10,8 +10,13 @@ class Banner(commands.Cog):
         member = ctx.author if not member else member
 
         try:
-            user = await self.client.fetch_user(member.id)
-            await ctx.send(user.banner.url)
+            user = await self.client.fetch_user(id)
+            req = await self.client.http.request(discord.http.Route("GET", f"/users/{user.id}"))
+            banner_id = req["banner"]
+            if banner_id:
+                banner_url = f"https://cdn.discordapp.com/banners/{user.id}/{banner_id}?size=4096"
+
+            await ctx.send(banner_url)
         except:
             print("command `banner` gagal dieksekusi")
 
